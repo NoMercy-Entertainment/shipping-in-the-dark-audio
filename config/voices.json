@@ -9,7 +9,7 @@
 		"style": "narration-relaxed",
 		"rate": "-5%",
 		"pitch": "0%",
-		"notes": "Warm, storytelling voice. Stoney uses this voice (as Ana) in his Twitch channel."
+		"notes": "Warm, storytelling voice. Not to be confused with AnaNeural which is Stoney's personal voice."
 	},
 
 	"agents": {
@@ -93,12 +93,12 @@
 			"notes": "Used for Stoney's Dutch motto and any Dutch text."
 		},
 		"boss-quotes": {
-			"voice": "en-US-DavisNeural",
-			"displayName": "Davis",
+			"voice": "en-US-AnaNeural",
+			"displayName": "Ana",
 			"role": "Stoney Eagle's quoted speech",
 			"style": "chat",
 			"rate": "-3%",
-			"notes": "Slightly different style from Arc to distinguish the human's voice."
+			"notes": "Stoney's own voice — the same one he uses on his Twitch channel."
 		}
 	}
 }
