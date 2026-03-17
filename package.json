@@ -1,0 +1,24 @@
+{
+  "name": "sitd-audio",
+  "version": "1.0.0",
+  "description": "Multi-voice audio narration for [Shipping in the Dark](https://journal.nomercy.tv) journal entries. Each entry becomes a produced audio log with distinct voices for each AI agent character, mood-appropriate prosody, and carefully verified pronunciation.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NoMercy-Entertainment/shipping-in-the-dark-audio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/NoMercy-Entertainment/shipping-in-the-dark-audio/issues"
+  },
+  "homepage": "https://github.com/NoMercy-Entertainment/shipping-in-the-dark-audio#readme",
+  "dependencies": {
+    "microsoft-cognitiveservices-speech-sdk": "^1.48.0"
+  }
+}
