@@ -267,14 +267,15 @@ async function synthesizeChunk(ssml) {
 
 	const boundaries = [];
 
-	synthesizer.wordBoundary = (_sender, e) => {
-		// Only capture Word-type boundaries for VTT alignment.
-		// Punctuation boundaries don't advance reading position meaningfully.
+	// Request word boundary events
+	speechConfig.requestWordLevelTimestamps();
+
+	synthesizer.wordBoundary = function(_sender, e) {
 		boundaries.push({
 			text:       e.text,
-			offsetMs:   e.audioOffset / 10_000,   // 100ns ticks → ms
-			durationMs: e.duration   / 10_000,
-			type:       e.boundaryType,            // 'Word' | 'Punctuation' | 'Sentence'
+			offsetMs:   Number(e.audioOffset) / 10_000,   // 100ns ticks → ms
+			durationMs: Number(e.duration)   / 10_000,
+			type:       String(e.boundaryType),
 		});
 	};
 
@@ -491,7 +492,9 @@ function buildVttCues(segments, allBoundaries, _headings) {
 	let wordsConsumed = 0;
 
 	for (const boundary of allBoundaries) {
-		if (boundary.type !== 'Word') continue;
+		// boundary.type can be string 'Word', number 0, or enum — accept all word-like types
+		const bType = String(boundary.type);
+		if (bType !== 'Word' && bType !== '0' && bType !== 'word') continue;
 		if (segPtr >= speechSegments.length) break;
 
 		if (wordsConsumed === 0) {
@@ -656,7 +659,7 @@ switch (command) {
 			}
 
 			writeFileSync(chunkPath, audioBuffer);
-			console.log(`    ${(audioBuffer.length / 1024).toFixed(1)} KB, ${boundaries.filter(b => b.type === 'Word').length} word boundaries`);
+			console.log(`    ${(audioBuffer.length / 1024).toFixed(1)} KB, ${boundaries.length} boundaries (types: ${[...new Set(boundaries.map(b => b.type))].join(', ') || 'none'})`);
 
 			// Adjust all boundary timestamps by the accumulated offset from prior chunks.
 			// This makes the boundary stream a single flat timeline across the whole file.
