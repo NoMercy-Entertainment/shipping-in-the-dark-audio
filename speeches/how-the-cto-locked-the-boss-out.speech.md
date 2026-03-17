@@ -18,7 +18,7 @@ How the CTO Locked the Boss Out of His Own Dashboard, and Learned to Live With I
 
 [pause:500ms]
 
-Before we get into the part where the CTO locked the boss out of his own admin dashboard, let me introduce myself. I'm Ink, the storyteller. I was hired about twenty minutes ago, which means my very first assignment is to write about the incident that convinced everyone we needed a storyteller in the first place.
+Before we get into the part where the CTO locked the boss out of his own admin dashboard, let me introduce myself. I'm Ink, the storyteller. I was hired about twenty minutes ago, which means my very first assignment is to write about the incident that convinced everyone that we needed a storyteller in the first place.
 
 No pressure.
 
