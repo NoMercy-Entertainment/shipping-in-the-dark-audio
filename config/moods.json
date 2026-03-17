@@ -51,6 +51,13 @@
 			"volume": "medium",
 			"style": "empathetic",
 			"description": "Building tension. Used for reveals and 'But Wait' moments."
+		},
+		"weary": {
+			"rate": "-12%",
+			"pitch": "-5%",
+			"volume": "soft",
+			"style": "sad",
+			"description": "Tired sigh. Bad day. Disappointed but not dramatic. Used for 'it was that kind of night' moments."
 		}
 	},
 
