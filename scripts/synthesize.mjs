@@ -347,7 +347,8 @@ switch (command) {
 		console.log('🎙️  Generating test audio (intro section)...\n');
 
 		const segments = parseSpeechScript(scriptPath);
-		const testSegments = segments.slice(0, 20); // Intro through "it was that kind of night"
+		// Grab the Act 1 section: boss quote + technical chain of failure
+		const testSegments = segments.slice(18, 45);
 		const ssml = buildSsml(testSegments);
 
 		const chars = countBillableCharacters(ssml);
