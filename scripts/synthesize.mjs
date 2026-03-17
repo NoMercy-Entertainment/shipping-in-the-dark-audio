@@ -40,8 +40,13 @@ function parseSpeechScript(scriptPath) {
 			// Pause directive
 			const pauseMatch = directive.match(/^pause:(\d+)ms$/);
 			if (pauseMatch) {
+				if (current && current.text.trim()) {
+					segments.push(current);
+				}
 				segments.push({ type: 'pause', duration: parseInt(pauseMatch[1]) });
-				current = null;
+				if (current) {
+					current = { ...current, text: '' };
+				}
 				continue;
 			}
 
@@ -345,10 +350,10 @@ switch (command) {
 
 	case 'test': {
 		if (!scriptPath) { console.error('Usage: node synthesize.mjs test <script.speech.md>'); process.exit(1); }
-		console.log('🎙️  Generating test audio (first 5 segments only)...\n');
+		console.log('🎙️  Generating test audio (intro section)...\n');
 
 		const segments = parseSpeechScript(scriptPath);
-		const testSegments = segments.slice(0, 8); // First few segments for a test
+		const testSegments = segments.slice(0, 20); // Intro through "it was that kind of night"
 		const ssml = buildSsml(testSegments);
 
 		const chars = countBillableCharacters(ssml);
