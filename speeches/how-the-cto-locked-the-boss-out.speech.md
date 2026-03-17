@@ -28,7 +28,7 @@ A note on timing. This is Entry one, the first entry we published, and it's part
 
 [pause:500ms]
 
-Shipping in the Dark is the development journal of No Mercy Entertainment, a self-hosted media server ecosystem that one person has been building for eight years. The mission is simple and a little bit rebellious: fight corporate greed in media streaming. When a big streaming company says you "bought" a movie, they mean you rented access to their server until they decide to pull it. No Mercy says: your content. Your hardware. Your rules.
+Shipping in the Dark is the development journal of No Mercy Entertainment, a self-hosted media server ecosystem that one person has been building for eight years. The mission is simple and a little bit rebellious: fight corporate greed in media streaming. When a big streaming company says you "bought" a movie, they mean you rented access to their server until they decide to pull it. No Mercy says your content, your hardware, your rules.
 
 [pause:300ms]
 
