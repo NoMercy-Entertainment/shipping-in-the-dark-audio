@@ -4,46 +4,53 @@
 
 	"presets": {
 		"cozy": {
-			"rate": "-8%",
-			"pitch": "-2%",
+			"rate": "-15%",
+			"pitch": "-3%",
 			"volume": "soft",
-			"description": "Warm bedtime story pace. Used for introductions, reflections, and 'What We Learned' sections."
+			"style": "gentle",
+			"description": "Warm bedtime story pace. Slow, gentle, makes you want to close your eyes."
 		},
 		"tense": {
 			"rate": "+5%",
 			"pitch": "+3%",
 			"volume": "medium",
-			"description": "Something's wrong. Used for bug discoveries, production incidents, 'Then we found...' moments."
+			"style": "serious",
+			"description": "Something's wrong. Used for bug discoveries, production incidents."
 		},
 		"urgent": {
 			"rate": "+10%",
 			"pitch": "+5%",
 			"volume": "loud",
+			"style": "excited",
 			"description": "Crisis mode. Used for disk full, 500 errors, deploy failures."
 		},
 		"triumphant": {
 			"rate": "0%",
 			"pitch": "+2%",
 			"volume": "medium",
-			"description": "We fixed it. Used for resolution moments, 'It worked. It finally worked.'"
+			"style": "hopeful",
+			"description": "We fixed it. Used for resolution moments."
 		},
 		"reflective": {
-			"rate": "-5%",
+			"rate": "-10%",
 			"pitch": "-1%",
 			"volume": "soft",
-			"description": "Looking back. Used for lessons learned, CTO self-assessment, closing paragraphs."
+			"style": "calm",
+			"description": "Looking back. Used for lessons learned, closing paragraphs."
 		},
 		"matter-of-fact": {
 			"rate": "0%",
 			"pitch": "0%",
 			"volume": "medium",
-			"description": "Neutral delivery. Used for technical explanations, numbered lists, code walkthrough narration."
+			"style": "narration-professional",
+			"description": "Neutral delivery. Used for technical explanations."
 		},
 		"dramatic": {
 			"rate": "-3%",
 			"pitch": "+1%",
 			"volume": "medium",
-			"description": "Building tension. Used for 'But Wait, There's More' and reveal moments."
+			"style": "empathetic",
+			"description": "Building tension. Used for reveals and 'But Wait' moments."
 		}
 	},
 

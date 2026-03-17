@@ -10,7 +10,7 @@
 
 [narrator:cozy]
 
-How the CTO Locked the Boss Out of His Own Dashboard. And Learned to Live With It.
+How the CTO Locked the Boss Out of His Own Dashboard, and Learned to Live With It
 
 [pause:500ms]
 
