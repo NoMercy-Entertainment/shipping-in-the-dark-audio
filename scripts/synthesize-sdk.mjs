@@ -474,78 +474,50 @@ function detectSectionHeadings(segments) {
  * (can happen at chunk boundaries), we advance the segment pointer when we
  * exceed the expected character count.
  */
-function buildVttCues(segments, allBoundaries, headings) {
-	// Build an index of which segment indices are headings
-	const headingByIndex = new Map(headings.map(h => [h.segmentIndex, h]));
+function buildVttCues(segments, allBoundaries, _headings) {
+	// Simple approach: create a cue for every speech segment.
+	// Map word boundaries to segments by walking both lists in parallel.
+	const speechSegments = [];
+	for (let i = 0; i < segments.length; i++) {
+		if (segments[i].type === 'pause') continue;
+		const text = (segments[i].text || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+		if (!text) continue;
+		const wordCount = text.split(' ').filter(Boolean).length;
+		speechSegments.push({ index: i, text, wordCount, startMs: 0, endMs: 0 });
+	}
 
-	// Strip SSML from segment text to get the plain words we expect the TTS to say
-	const segmentWords = segments.map(seg => {
-		if (seg.type === 'pause') return [];
-		const plain = (seg.text || '')
-			.replace(/<[^>]+>/g, ' ')
-			.replace(/\s+/g, ' ')
-			.trim();
-		// Tokenise by whitespace — just for word count approximation
-		return plain.split(' ').filter(Boolean);
-	});
-
-	const cues = [];
-	let segIdx = 0;
-	let wordsConsumedInSeg = 0;
-	let currentCue = null;
-
-	// Seed: first cue starts at 0ms with the slug of the first heading (if any)
-	// or a generic "intro" label.
-	const firstHeading = headings[0];
-	currentCue = {
-		startMs: 0,
-		slug: firstHeading ? firstHeading.slug : 'intro',
-	};
+	// Walk word boundaries and assign them to segments
+	let segPtr = 0;
+	let wordsConsumed = 0;
 
 	for (const boundary of allBoundaries) {
 		if (boundary.type !== 'Word') continue;
+		if (segPtr >= speechSegments.length) break;
 
-		// Advance segment pointer if we've consumed all words in the current segment
-		while (
-			segIdx < segments.length &&
-			(
-				segments[segIdx].type === 'pause' ||
-				wordsConsumedInSeg >= (segmentWords[segIdx]?.length ?? 0)
-			)
-		) {
-			if (segments[segIdx].type !== 'pause') {
-				wordsConsumedInSeg = 0;
-			}
-			segIdx++;
+		if (wordsConsumed === 0) {
+			// First word of this segment — record start time
+			speechSegments[segPtr].startMs = boundary.offsetMs;
 		}
 
-		if (segIdx >= segments.length) break;
+		wordsConsumed++;
+		// Record end time as the end of the last word we've seen
+		speechSegments[segPtr].endMs = boundary.offsetMs + boundary.durationMs;
 
-		wordsConsumedInSeg++;
-
-		// If this segment is a heading, record the current cue and start a new one
-		if (headingByIndex.has(segIdx) && wordsConsumedInSeg === 1) {
-			// The first word of a heading starts a new cue.
-			// Close out the previous cue (endMs = this boundary's offsetMs)
-			if (currentCue) {
-				cues.push({ ...currentCue, endMs: boundary.offsetMs });
-			}
-
-			const heading = headingByIndex.get(segIdx);
-			currentCue = {
-				startMs: boundary.offsetMs,
-				slug: heading.slug,
-			};
+		if (wordsConsumed >= speechSegments[segPtr].wordCount) {
+			// This segment is complete, move to next
+			segPtr++;
+			wordsConsumed = 0;
 		}
 	}
 
-	// Close the final cue — end time will be patched by the caller once total
-	// audio duration is known.
-	if (currentCue) {
-		cues.push({ ...currentCue, endMs: null });
-	}
-
-	return cues;
+	// Build VTT cues from the timed segments
+	return speechSegments
+		.filter(s => s.endMs > s.startMs)
+		.map(s => ({
+			startMs: s.startMs,
+			endMs: s.endMs,
+			text: s.text,
+		}));
 }
 
 /**
@@ -566,10 +538,10 @@ function renderVtt(cues) {
 
 	for (let i = 0; i < cues.length; i++) {
 		const cue = cues[i];
-		const endMs = cue.endMs ?? (cue.startMs + 30_000); // last cue: 30s default
+		const endMs = cue.endMs ?? (cue.startMs + 30_000);
 		lines.push(String(i + 1));
 		lines.push(`${formatVttTime(cue.startMs)} --> ${formatVttTime(endMs)}`);
-		lines.push(cue.slug);
+		lines.push(cue.text);
 		lines.push('');
 	}
 
