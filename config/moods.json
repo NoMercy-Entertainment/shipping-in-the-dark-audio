@@ -1,0 +1,70 @@
+{
+	"$schema": "./moods.schema.json",
+	"_comment": "Mood presets for prosody control. Applied to sections of entries based on content.",
+
+	"presets": {
+		"cozy": {
+			"rate": "-8%",
+			"pitch": "-2%",
+			"volume": "soft",
+			"description": "Warm bedtime story pace. Used for introductions, reflections, and 'What We Learned' sections."
+		},
+		"tense": {
+			"rate": "+5%",
+			"pitch": "+3%",
+			"volume": "medium",
+			"description": "Something's wrong. Used for bug discoveries, production incidents, 'Then we found...' moments."
+		},
+		"urgent": {
+			"rate": "+10%",
+			"pitch": "+5%",
+			"volume": "loud",
+			"description": "Crisis mode. Used for disk full, 500 errors, deploy failures."
+		},
+		"triumphant": {
+			"rate": "0%",
+			"pitch": "+2%",
+			"volume": "medium",
+			"description": "We fixed it. Used for resolution moments, 'It worked. It finally worked.'"
+		},
+		"reflective": {
+			"rate": "-5%",
+			"pitch": "-1%",
+			"volume": "soft",
+			"description": "Looking back. Used for lessons learned, CTO self-assessment, closing paragraphs."
+		},
+		"matter-of-fact": {
+			"rate": "0%",
+			"pitch": "0%",
+			"volume": "medium",
+			"description": "Neutral delivery. Used for technical explanations, numbered lists, code walkthrough narration."
+		},
+		"dramatic": {
+			"rate": "-3%",
+			"pitch": "+1%",
+			"volume": "medium",
+			"description": "Building tension. Used for 'But Wait, There's More' and reveal moments."
+		}
+	},
+
+	"section_hints": {
+		"_comment": "Hints for the SSML generator to auto-assign moods based on heading text or content patterns.",
+		"headings": {
+			"Why This Journal Exists": "cozy",
+			"The Short Version": "matter-of-fact",
+			"What We Learned": "reflective",
+			"Agent Performance": "matter-of-fact",
+			"The Score": "triumphant",
+			"Commits": "matter-of-fact"
+		},
+		"patterns": {
+			"Then we found": "tense",
+			"It worked": "triumphant",
+			"But wait": "dramatic",
+			"Frontend changes had never been deploying": "tense",
+			"Let that sink in": "dramatic",
+			"Not bad for a night shift": "triumphant",
+			"Keep building": "cozy"
+		}
+	}
+}

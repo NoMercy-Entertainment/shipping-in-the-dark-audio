@@ -1,0 +1,104 @@
+{
+	"$schema": "./voices.schema.json",
+	"_comment": "Voice cast for Shipping in the Dark audio narration. Each agent gets a consistent Azure Neural voice.",
+
+	"narrator": {
+		"voice": "en-US-AriaNeural",
+		"displayName": "Aria",
+		"role": "Primary narrator (Ink / storytelling prose)",
+		"style": "narration-relaxed",
+		"rate": "-5%",
+		"pitch": "0%",
+		"notes": "Warm, storytelling voice. Stoney uses this voice (as Ana) in his Twitch channel."
+	},
+
+	"agents": {
+		"cto": {
+			"voice": "en-US-DavisNeural",
+			"displayName": "Davis",
+			"role": "Arc — the CTO",
+			"style": "calm",
+			"notes": "Authoritative but approachable. Arc orchestrates."
+		},
+		"auth-specialist": {
+			"voice": "en-US-JennyNeural",
+			"displayName": "Jenny",
+			"role": "Cipher — auth specialist",
+			"style": "serious",
+			"notes": "Precise, no-nonsense."
+		},
+		"website-backend-engineer": {
+			"voice": "en-GB-RyanNeural",
+			"displayName": "Ryan",
+			"role": "Voss — backend engineer",
+			"style": "default",
+			"notes": "British accent gives a distinct character."
+		},
+		"website-frontend-engineer": {
+			"voice": "en-AU-NatashaNeural",
+			"displayName": "Natasha",
+			"role": "Vue Vera — frontend engineer",
+			"style": "default",
+			"notes": "Australian accent for variety."
+		},
+		"devops-engineer": {
+			"voice": "en-US-GuyNeural",
+			"displayName": "Guy",
+			"role": "Flux — DevOps engineer",
+			"style": "default",
+			"notes": "Practical, gets-it-done energy."
+		},
+		"secops-engineer": {
+			"voice": "en-GB-SoniaNeural",
+			"displayName": "Sonia",
+			"role": "Wren — SecOps engineer",
+			"style": "serious",
+			"notes": "British, sharp, catches things others miss."
+		},
+		"code-quality-enforcer": {
+			"voice": "en-US-JennyNeural",
+			"displayName": "Jenny",
+			"role": "Sharp — code quality",
+			"style": "default",
+			"notes": "Shares voice with Cipher (different style). May need a unique voice later."
+		},
+		"git-specialist": {
+			"voice": "en-AU-WilliamNeural",
+			"displayName": "William",
+			"role": "Trace — git specialist",
+			"style": "default",
+			"notes": "They/them pronouns. Australian accent."
+		},
+		"docs-specialist": {
+			"voice": "en-US-AriaNeural",
+			"displayName": "Aria",
+			"role": "Margin — docs specialist",
+			"style": "friendly",
+			"notes": "Shares narrator voice but with friendly style."
+		},
+		"web-designer": {
+			"voice": "en-US-JennyNeural",
+			"displayName": "Jenny",
+			"role": "Muse — web designer",
+			"style": "cheerful",
+			"notes": "Cheerful style differentiates from other Jenny uses."
+		}
+	},
+
+	"special": {
+		"dutch": {
+			"voice": "nl-NL-ColetteNeural",
+			"displayName": "Colette",
+			"role": "Dutch language quotes",
+			"notes": "Used for Stoney's Dutch motto and any Dutch text."
+		},
+		"boss-quotes": {
+			"voice": "en-US-DavisNeural",
+			"displayName": "Davis",
+			"role": "Stoney Eagle's quoted speech",
+			"style": "chat",
+			"rate": "-3%",
+			"notes": "Slightly different style from Arc to distinguish the human's voice."
+		}
+	}
+}

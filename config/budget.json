@@ -1,0 +1,13 @@
+{
+	"$schema": "./budget.schema.json",
+	"_comment": "Budget tracking for Azure Speech TTS. Shared with Twitch bot — coordinate usage.",
+
+	"monthly_limit": 500000,
+	"journal_reserve": 100000,
+	"_reserve_note": "Reserve 100k characters for journal audio. Remaining 400k available for Twitch streaming.",
+
+	"cost_per_million_neural": 16.00,
+	"billing_cycle_start_day": 1,
+
+	"generated": []
+}

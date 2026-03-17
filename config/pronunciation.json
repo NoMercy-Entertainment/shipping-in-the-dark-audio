@@ -1,0 +1,154 @@
+{
+	"$schema": "./pronunciation.schema.json",
+	"_comment": "Pronunciation overrides for terms Azure TTS mispronounces. Uses IPA notation in SSML <phoneme> tags. Add entries as you discover mispronunciations.",
+
+	"terms": {
+		"NoMercy": {
+			"ipa": "noʊ ˈmɜːrsi",
+			"notes": "Two words: No Mercy. Not 'NOM-er-see'."
+		},
+		"Keycloak": {
+			"ipa": "ˈkiːkloʊk",
+			"notes": "Key-cloak, not 'KEY-cloak' with emphasis on wrong syllable."
+		},
+		"Laravel": {
+			"ipa": "ˈlærəvɛl",
+			"notes": "LARR-uh-vel, not 'luh-RAH-vel'."
+		},
+		"Reka": {
+			"ipa": "ˈɹɛkə",
+			"notes": "REK-uh. UI component library."
+		},
+		"Inertia": {
+			"ipa": "ɪˈnɜːrʃə",
+			"notes": "Standard English pronunciation, but TTS sometimes stresses wrong syllable."
+		},
+		"Vue": {
+			"ipa": "vjuː",
+			"notes": "Like 'view'. Not 'voo'."
+		},
+		"SSML": {
+			"say-as": "spell-out",
+			"notes": "Spell out: S-S-M-L."
+		},
+		"GDPR": {
+			"say-as": "spell-out",
+			"notes": "Spell out: G-D-P-R."
+		},
+		"CORS": {
+			"ipa": "kɔːrz",
+			"notes": "Rhymes with 'cores'."
+		},
+		"UUID": {
+			"say-as": "spell-out",
+			"notes": "Spell out: U-U-I-D."
+		},
+		"npm": {
+			"ipa": "ɛn piː ɛm",
+			"notes": "Spell out: N-P-M. Not 'nuhpm'."
+		},
+		"CLI": {
+			"say-as": "spell-out",
+			"notes": "Spell out: C-L-I."
+		},
+		"SSH": {
+			"say-as": "spell-out",
+			"notes": "Spell out: S-S-H."
+		},
+		"API": {
+			"say-as": "spell-out",
+			"notes": "Spell out: A-P-I."
+		},
+		"JWT": {
+			"ipa": "dʒɒt",
+			"notes": "Pronounced 'jot' per the RFC."
+		},
+		"OAuth": {
+			"ipa": "oʊ ɔːθ",
+			"notes": "Oh-auth."
+		},
+		"YAML": {
+			"ipa": "ˈjæməl",
+			"notes": "YAM-ul."
+		},
+		"Vite": {
+			"ipa": "viːt",
+			"notes": "French word meaning 'fast'. Rhymes with 'feet'."
+		},
+		"nginx": {
+			"ipa": "ˌɛndʒɪnˈɛks",
+			"notes": "Engine-X."
+		},
+		"cron": {
+			"ipa": "krɒn",
+			"notes": "Rhymes with 'on'."
+		},
+		"Astro": {
+			"ipa": "ˈæstroʊ",
+			"notes": "Standard. ASS-troh."
+		},
+		"Dockerfile": {
+			"ipa": "ˈdɒkərfaɪl",
+			"notes": "Docker-file."
+		},
+		"Tailwind": {
+			"ipa": "ˈteɪlwɪnd",
+			"notes": "Tail-wind."
+		},
+		"Stoney": {
+			"ipa": "ˈstoʊni",
+			"notes": "STOH-nee."
+		},
+		"SocialiteController": {
+			"sub": "Socialite Controller",
+			"notes": "Break into two words for natural speech."
+		},
+		"MustBeAdmin": {
+			"sub": "Must Be Admin",
+			"notes": "Break PascalCase into words."
+		},
+		"SyncKeycloakUsersJob": {
+			"sub": "Sync Keycloak Users Job",
+			"notes": "Break PascalCase into words."
+		},
+		"AlertDialogAction": {
+			"sub": "Alert Dialog Action",
+			"notes": "Break PascalCase into words."
+		},
+		"ConfirmDialog": {
+			"sub": "Confirm Dialog",
+			"notes": "Break PascalCase into words."
+		},
+		"filteredKeycloakRoles": {
+			"sub": "filtered Keycloak Roles",
+			"notes": "Break camelCase into words."
+		},
+		"handleConfirm": {
+			"sub": "handle Confirm",
+			"notes": "Break camelCase into words."
+		},
+		"handleCancel": {
+			"sub": "handle Cancel",
+			"notes": "Break camelCase into words."
+		},
+		"resolvePromise": {
+			"sub": "resolve Promise",
+			"notes": "Break camelCase into words."
+		},
+		"gitattributes": {
+			"sub": "git attributes",
+			"notes": "Two words."
+		},
+		"gitignore": {
+			"sub": "git ignore",
+			"notes": "Two words."
+		}
+	},
+
+	"dutch": {
+		"Gaat het niet zoals het moet, dan moet het maar zoals het gaat": {
+			"voice": "dutch",
+			"notes": "Switch to Dutch voice for this entire phrase."
+		}
+	}
+}

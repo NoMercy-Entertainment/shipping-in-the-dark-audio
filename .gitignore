@@ -1,0 +1,5 @@
+node_modules/
+entries/
+output/*.mp3
+output/*.wav
+.env

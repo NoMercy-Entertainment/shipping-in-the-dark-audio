@@ -1,0 +1,72 @@
+name: Generate Audio Narration
+
+on:
+  workflow_dispatch:
+    inputs:
+      entry:
+        description: 'Specific entry slug to generate (leave empty for all pending)'
+        required: false
+        type: string
+      dry_run:
+        description: 'Dry run — estimate costs without generating'
+        required: false
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout audio repo
+        uses: actions/checkout@v4
+
+      - name: Checkout journal entries
+        uses: actions/checkout@v4
+        with:
+          repository: NoMercy-Entertainment/shipping-in-the-dark
+          path: journal-source
+          sparse-checkout: entries
+
+      - name: Copy entries
+        run: |
+          mkdir -p entries
+          cp journal-source/entries/*.md entries/
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Show status
+        run: node scripts/generate.mjs status
+
+      - name: Check entries
+        run: node scripts/generate.mjs check
+
+      - name: Estimate costs
+        if: inputs.dry_run
+        run: node scripts/generate.mjs estimate
+
+      - name: Generate audio
+        if: "!inputs.dry_run"
+        env:
+          AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
+          AZURE_SPEECH_REGION: ${{ secrets.AZURE_SPEECH_REGION }}
+        run: |
+          if [ -n "${{ inputs.entry }}" ]; then
+            node scripts/generate.mjs generate ${{ inputs.entry }}
+          else
+            node scripts/generate.mjs generate
+          fi
+
+      - name: Commit updated hashes and budget
+        if: "!inputs.dry_run"
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add config/budget.json output/hashes.json
+          git diff --cached --quiet || git commit -m "chore: update hashes and budget after audio generation"
+          git push
