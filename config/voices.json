@@ -93,12 +93,12 @@
 			"notes": "Used for Stoney's Dutch motto and any Dutch text."
 		},
 		"boss-quotes": {
-			"voice": "en-US-AnaNeural",
-			"displayName": "Ana",
+			"voice": "en-US-DavisNeural",
+			"displayName": "Davis",
 			"role": "Stoney Eagle's quoted speech",
 			"style": "chat",
 			"rate": "-3%",
-			"notes": "Stoney's own voice — the same one he uses on his Twitch channel."
+			"notes": "Male voice for Stoney's quotes. Trying Davis vs Ana."
 		}
 	}
 }
