@@ -57,10 +57,21 @@ jobs:
           AZURE_SPEECH_REGION: ${{ secrets.AZURE_SPEECH_REGION }}
         run: |
           if [ -n "${{ inputs.entry }}" ]; then
-            node scripts/generate.mjs generate ${{ inputs.entry }}
+            node scripts/synthesize.mjs test speeches/${{ inputs.entry }}.speech.md
           else
-            node scripts/generate.mjs generate
+            for script in speeches/*.speech.md; do
+              slug=$(basename "$script" .speech.md)
+              echo "Synthesizing: $slug"
+              node scripts/synthesize.mjs full "$script" output/"$slug".mp3
+            done
           fi
+
+      - name: Upload audio artifacts
+        if: "!inputs.dry_run"
+        uses: actions/upload-artifact@v4
+        with:
+          name: audio-output
+          path: output/*.mp3
 
       - name: Commit updated hashes and budget
         if: "!inputs.dry_run"
