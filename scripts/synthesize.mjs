@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, unlinkSync, renameSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -375,27 +375,93 @@ switch (command) {
 		if (!scriptPath) { console.error('Usage: node synthesize.mjs full <script.speech.md> [output.mp3]'); process.exit(1); }
 		const outputPath = args[2] || join(outputDir, 'full-output.mp3');
 
-		console.log('🎙️  Generating full audio...\n');
+		console.log('🎙️  Generating full audio with chunking...\n');
 
 		const segments = parseSpeechScript(scriptPath);
-		const ssml = buildSsml(segments);
+		const totalChars = countBillableCharacters(buildSsml(segments));
+		console.log(`  Total segments: ${segments.length}`);
+		console.log(`  Total billable characters: ${totalChars.toLocaleString()}`);
 
-		const chars = countBillableCharacters(ssml);
-		console.log(`  Segments: ${segments.length}`);
-		console.log(`  Billable characters: ${chars.toLocaleString()}`);
+		// Chunk segments: keep each chunk under 5,000 billable chars
+		// (safe margin — Azure allows 64KB SSML / 10 min audio)
+		const MAX_CHARS_PER_CHUNK = 5000;
+		const chunks = [];
+		let currentChunk = [];
+		let currentChars = 0;
 
-		try {
-			const size = await synthesizeToAudio(ssml, outputPath);
-			console.log(`\n  ✅ Audio generated: ${outputPath}`);
-			console.log(`  File size: ${(size / 1024).toFixed(1)} KB`);
-			console.log(`  Characters used: ${chars.toLocaleString()}`);
-		} catch (err) {
-			console.error(`\n  ❌ Synthesis failed: ${err.message}`);
-			const debugPath = join(outputDir, 'debug.ssml');
-			writeFileSync(debugPath, ssml);
-			console.log(`  SSML saved to: ${debugPath}`);
-			process.exit(1);
+		for (const seg of segments) {
+			if (seg.type === 'pause') {
+				currentChunk.push(seg);
+				continue;
+			}
+			const segChars = (seg.text || '').length;
+			if (currentChars + segChars > MAX_CHARS_PER_CHUNK && currentChunk.length > 0) {
+				chunks.push(currentChunk);
+				currentChunk = [];
+				currentChars = 0;
+			}
+			currentChunk.push(seg);
+			currentChars += segChars;
 		}
+		if (currentChunk.length > 0) chunks.push(currentChunk);
+
+		console.log(`  Chunks: ${chunks.length}\n`);
+
+		const chunkFiles = [];
+		let totalSize = 0;
+		let totalBilled = 0;
+
+		for (let i = 0; i < chunks.length; i++) {
+			const chunkSsml = buildSsml(chunks[i]);
+			const chunkChars = countBillableCharacters(chunkSsml);
+			const chunkPath = join(outputDir, `chunk-${i}.mp3`);
+
+			console.log(`  Chunk ${i + 1}/${chunks.length}: ${chunks[i].filter(s => s.type !== 'pause').length} segments, ${chunkChars.toLocaleString()} chars`);
+
+			try {
+				const size = await synthesizeToAudio(chunkSsml, chunkPath);
+				console.log(`    ✅ ${(size / 1024).toFixed(1)} KB`);
+				chunkFiles.push(chunkPath);
+				totalSize += size;
+				totalBilled += chunkChars;
+			} catch (err) {
+				console.error(`    ❌ Chunk ${i + 1} failed: ${err.message}`);
+				const debugPath = join(outputDir, `chunk-${i}-debug.ssml`);
+				writeFileSync(debugPath, chunkSsml);
+				console.log(`    SSML saved to: ${debugPath}`);
+				// Clean up any successful chunks
+				chunkFiles.forEach(f => { try { unlinkSync(f); } catch {} });
+				process.exit(1);
+			}
+		}
+
+		// Concatenate chunks with ffmpeg
+		if (chunkFiles.length === 1) {
+			// Single chunk — just rename
+			renameSync(chunkFiles[0], outputPath);
+		} else {
+			console.log(`\n  Concatenating ${chunkFiles.length} chunks with ffmpeg...`);
+			const listPath = join(outputDir, 'concat-list.txt');
+			writeFileSync(listPath, chunkFiles.map(f => `file '${f}'`).join('\n'));
+
+			const { execSync: exec } = await import('node:child_process');
+			try {
+				exec(`ffmpeg -y -f concat -safe 0 -i "${listPath}" -c copy "${outputPath}"`, { stdio: 'pipe' });
+				console.log(`  ✅ Concatenation complete`);
+			} catch (err) {
+				console.error(`  ❌ ffmpeg concat failed: ${err.message}`);
+				console.log(`  Chunk files preserved in output/ for manual concat`);
+				process.exit(1);
+			}
+
+			// Clean up chunks and list
+			chunkFiles.forEach(f => { try { unlinkSync(f); } catch {} });
+			try { unlinkSync(listPath); } catch {}
+		}
+
+		console.log(`\n  ✅ Audio generated: ${outputPath}`);
+		console.log(`  File size: ${(totalSize / 1024).toFixed(1)} KB`);
+		console.log(`  Characters used: ${totalBilled.toLocaleString()}`);
 		break;
 	}
 
