@@ -492,9 +492,9 @@ function buildVttCues(segments, allBoundaries, _headings) {
 	let wordsConsumed = 0;
 
 	for (const boundary of allBoundaries) {
-		// boundary.type can be string 'Word', number 0, or enum — accept all word-like types
-		const bType = String(boundary.type);
-		if (bType !== 'Word' && bType !== '0' && bType !== 'word') continue;
+		// Accept word-like boundary types (SDK uses 'WordBoundary' not 'Word')
+		const bType = String(boundary.type).toLowerCase();
+		if (!bType.includes('word')) continue;
 		if (segPtr >= speechSegments.length) break;
 
 		if (wordsConsumed === 0) {
