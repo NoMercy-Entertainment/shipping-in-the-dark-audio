@@ -126,19 +126,13 @@ function resolveVoice(segment) {
 
 /**
  * Get the style for a segment.
- * Mood-specific styles override the voice's default style.
+ * Each voice has ONE consistent style. Moods only affect prosody, not style.
  */
 function resolveStyle(segment) {
 	if (segment.style) return segment.style;
 
-	// Check if the mood has a style override
-	const moodPreset = moods.presets[segment.mood];
-	if (moodPreset && moodPreset.style) {
-		return moodPreset.style;
-	}
-
 	if (segment.voiceType === 'narrator') {
-		return voices.narrator.style || 'narration-relaxed';
+		return voices.narrator.style || 'empathetic';
 	}
 	if (segment.voiceId === 'boss') {
 		return voices.special['boss-quotes'].style || 'chat';

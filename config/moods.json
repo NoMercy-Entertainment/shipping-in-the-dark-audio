@@ -4,60 +4,52 @@
 
 	"presets": {
 		"cozy": {
-			"rate": "-15%",
-			"pitch": "-3%",
-			"volume": "soft",
-			"style": "gentle",
-			"description": "Warm bedtime story pace. Slow, gentle, makes you want to close your eyes."
+			"rate": "-5%",
+			"pitch": "0%",
+			"volume": "medium",
+			"description": "Slightly slower, warm. Default storytelling pace."
 		},
 		"tense": {
-			"rate": "+5%",
-			"pitch": "+3%",
+			"rate": "0%",
+			"pitch": "0%",
 			"volume": "medium",
-			"style": "serious",
-			"description": "Something's wrong. Used for bug discoveries, production incidents."
+			"description": "Normal pace, content carries the tension."
 		},
 		"urgent": {
-			"rate": "+10%",
-			"pitch": "+5%",
-			"volume": "loud",
-			"style": "excited",
-			"description": "Crisis mode. Used for disk full, 500 errors, deploy failures."
+			"rate": "+3%",
+			"pitch": "0%",
+			"volume": "medium",
+			"description": "Slightly faster. Let the words create urgency."
 		},
 		"triumphant": {
 			"rate": "0%",
-			"pitch": "+2%",
+			"pitch": "0%",
 			"volume": "medium",
-			"style": "hopeful",
-			"description": "We fixed it. Used for resolution moments."
+			"description": "Normal. The words do the work."
 		},
 		"reflective": {
-			"rate": "-10%",
-			"pitch": "-1%",
-			"volume": "soft",
-			"style": "calm",
-			"description": "Looking back. Used for lessons learned, closing paragraphs."
+			"rate": "-5%",
+			"pitch": "0%",
+			"volume": "medium",
+			"description": "Slightly slower. Thoughtful."
 		},
 		"matter-of-fact": {
 			"rate": "0%",
 			"pitch": "0%",
 			"volume": "medium",
-			"style": "narration-professional",
-			"description": "Neutral delivery. Used for technical explanations."
+			"description": "Neutral. Default pace."
 		},
 		"dramatic": {
 			"rate": "-3%",
-			"pitch": "+1%",
+			"pitch": "0%",
 			"volume": "medium",
-			"style": "empathetic",
-			"description": "Building tension. Used for reveals and 'But Wait' moments."
+			"description": "Slightly slower for weight."
 		},
 		"weary": {
-			"rate": "-12%",
-			"pitch": "-5%",
+			"rate": "-5%",
+			"pitch": "-2%",
 			"volume": "soft",
-			"style": "sad",
-			"description": "Tired sigh. Bad day. Disappointed but not dramatic. Used for 'it was that kind of night' moments."
+			"description": "Tired. Soft and slightly slower."
 		}
 	},
 

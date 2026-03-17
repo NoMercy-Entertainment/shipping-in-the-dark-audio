@@ -6,7 +6,7 @@
 		"voice": "en-US-AriaNeural",
 		"displayName": "Aria",
 		"role": "Primary narrator (Ink / storytelling prose)",
-		"style": "narration-relaxed",
+		"style": "empathetic",
 		"rate": "-5%",
 		"pitch": "0%",
 		"notes": "Warm, storytelling voice. Not to be confused with AnaNeural which is Stoney's personal voice."
