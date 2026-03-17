@@ -1,6 +1,11 @@
 name: Generate Audio Narration
 
 on:
+  push:
+    branches: [master]
+    paths:
+      - 'speeches/**'
+      - 'config/**'
   workflow_dispatch:
     inputs:
       entry:
@@ -47,11 +52,11 @@ jobs:
         run: node scripts/generate.mjs check
 
       - name: Estimate costs
-        if: inputs.dry_run
+        if: ${{ inputs.dry_run == true }}
         run: node scripts/generate.mjs estimate
 
       - name: Generate audio
-        if: "!inputs.dry_run"
+        if: ${{ inputs.dry_run != true }}
         env:
           AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
           AZURE_SPEECH_REGION: ${{ secrets.AZURE_SPEECH_REGION }}
@@ -67,7 +72,7 @@ jobs:
           fi
 
       - name: Upload audio artifacts
-        if: "!inputs.dry_run"
+        if: ${{ inputs.dry_run != true }}
         uses: actions/upload-artifact@v4
         with:
           name: audio-output
