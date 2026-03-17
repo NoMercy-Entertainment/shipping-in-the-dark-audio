@@ -46,7 +46,7 @@ He was right.
 
 Here's the short version. The CTO assured the boss that Keycloak permissions would work after a migration. They didn't. The admin dashboard returned "Forbidden" because the login flow wrote roles to a column the authorization gate never checks, and the authorization gate checked a column the login flow never writes to. Then we found that the failed jobs delete button had never worked because a UI component library was swallowing click events. Then we found that frontend changes had never been deploying to production because of a Docker bind-mount override. Yeah. It was that kind of night.
 
-Four commits. Four bugs. One session.
+Four commits, four bugs, one session.
 
 [pause:500ms]
 
