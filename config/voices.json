@@ -82,6 +82,41 @@
 			"role": "Muse — web designer",
 			"style": "cheerful",
 			"notes": "Cheerful style differentiates from other Jenny uses."
+		},
+		"web-frontend-engineer": {
+			"voice": "en-US-JaneNeural",
+			"displayName": "Jane",
+			"role": "Vesper — web frontend engineer",
+			"style": "default",
+			"notes": "Dark mode purist. Distinct from Vue Vera (Natasha)."
+		},
+		"a11y-specialist": {
+			"voice": "en-US-SaraNeural",
+			"displayName": "Sara",
+			"role": "Beacon — accessibility specialist",
+			"style": "calm",
+			"notes": "Patient, uncompromising. Quiet authority."
+		},
+		"network-sentinel": {
+			"voice": "en-US-TonyNeural",
+			"displayName": "Tony",
+			"role": "Rampart — network sentinel",
+			"style": "angry",
+			"notes": "Zero tolerance. Finds port scanners personally offensive."
+		},
+		"speech-director": {
+			"voice": "en-US-NancyNeural",
+			"displayName": "Nancy",
+			"role": "Echo — speech director",
+			"style": "friendly",
+			"notes": "Newest hire. Perfectionist about pacing."
+		},
+		"performance-specialist": {
+			"voice": "en-US-BrandonNeural",
+			"displayName": "Brandon",
+			"role": "Throttle — performance specialist",
+			"style": "default",
+			"notes": "Measures everything. Thinks in p95 latency."
 		}
 	},
 
