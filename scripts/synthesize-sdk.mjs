@@ -220,14 +220,16 @@ function buildSsml(segments) {
 		}
 
 		let speechXml = text;
-		if (style && style !== 'default') {
-			speechXml = `    <mstts:express-as style="${style}">${speechXml}</mstts:express-as>`;
+		// Azure SSML nesting order: express-as > prosody > emphasis > text
+		// express-as MUST be directly inside <voice>, prosody goes inside it
+		if (segment.emphasis) {
+			speechXml = `<emphasis level="moderate">${speechXml}</emphasis>`;
 		}
 		if (prosody) {
-			speechXml = `    <prosody ${prosody}>${speechXml}</prosody>`;
+			speechXml = `<prosody ${prosody}>${speechXml}</prosody>`;
 		}
-		if (segment.emphasis) {
-			speechXml = `    <emphasis level="moderate">${speechXml}</emphasis>`;
+		if (style && style !== 'default') {
+			speechXml = `    <mstts:express-as style="${style}">${speechXml}</mstts:express-as>`;
 		}
 
 		ssmlParts.push(speechXml);
