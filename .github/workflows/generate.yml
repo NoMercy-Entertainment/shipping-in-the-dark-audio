@@ -61,21 +61,22 @@ jobs:
         if: ${{ inputs.dry_run == true }}
         run: node scripts/generate.mjs estimate
 
+      - name: Install edge-tts
+        if: ${{ inputs.dry_run != true }}
+        run: pip install edge-tts
+
       - name: Generate audio
         if: ${{ inputs.dry_run != true }}
-        env:
-          AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
-          AZURE_SPEECH_REGION: ${{ secrets.AZURE_SPEECH_REGION }}
         run: |
           if [ -n "${{ inputs.entry }}" ]; then
             slug="${{ inputs.entry }}"
             echo "Synthesizing: $slug"
-            node scripts/synthesize.mjs full "speeches/${slug}.speech.md" "output/${slug}.mp3"
+            python scripts/synth-edge.py "speeches/${slug}.speech.md" "output/${slug}.mp3"
           else
             for script in speeches/*.speech.md; do
               slug=$(basename "$script" .speech.md)
               echo "Synthesizing: $slug"
-              node scripts/synthesize-sdk.mjs full "$script" "output/${slug}.mp3"
+              python scripts/synth-edge.py "$script" "output/${slug}.mp3"
             done
           fi
 
