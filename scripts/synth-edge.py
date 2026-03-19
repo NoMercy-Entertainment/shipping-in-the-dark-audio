@@ -179,8 +179,9 @@ async def main():
 
         mp3, vtt = speech_files[i]
         if not os.path.exists(mp3) or os.path.getsize(mp3) == 0:
-            print(f'  [{n}/{len(speech_segs)}] SKIPPED (empty MP3)')
-            continue
+            pid = seg.get('pid') or '--'
+            print(f'  [{n}/{len(speech_segs)}] {pid:6s} FAILED — empty MP3, aborting')
+            sys.exit(1)
         concat_list.append(mp3)
 
         # Parse the edge-tts VTT to get segment duration
