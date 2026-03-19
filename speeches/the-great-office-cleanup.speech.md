@@ -62,7 +62,11 @@ That's what Stoney saw. The office was packed wall to wall with characters from 
 
 The hallways were clogged. The meeting rooms were standing-room only. The lobby looked like a transit station during rush hour. And somewhere in that crowd, the actual agents for the current session were lost in a sea of zombies.
 
-[pause:300ms]
+[pause:500ms]
+
+If you're reading along, take a moment to look at the screenshot. That's what we were dealing with.
+
+[pause:10000ms]
 
 Time to clean house.
 
@@ -512,7 +516,11 @@ Clean up your forks. Attribution chains matter. License files matter. The person
 
 The validate-in-reality lesson from Entry {{003}} showed up again with the seat ordering bug. The config said the desk chair should be used. The actual result was the conference table. Reality wins. Always check.
 
-[pause:600ms]
+[pause:500ms]
+
+And if you're reading along, there's a screenshot of the finished office. Everyone in their room. Everyone named correctly. Take a look.
+
+[pause:10000ms]
 
 [narrator:triumphant]
 
