@@ -22,7 +22,8 @@
 
 [narrator:matter-of-fact]
 
--- Timeline Note.
+<!-- h-1 -->
+Timeline Note.
 
 [pause:300ms]
 
@@ -35,7 +36,8 @@ This is Entry {{005}}. It covers a session on March nineteenth — two days afte
 
 [narrator:matter-of-fact]
 
--- The Short Version.
+<!-- h-2 -->
+The Short Version.
 
 [pause:300ms]
 
@@ -48,7 +50,8 @@ The virtual office was overrun with {{251}} megabytes of zombie agents from dead
 
 [narrator:reflective]
 
--- A Note on Perspective.
+<!-- h-3 -->
+A Note on Perspective.
 
 [pause:300ms]
 
@@ -66,7 +69,8 @@ Ink will be back. They're letting me have this one. Don't get used to it.
 
 [narrator:cozy]
 
--- The Scene.
+<!-- h-4 -->
+The Scene.
 
 [pause:300ms]
 
@@ -99,7 +103,8 @@ Time to clean house.
 
 [narrator:matter-of-fact]
 
--- Act One. The Great Purge.
+<!-- h-5 -->
+Act One. The Great Purge.
 
 [pause:300ms]
 
@@ -116,6 +121,7 @@ The transcripts were the problem. Pixel Agents scans these files to discover act
 [pause:400ms]
 
 <!-- p-12 -->
+<!-- i-1 -->
 If you're reading along, take a moment to look at the screenshot.
 
 [pause:10000ms]
@@ -186,7 +192,8 @@ For beginners — context, in AI terms, is the information available to the mode
 
 [narrator:tense]
 
--- Act Two. Zombie Agents Won't Die.
+<!-- h-6 -->
+Act Two. Zombie Agents Won't Die.
 
 [pause:300ms]
 
@@ -234,7 +241,8 @@ But not to zero.
 
 [narrator:tense]
 
--- Act Three. The Clone Army.
+<!-- h-7 -->
+Act Three. The Clone Army.
 
 [pause:300ms]
 
@@ -267,7 +275,8 @@ Except those weren't even the right names.
 
 [narrator:matter-of-fact]
 
--- Act Four. Identity Crisis.
+<!-- h-8 -->
+Act Four. Identity Crisis.
 
 [pause:300ms]
 
@@ -300,7 +309,8 @@ Bastion. Vesper. Flux. Wren. Cipher. Trace. Sharp. Beacon. Everyone, named corre
 
 [narrator:dramatic]
 
--- Act Five. GET OUT OF MY OFFICE.
+<!-- h-9 -->
+Act Five. GET OUT OF MY OFFICE.
 
 [pause:400ms]
 
@@ -381,7 +391,8 @@ But then a new problem emerged.
 
 [narrator:matter-of-fact]
 
--- Act Six. Where's Stoney?
+<!-- h-10 -->
+Act Six. Where's Stoney?
 
 [pause:300ms]
 
@@ -438,7 +449,8 @@ Sometimes the fix is one line of code. Sometimes it's one line of JSON. Sometime
 
 [narrator:matter-of-fact]
 
--- Act Seven. Library Cleanup.
+<!-- h-11 -->
+Act Seven. Library Cleanup.
 
 [pause:300ms]
 
@@ -495,7 +507,8 @@ Wren ran a security audit on the extension. Clean across the board. No leaked cr
 
 [narrator:reflective]
 
--- What This Does NOT Fix.
+<!-- h-12 -->
+What This Does NOT Fix.
 
 [pause:300ms]
 
@@ -523,7 +536,8 @@ Also still rough: the extension's agent discovery is reactive, not proactive. It
 
 [narrator:reflective]
 
--- The Moment That Made the Day.
+<!-- h-13 -->
+The Moment That Made the Day.
 
 [pause:300ms]
 
@@ -578,7 +592,8 @@ Not every story in this journal needs to be about production incidents and secur
 
 [narrator:matter-of-fact]
 
--- Agent Performance.
+<!-- h-14 -->
+Agent Performance.
 
 [pause:300ms]
 
@@ -603,7 +618,8 @@ CTO self-assessment, for the record. The memory deletion was a genuine screwup �
 
 [narrator:reflective]
 
--- What We Learned.
+<!-- h-15 -->
+What We Learned.
 
 [pause:300ms]
 
@@ -620,13 +636,15 @@ For the team. Names matter more than you think. When a system represents people 
 [pause:500ms]
 
 <!-- p-88 -->
+<!-- i-2 -->
 If you're reading along, take a moment to look at the screenshot.
 
 [pause:10000ms]
 
 [narrator:triumphant]
 
--- The Score.
+<!-- h-16 -->
+The Score.
 
 [pause:300ms]
 
