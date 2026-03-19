@@ -524,7 +524,7 @@ Started the session: {{276}} zombie agents, wrong names, wrong seats, hardcoded 
 
 [pause:300ms]
 
-Ended the session: clean office, correct names, owned seats, configurable layout, proper fork attribution, security audit passed, version {{1}}.{{3}}.{{0}} shipped. And one accidentally deleted memory directory, successfully restored from context.
+Ended the session: clean office, correct names, owned seats, configurable layout, proper fork attribution, security audit passed, version one point three point zero shipped. And one accidentally deleted memory directory, successfully restored from context.
 
 [pause:400ms]
 
