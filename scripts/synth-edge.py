@@ -90,10 +90,14 @@ def parse_srt_time(t):
     return (int(parts[0]) * 3600 + int(parts[1]) * 60 + float(parts[2])) * 1000
 
 def get_duration_ms(path):
-    r = subprocess.run(
-        ['ffprobe', '-v', 'quiet', '-show_entries', 'format=duration', '-of', 'csv=p=0', path],
-        capture_output=True, text=True, timeout=10)
-    return float(r.stdout.strip()) * 1000
+    try:
+        r = subprocess.run(
+            ['ffprobe', '-v', 'quiet', '-show_entries', 'format=duration', '-of', 'csv=p=0', path],
+            capture_output=True, text=True, timeout=10)
+        val = r.stdout.strip()
+        return float(val) * 1000 if val else 0
+    except:
+        return 0
 
 async def synth_one(sem, idx, text, voice, mp3_path, vtt_path):
     """Synthesize one segment → MP3 + VTT via edge-tts CLI."""
@@ -174,6 +178,9 @@ async def main():
         n += 1
 
         mp3, vtt = speech_files[i]
+        if not os.path.exists(mp3) or os.path.getsize(mp3) == 0:
+            print(f'  [{n}/{len(speech_segs)}] SKIPPED (empty MP3)')
+            continue
         concat_list.append(mp3)
 
         # Parse the edge-tts VTT to get segment duration
