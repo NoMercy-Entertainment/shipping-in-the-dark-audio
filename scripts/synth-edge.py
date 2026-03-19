@@ -99,14 +99,22 @@ def get_duration_ms(path):
     except:
         return 0
 
+MAX_RETRIES = 3
+
 async def synth_one(sem, idx, text, voice, mp3_path, vtt_path):
-    """Synthesize one segment → MP3 + VTT via edge-tts CLI."""
+    """Synthesize one segment → MP3 + VTT via edge-tts CLI. Retries on failure."""
     async with sem:
-        proc = await asyncio.create_subprocess_exec(
-            'edge-tts', '--voice', voice, '--text', text,
-            '--write-media', mp3_path, '--write-subtitles', vtt_path,
-            stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
-        await proc.wait()
+        for attempt in range(1, MAX_RETRIES + 1):
+            proc = await asyncio.create_subprocess_exec(
+                'edge-tts', '--voice', voice, '--text', text,
+                '--write-media', mp3_path, '--write-subtitles', vtt_path,
+                stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
+            await proc.wait()
+            if os.path.exists(mp3_path) and os.path.getsize(mp3_path) > 0:
+                return
+            if attempt < MAX_RETRIES:
+                await asyncio.sleep(2 * attempt)
+        print(f'\n  WARNING: segment {idx} failed after {MAX_RETRIES} retries')
 
 async def main():
     if len(sys.argv) < 2:
