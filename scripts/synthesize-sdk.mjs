@@ -662,6 +662,8 @@ switch (command) {
 				const debugPath = join(outputDir, `chunk-${i}-debug.ssml`);
 				writeFileSync(debugPath, chunkSsml);
 				console.log(`    SSML saved to: ${debugPath}`);
+				console.log(`    SSML content (first 2000 chars):\n${chunkSsml.slice(0, 2000)}`);
+				console.log(`    SSML content (last 2000 chars):\n${chunkSsml.slice(-2000)}`);
 				chunkFiles.forEach(f => { try { unlinkSync(f); } catch {} });
 				process.exit(1);
 			}
