@@ -52,8 +52,17 @@ function parseSpeechScript(scriptPath) {
 	const segments = [];
 	let current = null;
 
+	let nextParagraphId = null;
+
 	for (const line of lines) {
 		if (line.startsWith('#') || line.startsWith('**') || line.startsWith('---')) continue;
+
+		// Paragraph ID marker: <!-- p-N --> sets the ID for the next speech segment
+		const pidMatch = line.match(/^<!--\s*(p-\d+)\s*-->$/);
+		if (pidMatch) {
+			nextParagraphId = pidMatch[1];
+			continue;
+		}
 
 		const directiveMatch = line.match(/^\[(.+)\]\s*$/);
 		if (directiveMatch) {
@@ -103,10 +112,15 @@ function parseSpeechScript(scriptPath) {
 
 		if (current) {
 			if (line.trim()) {
+				// Attach paragraph ID to this segment if one was set
+				if (nextParagraphId) {
+					current.paragraphId = nextParagraphId;
+					nextParagraphId = null;
+				}
 				current.text += (current.text ? ' ' : '') + line.trim();
 			} else if (current.text.trim()) {
 				segments.push(current);
-				current = { ...current, text: '' };
+				current = { ...current, text: '', paragraphId: undefined };
 			}
 		}
 	}
@@ -492,7 +506,7 @@ function buildVttCues(segments, allBoundaries, _headings) {
 		const text = (segments[i].text || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
 		if (!text) continue;
 		const wordCount = text.split(' ').filter(Boolean).length;
-		speechSegments.push({ index: i, text, wordCount, startMs: 0, endMs: 0 });
+		speechSegments.push({ index: i, text, wordCount, startMs: 0, endMs: 0, paragraphId: segments[i].paragraphId || null });
 	}
 
 	// Walk word boundaries and assign them to segments
@@ -522,12 +536,14 @@ function buildVttCues(segments, allBoundaries, _headings) {
 	}
 
 	// Build VTT cues from the timed segments
+	// If a segment has a paragraphId (from <!-- p-N --> markers), use it as the cue text.
+	// Otherwise prefix with -- to mark as unmatched (headings, callouts).
 	return speechSegments
 		.filter(s => s.endMs > s.startMs)
 		.map(s => ({
 			startMs: s.startMs,
 			endMs: s.endMs,
-			text: s.text,
+			text: s.paragraphId || ('--' + s.text),
 		}));
 }
 
