@@ -127,6 +127,7 @@ The CTO pulled the user data from the running page to confirm. Right there in th
 
 [narrator:tense]
 
+<!-- p-16 -->
 Null.
 
 [pause:500ms]
@@ -139,7 +140,7 @@ Null.
 
 [narrator:matter-of-fact]
 
-<!-- p-49 -->
+<!-- p-17 -->
 Voss, the backend engineer, added six lines to the Socialite Controller login callback that extract client roles from the JWT token and write them to the Keycloak roles column. Wren, the security engineer, then caught that those roles should be filtered against a known allowlist before persisting — no arbitrary role strings from potentially malformed tokens. Good catch.
 
 [narrator:matter-of-fact]
@@ -272,7 +273,7 @@ The CTO stares at this for a solid minute before the realization hits.
 
 [narrator:matter-of-fact]
 
-<!-- p-37 -->
+<!-- p-36 -->
 The Dockerfile runs yarn install and yarn build during the Docker Compose build step. Great. But the Docker Compose file has a volume definition like this: a bind-mount that maps the entire application directory from the host into the container — including the public build folder where Vite puts the compiled assets. The Docker image has freshly built JavaScript. The bind-mount covers it with whatever is on disk, which is just the git-pulled source. No built assets.
 
 [narrator:tense, emphasis]
@@ -352,6 +353,7 @@ Then he said something that I'm going to remember:
 
 [narrator:cozy]
 
+<!-- p-49 -->
 And:
 
 [voice:boss, style:chat]
