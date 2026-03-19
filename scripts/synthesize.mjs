@@ -24,9 +24,18 @@ function parseSpeechScript(scriptPath) {
 	const segments = [];
 	let current = null;
 
+	let nextParagraphId = null;
+
 	for (const line of lines) {
 		// Skip metadata header
 		if (line.startsWith('#') || line.startsWith('**') || line.startsWith('---')) continue;
+
+		// Paragraph ID marker: <!-- p-N -->
+		const pidMatch = line.match(/^<!--\s*(p-\d+)\s*-->$/);
+		if (pidMatch) {
+			nextParagraphId = pidMatch[1];
+			continue;
+		}
 
 		// Directive: [narrator:mood] or [voice:id, style:style] or [pause:Nms] or [emphasis]
 		const directiveMatch = line.match(/^\[(.+)\]\s*$/);
@@ -89,11 +98,15 @@ function parseSpeechScript(scriptPath) {
 		// Regular text line
 		if (current) {
 			if (line.trim()) {
+				if (nextParagraphId) {
+					current.paragraphId = nextParagraphId;
+					nextParagraphId = null;
+				}
 				current.text += (current.text ? ' ' : '') + line.trim();
 			} else if (current.text.trim()) {
 				// Empty line = paragraph break, push current and start new with same settings
 				segments.push(current);
-				current = { ...current, text: '' };
+				current = { ...current, text: '', paragraphId: undefined };
 			}
 		}
 	}
@@ -244,21 +257,17 @@ function buildSsml(segments) {
 		}
 
 		// Build the speech element
+		// Azure nesting order: express-as > prosody > emphasis > text
 		let speechXml = text;
 
-		// Wrap in express-as style if not default
+		if (segment.emphasis) {
+			speechXml = `<emphasis level="moderate">${speechXml}</emphasis>`;
+		}
+		if (prosody) {
+			speechXml = `<prosody ${prosody}>${speechXml}</prosody>`;
+		}
 		if (style && style !== 'default') {
 			speechXml = `    <mstts:express-as style="${style}">${speechXml}</mstts:express-as>`;
-		}
-
-		// Wrap in prosody if mood has settings
-		if (prosody) {
-			speechXml = `    <prosody ${prosody}>${speechXml}</prosody>`;
-		}
-
-		// Wrap in emphasis if marked
-		if (segment.emphasis) {
-			speechXml = `    <emphasis level="moderate">${speechXml}</emphasis>`;
 		}
 
 		ssmlParts.push(speechXml);
@@ -317,6 +326,15 @@ async function synthesizeToAudio(ssml, outputPath) {
 function countBillableCharacters(ssml) {
 	// Strip all XML tags to get just the text content
 	return ssml.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim().length;
+}
+
+function formatVttTime(ms) {
+	const totalSeconds = Math.floor(ms / 1000);
+	const hours = Math.floor(totalSeconds / 3600);
+	const minutes = Math.floor((totalSeconds % 3600) / 60);
+	const seconds = totalSeconds % 60;
+	const millis = Math.round(ms % 1000);
+	return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(millis).padStart(3, '0')}`;
 }
 
 // === CLI ===
@@ -458,6 +476,48 @@ switch (command) {
 			chunkFiles.forEach(f => { try { unlinkSync(f); } catch {} });
 			try { unlinkSync(listPath); } catch {}
 		}
+
+		// Generate VTT with estimated timing from character ratios
+		// Average speech rate: ~150 words/min ≈ 750 chars/min ≈ 12.5 chars/sec
+		const CHARS_PER_SECOND = 12.5;
+		const speechSegs = segments.filter(s => s.type === 'speech' && s.text.trim());
+		const totalTextChars = speechSegs.reduce((sum, s) => sum + s.text.length, 0);
+		const totalPauseMs = segments.filter(s => s.type === 'pause').reduce((sum, s) => sum + s.duration, 0);
+
+		// Estimate total audio duration from MP3 file size (96kbps = 12000 bytes/sec)
+		const estimatedDurationSec = totalSize / 12000;
+		const speechDurationSec = estimatedDurationSec - (totalPauseMs / 1000);
+		const adjustedCharsPerSec = totalTextChars / Math.max(speechDurationSec, 1);
+
+		let vttLines = ['WEBVTT', ''];
+		let cueNum = 1;
+		let offsetMs = 0;
+
+		for (const seg of segments) {
+			if (seg.type === 'pause') {
+				offsetMs += seg.duration;
+				continue;
+			}
+			if (!seg.text.trim()) continue;
+
+			const durationMs = (seg.text.length / adjustedCharsPerSec) * 1000;
+			const startMs = offsetMs;
+			const endMs = offsetMs + durationMs;
+
+			const cueText = seg.paragraphId || ('--' + seg.text);
+
+			vttLines.push(String(cueNum));
+			vttLines.push(`${formatVttTime(startMs)} --> ${formatVttTime(endMs)}`);
+			vttLines.push(cueText);
+			vttLines.push('');
+
+			offsetMs = endMs + 200; // 200ms inter-segment gap
+			cueNum++;
+		}
+
+		const vttPath = outputPath.replace(/\.mp3$/, '.vtt');
+		writeFileSync(vttPath, vttLines.join('\n'));
+		console.log(`  VTT: ${vttPath} (${cueNum - 1} cues, estimated timing)`);
 
 		console.log(`\n  ✅ Audio generated: ${outputPath}`);
 		console.log(`  File size: ${(totalSize / 1024).toFixed(1)} KB`);

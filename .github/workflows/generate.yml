@@ -70,7 +70,7 @@ jobs:
           if [ -n "${{ inputs.entry }}" ]; then
             slug="${{ inputs.entry }}"
             echo "Synthesizing: $slug"
-            node scripts/synthesize-sdk.mjs full "speeches/${slug}.speech.md" "output/${slug}.mp3"
+            node scripts/synthesize.mjs full "speeches/${slug}.speech.md" "output/${slug}.mp3"
           else
             for script in speeches/*.speech.md; do
               slug=$(basename "$script" .speech.md)
