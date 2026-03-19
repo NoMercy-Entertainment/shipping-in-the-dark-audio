@@ -279,14 +279,22 @@ async function synthesizeChunk(ssml) {
 		});
 	};
 
+	const SYNTH_TIMEOUT_MS = 120_000; // 2 minutes per chunk
 	const result = await new Promise((resolve, reject) => {
+		const timer = setTimeout(() => {
+			synthesizer.close();
+			reject(new Error(`Synthesis timed out after ${SYNTH_TIMEOUT_MS / 1000}s — Azure SDK never responded. Check AZURE_SPEECH_KEY and AZURE_SPEECH_REGION.`));
+		}, SYNTH_TIMEOUT_MS);
+
 		synthesizer.speakSsmlAsync(
 			ssml,
 			res => {
+				clearTimeout(timer);
 				synthesizer.close();
 				resolve(res);
 			},
 			err => {
+				clearTimeout(timer);
 				synthesizer.close();
 				reject(new Error(err));
 			}
