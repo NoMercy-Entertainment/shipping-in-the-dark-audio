@@ -137,10 +137,44 @@ jobs:
           echo "Entry MP3s: $(ls output/*.mp3 2>/dev/null | wc -l)"
           echo "Team MP3s: $(ls output/team/*.mp3 2>/dev/null | wc -l)"
 
-      - name: Commit
+      - name: Commit audio to audio repo
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add output/
           git diff --cached --quiet || git commit -m "chore: update audio output"
           git push
+
+      - name: Upload MP3s to GitHub Release
+        run: |
+          for mp3 in output/*.mp3 output/team/*.mp3; do
+            [ -f "$mp3" ] && gh release upload audio-v1 "$mp3" --repo NoMercy-Entertainment/shipping-in-the-dark --clobber || true
+          done
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy VTTs to journal site
+        run: |
+          git clone --depth 1 https://x-access-token:${GH_TOKEN}@github.com/NoMercy-Entertainment/shipping-in-the-dark.git journal-site
+          mkdir -p journal-site/site/public/audio/team
+
+          # Entry VTTs
+          for vtt in output/*.vtt; do
+            [ -f "$vtt" ] && cp "$vtt" journal-site/site/public/audio/
+          done
+
+          # Team VTTs
+          for vtt in output/team/*.vtt; do
+            [ -f "$vtt" ] && cp "$vtt" journal-site/site/public/audio/team/
+          done
+
+          cd journal-site
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add site/public/audio/
+          git diff --cached --quiet || {
+            git commit -m "chore: update audio VTTs from CI generation"
+            git push
+          }
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
