@@ -61,9 +61,11 @@ jobs:
         if: ${{ inputs.dry_run == true }}
         run: node scripts/generate.mjs estimate
 
-      - name: Install edge-tts
+      - name: Setup Python venv and install edge-tts
         if: ${{ inputs.dry_run != true }}
-        run: pip install --break-system-packages edge-tts
+        run: |
+          python3 -m venv .venv
+          .venv/bin/pip install edge-tts
 
       - name: Generate audio
         if: ${{ inputs.dry_run != true }}
@@ -71,12 +73,12 @@ jobs:
           if [ -n "${{ inputs.entry }}" ]; then
             slug="${{ inputs.entry }}"
             echo "Synthesizing: $slug"
-            python scripts/synth-edge.py "speeches/${slug}.speech.md" "output/${slug}.mp3"
+            .venv/bin/python scripts/synth-edge.py "speeches/${slug}.speech.md" "output/${slug}.mp3"
           else
             for script in speeches/*.speech.md; do
               slug=$(basename "$script" .speech.md)
               echo "Synthesizing: $slug"
-              python scripts/synth-edge.py "$script" "output/${slug}.mp3"
+              .venv/bin/python scripts/synth-edge.py "$script" "output/${slug}.mp3"
             done
           fi
 
