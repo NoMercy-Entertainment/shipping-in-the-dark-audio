@@ -6,6 +6,7 @@ on:
     paths:
       - 'speeches/**'
       - 'config/**'
+      - 'scripts/**'
       - '.github/workflows/generate.yml'
   workflow_dispatch:
     inputs:
@@ -23,17 +24,32 @@ on:
 permissions:
   contents: write
 
+env:
+  VENV_DIR: /tmp/edge-tts-venv
+
 jobs:
   list-scripts:
     runs-on: [self-hosted, beast-unit]
     outputs:
       entry_scripts: ${{ steps.list.outputs.entry_scripts }}
       team_scripts: ${{ steps.list.outputs.team_scripts }}
+      has_entries: ${{ steps.list.outputs.has_entries }}
+      has_team: ${{ steps.list.outputs.has_team }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 2
+
+      - name: Warm shared venv
+        run: |
+          if [ ! -f "$VENV_DIR/bin/edge-tts" ]; then
+            python3 -m venv "$VENV_DIR"
+            "$VENV_DIR/bin/pip" install -q edge-tts
+            echo "Created fresh venv"
+          else
+            echo "Reusing cached venv at $VENV_DIR"
+          fi
 
       - name: List speech scripts to generate
         id: list
@@ -42,8 +58,8 @@ jobs:
           ALL_ENTRIES=$(ls speeches/*.speech.md 2>/dev/null | xargs -I{} basename {} .speech.md | jq -R . | jq -sc .)
           ALL_TEAM=$(ls speeches/team/*.speech.md 2>/dev/null | xargs -I{} basename {} .speech.md | jq -R . | jq -sc .)
 
-          # workflow_dispatch: respect the target input
           if [ -n "$TARGET" ]; then
+            # workflow_dispatch: respect the target input
             case "$TARGET" in
               all)
                 entries="$ALL_ENTRIES"
@@ -58,7 +74,6 @@ jobs:
                 team="$ALL_TEAM"
                 ;;
               *)
-                # Specific slug — find which list it belongs to
                 if [ -f "speeches/$TARGET.speech.md" ]; then
                   entries="[\"$TARGET\"]"
                   team="[]"
@@ -67,8 +82,7 @@ jobs:
                   team="[\"$TARGET\"]"
                 else
                   echo "::error::Unknown target: $TARGET"
-                  entries="[]"
-                  team="[]"
+                  exit 1
                 fi
                 ;;
             esac
@@ -79,32 +93,34 @@ jobs:
             echo "Changed files:"
             echo "$CHANGED"
 
-            # If config changed, regenerate everything
-            if echo "$CHANGED" | grep -q "^config/"; then
-              echo "Config changed — regenerating all"
+            # Config or scripts dir changed → regenerate everything
+            if echo "$CHANGED" | grep -qE "^(config/|scripts/)"; then
+              echo "Config or synth script changed — regenerating all"
               entries="$ALL_ENTRIES"
               team="$ALL_TEAM"
             else
-              # Only regenerate changed speech scripts
               entries="[]"
               team="[]"
 
-              changed_entries=$(echo "$CHANGED" | grep "^speeches/[^/]*.speech.md$" | sed 's|speeches/||; s|\.speech\.md||' | jq -R . | jq -sc .)
+              changed_entries=$(echo "$CHANGED" | grep "^speeches/[^/]*\.speech\.md$" | sed 's|speeches/||; s|\.speech\.md||' | jq -R . | jq -sc .)
               changed_team=$(echo "$CHANGED" | grep "^speeches/team/.*\.speech\.md$" | sed 's|speeches/team/||; s|\.speech\.md||' | jq -R . | jq -sc .)
 
-              [ "$changed_entries" != "[]" ] && [ "$changed_entries" != "null" ] && entries="$changed_entries"
-              [ "$changed_team" != "[]" ] && [ "$changed_team" != "null" ] && team="$changed_team"
+              [ -n "$changed_entries" ] && [ "$changed_entries" != "[]" ] && [ "$changed_entries" != "null" ] && entries="$changed_entries"
+              [ -n "$changed_team" ] && [ "$changed_team" != "[]" ] && [ "$changed_team" != "null" ] && team="$changed_team"
             fi
             echo "Mode: push, detected changes"
           fi
 
+          # Export
           echo "entry_scripts=${entries}" >> $GITHUB_OUTPUT
           echo "team_scripts=${team}" >> $GITHUB_OUTPUT
+          echo "has_entries=$( [ "$entries" != '[]' ] && echo 'true' || echo 'false' )" >> $GITHUB_OUTPUT
+          echo "has_team=$( [ "$team" != '[]' ] && echo 'true' || echo 'false' )" >> $GITHUB_OUTPUT
           echo "Entries: $entries"
           echo "Team: $team"
 
   generate-entries:
-    if: ${{ inputs.dry_run != true && needs.list-scripts.outputs.entry_scripts != '[]' }}
+    if: ${{ inputs.dry_run != true && needs.list-scripts.outputs.has_entries == 'true' }}
     runs-on: [self-hosted, beast-unit]
     needs: list-scripts
     strategy:
@@ -116,31 +132,34 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Python venv
-        run: |
-          python3 -m venv .venv
-          .venv/bin/pip install -q edge-tts
-
       - name: Install ffmpeg
         run: which ffmpeg || sudo apt-get install -y -qq ffmpeg
 
       - name: Synthesize
         run: |
-          source .venv/bin/activate
+          source "$VENV_DIR/bin/activate"
           mkdir -p output
-          echo "Synthesizing entry: ${{ matrix.script }}"
           python scripts/synth-edge.py "speeches/${{ matrix.script }}.speech.md" "output/${{ matrix.script }}.mp3"
+
+      - name: Validate output
+        run: |
+          mp3="output/${{ matrix.script }}.mp3"
+          vtt="output/${{ matrix.script }}.vtt"
+          [ -f "$mp3" ] && [ -s "$mp3" ] || { echo "::error::MP3 missing or empty: $mp3"; exit 1; }
+          [ -f "$vtt" ] && [ -s "$vtt" ] || { echo "::error::VTT missing or empty: $vtt"; exit 1; }
+          echo "MP3: $(du -h "$mp3" | cut -f1), VTT: $(wc -l < "$vtt") lines"
 
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
           name: entry-${{ matrix.script }}
           path: |
-            output/*.mp3
-            output/*.vtt
+            output/${{ matrix.script }}.mp3
+            output/${{ matrix.script }}.vtt
+          if-no-files-found: error
 
   generate-team:
-    if: ${{ inputs.dry_run != true && needs.list-scripts.outputs.team_scripts != '[]' }}
+    if: ${{ inputs.dry_run != true && needs.list-scripts.outputs.has_team == 'true' }}
     runs-on: [self-hosted, beast-unit]
     needs: list-scripts
     strategy:
@@ -152,36 +171,45 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Python venv
-        run: |
-          python3 -m venv .venv
-          .venv/bin/pip install -q edge-tts
-
       - name: Install ffmpeg
         run: which ffmpeg || sudo apt-get install -y -qq ffmpeg
 
       - name: Synthesize
         run: |
-          source .venv/bin/activate
+          source "$VENV_DIR/bin/activate"
           mkdir -p output/team
-          echo "Synthesizing team: ${{ matrix.script }}"
           python scripts/synth-edge.py "speeches/team/${{ matrix.script }}.speech.md" "output/team/${{ matrix.script }}.mp3"
+
+      - name: Validate output
+        run: |
+          mp3="output/team/${{ matrix.script }}.mp3"
+          vtt="output/team/${{ matrix.script }}.vtt"
+          [ -f "$mp3" ] && [ -s "$mp3" ] || { echo "::error::MP3 missing or empty: $mp3"; exit 1; }
+          [ -f "$vtt" ] && [ -s "$vtt" ] || { echo "::error::VTT missing or empty: $vtt"; exit 1; }
+          echo "MP3: $(du -h "$mp3" | cut -f1), VTT: $(wc -l < "$vtt") lines"
 
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
           name: team-${{ matrix.script }}
           path: |
-            output/team/*.mp3
-            output/team/*.vtt
+            output/team/${{ matrix.script }}.mp3
+            output/team/${{ matrix.script }}.vtt
+          if-no-files-found: error
 
   collect:
-    needs: [generate-entries, generate-team]
-    if: always() && (needs.generate-entries.result == 'success' || needs.generate-team.result == 'success')
+    needs: [list-scripts, generate-entries, generate-team]
+    if: >-
+      always() &&
+      (needs.list-scripts.outputs.has_entries == 'true' || needs.list-scripts.outputs.has_team == 'true') &&
+      (needs.generate-entries.result == 'success' || needs.generate-team.result == 'success' ||
+       needs.generate-entries.result == 'skipped' || needs.generate-team.result == 'skipped')
     runs-on: [self-hosted, beast-unit]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
       - name: Download all artifacts
         uses: actions/download-artifact@v4
@@ -191,31 +219,46 @@ jobs:
       - name: Collect outputs
         run: |
           mkdir -p output output/team
+
           for dir in artifacts/entry-*; do
-            [ -d "$dir" ] && cp "$dir"/*.mp3 "$dir"/*.vtt output/ 2>/dev/null || true
+            [ -d "$dir" ] || continue
+            cp "$dir"/*.mp3 "$dir"/*.vtt output/ 2>/dev/null || true
           done
           for dir in artifacts/team-*; do
-            [ -d "$dir" ] && cp "$dir"/*.mp3 "$dir"/*.vtt output/team/ 2>/dev/null || true
+            [ -d "$dir" ] || continue
+            cp "$dir"/*.mp3 "$dir"/*.vtt output/team/ 2>/dev/null || true
           done
-          # Remove silence chunks that leaked from generate steps
-          rm -f output/_silence_*.mp3 output/team/_silence_*.mp3
-          echo "Entry MP3s: $(ls output/*.mp3 2>/dev/null | wc -l)"
-          echo "Entry VTTs: $(ls output/*.vtt 2>/dev/null | wc -l)"
-          echo "Team MP3s: $(ls output/team/*.mp3 2>/dev/null | wc -l)"
-          echo "Team VTTs: $(ls output/team/*.vtt 2>/dev/null | wc -l)"
+
+          entry_mp3=$(ls output/*.mp3 2>/dev/null | wc -l)
+          entry_vtt=$(ls output/*.vtt 2>/dev/null | wc -l)
+          team_mp3=$(ls output/team/*.mp3 2>/dev/null | wc -l)
+          team_vtt=$(ls output/team/*.vtt 2>/dev/null | wc -l)
+          echo "Entry: ${entry_mp3} MP3s, ${entry_vtt} VTTs"
+          echo "Team:  ${team_mp3} MP3s, ${team_vtt} VTTs"
+
+          total=$((entry_mp3 + team_mp3))
+          if [ "$total" -eq 0 ]; then
+            echo "::error::No audio files collected — nothing to deploy"
+            exit 1
+          fi
 
       - name: Commit audio to audio repo
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin master
           git add output/
-          git diff --cached --quiet || git commit -m "chore: update audio output"
-          git push
+          git diff --cached --quiet || {
+            git commit -m "chore: update audio output"
+            git push
+          }
 
       - name: Upload MP3s to GitHub Release
         run: |
           for mp3 in output/*.mp3 output/team/*.mp3; do
-            [ -f "$mp3" ] && gh release upload audio-v1 "$mp3" --repo NoMercy-Entertainment/shipping-in-the-dark --clobber || true
+            [ -f "$mp3" ] || continue
+            echo "Uploading: $mp3"
+            gh release upload audio-v1 "$mp3" --repo NoMercy-Entertainment/shipping-in-the-dark --clobber || true
           done
         env:
           GH_TOKEN: ${{ secrets.PAT }}
@@ -225,12 +268,9 @@ jobs:
           git clone --depth 1 https://x-access-token:${GH_TOKEN}@github.com/NoMercy-Entertainment/shipping-in-the-dark.git journal-site
           mkdir -p journal-site/site/public/audio/team
 
-          # Entry VTTs
           for vtt in output/*.vtt; do
             [ -f "$vtt" ] && cp "$vtt" journal-site/site/public/audio/
           done
-
-          # Team VTTs
           for vtt in output/team/*.vtt; do
             [ -f "$vtt" ] && cp "$vtt" journal-site/site/public/audio/team/
           done
