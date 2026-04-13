@@ -63,7 +63,7 @@ jobs:
 
       - name: Install edge-tts
         if: ${{ inputs.dry_run != true }}
-        run: pip install edge-tts
+        run: pip install --break-system-packages edge-tts
 
       - name: Generate audio
         if: ${{ inputs.dry_run != true }}
