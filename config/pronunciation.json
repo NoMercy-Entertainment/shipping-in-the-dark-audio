@@ -5,18 +5,22 @@
 	"terms": {
 		"NoMercy": {
 			"ipa": "noʊ ˈmɜːrsi",
+			"sub": "No Mercy",
 			"notes": "Two words: No Mercy. Not 'NOM-er-see'."
 		},
 		"Keycloak": {
 			"ipa": "ˈkiːkloʊk",
+			"sub": "Key-cloak",
 			"notes": "Key-cloak, not 'KEY-cloak' with emphasis on wrong syllable."
 		},
 		"Laravel": {
 			"ipa": "ˈlærəvɛl",
+			"sub": "Larr-uh-vel",
 			"notes": "LARR-uh-vel, not 'luh-RAH-vel'."
 		},
 		"Reka": {
 			"ipa": "ˈɹɛkə",
+			"sub": "Reck-uh",
 			"notes": "REK-uh. UI component library."
 		},
 		"Inertia": {
@@ -25,6 +29,7 @@
 		},
 		"Vue": {
 			"ipa": "vjuː",
+			"sub": "View",
 			"notes": "Like 'view'. Not 'voo'."
 		},
 		"SSML": {
@@ -37,6 +42,7 @@
 		},
 		"CORS": {
 			"ipa": "kɔːrz",
+			"sub": "cores",
 			"notes": "Rhymes with 'cores'."
 		},
 		"UUID": {
@@ -65,22 +71,27 @@
 		},
 		"OAuth": {
 			"ipa": "oʊ ɔːθ",
+			"sub": "oh-auth",
 			"notes": "Oh-auth."
 		},
 		"YAML": {
 			"ipa": "ˈjæməl",
+			"sub": "Yammel",
 			"notes": "YAM-ul."
 		},
 		"Vite": {
 			"ipa": "viːt",
+			"sub": "Veet",
 			"notes": "French word meaning 'fast'. Rhymes with 'feet'."
 		},
 		"nginx": {
 			"ipa": "ˌɛndʒɪnˈɛks",
+			"sub": "engine-X",
 			"notes": "Engine-X."
 		},
 		"cron": {
 			"ipa": "krɒn",
+			"sub": "kron",
 			"notes": "Rhymes with 'on'."
 		},
 		"Astro": {
@@ -157,6 +168,7 @@
 		},
 		"Tesseract": {
 			"ipa": "ˈtɛsərækt",
+			"sub": "Tess-er-act",
 			"notes": "TES-er-akt. OCR engine."
 		},
 		"HLS": {
@@ -177,6 +189,7 @@
 		},
 		"MPEG": {
 			"ipa": "ˈɛmˌpɛɡ",
+			"sub": "em-peg",
 			"notes": "EM-peg."
 		},
 		"PES": {
@@ -293,6 +306,7 @@
 		},
 		"Moooom": {
 			"ipa": "muːm",
+			"sub": "Moom",
 			"notes": "Like 'moom' with a long 'oo'. Design system name."
 		},
 		"NuGet": {
@@ -353,10 +367,12 @@
 		},
 		"codec": {
 			"ipa": "ˈkoʊdɛk",
+			"sub": "co-deck",
 			"notes": "COH-deck. Coder-decoder."
 		},
 		"codecs": {
 			"ipa": "ˈkoʊdɛks",
+			"sub": "co-decks",
 			"notes": "COH-decks. Plural."
 		},
 		"fMP4": {
@@ -377,6 +393,7 @@
 		},
 		"semver": {
 			"ipa": "ˈsɛmvɜːr",
+			"sub": "sem-ver",
 			"notes": "SEM-ver. Semantic versioning."
 		},
 		"vCPU": {
@@ -388,8 +405,61 @@
 			"notes": "Testing framework for .NET."
 		},
 		"Reka UI": {
-			"sub": "REK-uh U-I",
+			"sub": "Reck-uh U-I",
 			"notes": "Component library. Break into Reka + UI."
+		},
+		"AAOA": {
+			"sub": "A. A. O. A.",
+			"notes": "Spell out with periods to force letter-by-letter pronunciation."
+		},
+		"Ay ": {
+			"sub": "A. ",
+			"notes": "AAOA's short name. Trailing space prevents matching inside words. Period forces letter A pronunciation."
+		},
+		"Ay's": {
+			"sub": "A.'s",
+			"notes": "Possessive form of AAOA's short name."
+		},
+		"nomercy-tv": {
+			"sub": "no-mercy T-V",
+			"notes": "Project name. Hyphen + spell out TV."
+		},
+		"nomercy-app-web": {
+			"sub": "no-mercy app web",
+			"notes": "Project name."
+		},
+		"Fail2Ban": {
+			"sub": "Fail to Ban",
+			"notes": "Intrusion prevention tool."
+		},
+		"a11y": {
+			"sub": "accessibility",
+			"notes": "Numeronym for accessibility. Spell out the full word."
+		},
+		"DevOps": {
+			"sub": "Dev-Ops",
+			"notes": "Break into two clear words."
+		},
+		"SaaS": {
+			"sub": "sass",
+			"notes": "Software as a Service. Pronounced like the word sass."
+		},
+		"FFmpeg": {
+			"sub": "F-F-mpeg",
+			"notes": "F-F-mpeg. Two separate Fs then mpeg."
+		},
+		"Fillz": {
+			"sub": "Fills",
+			"notes": "Human contributor name. Pronounced like fills."
+		},
+		"axios": {
+			"sub": "ax-ee-ose",
+			"notes": "JavaScript HTTP library."
+		},
+		"Pinia": {
+			"ipa": "ˈpiːnjə",
+			"sub": "Peen-ya",
+			"notes": "Vue state management library."
 		}
 	},
 
