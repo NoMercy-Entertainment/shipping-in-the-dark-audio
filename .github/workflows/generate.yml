@@ -6,6 +6,7 @@ on:
     paths:
       - 'speeches/**'
       - 'config/**'
+      - '.github/workflows/generate.yml'
   workflow_dispatch:
     inputs:
       target:
@@ -31,19 +32,79 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
-      - name: List speech scripts
+      - name: List speech scripts to generate
         id: list
         run: |
-          entries=$(ls speeches/*.speech.md 2>/dev/null | xargs -I{} basename {} .speech.md | jq -R . | jq -sc .)
-          team=$(ls speeches/team/*.speech.md 2>/dev/null | xargs -I{} basename {} .speech.md | jq -R . | jq -sc .)
+          TARGET="${{ inputs.target || '' }}"
+          ALL_ENTRIES=$(ls speeches/*.speech.md 2>/dev/null | xargs -I{} basename {} .speech.md | jq -R . | jq -sc .)
+          ALL_TEAM=$(ls speeches/team/*.speech.md 2>/dev/null | xargs -I{} basename {} .speech.md | jq -R . | jq -sc .)
+
+          # workflow_dispatch: respect the target input
+          if [ -n "$TARGET" ]; then
+            case "$TARGET" in
+              all)
+                entries="$ALL_ENTRIES"
+                team="$ALL_TEAM"
+                ;;
+              entries)
+                entries="$ALL_ENTRIES"
+                team="[]"
+                ;;
+              team)
+                entries="[]"
+                team="$ALL_TEAM"
+                ;;
+              *)
+                # Specific slug — find which list it belongs to
+                if [ -f "speeches/$TARGET.speech.md" ]; then
+                  entries="[\"$TARGET\"]"
+                  team="[]"
+                elif [ -f "speeches/team/$TARGET.speech.md" ]; then
+                  entries="[]"
+                  team="[\"$TARGET\"]"
+                else
+                  echo "::error::Unknown target: $TARGET"
+                  entries="[]"
+                  team="[]"
+                fi
+                ;;
+            esac
+            echo "Mode: workflow_dispatch, target=$TARGET"
+          else
+            # Push event: only regenerate what changed
+            CHANGED=$(git diff --name-only HEAD~1 HEAD 2>/dev/null || echo "")
+            echo "Changed files:"
+            echo "$CHANGED"
+
+            # If config changed, regenerate everything
+            if echo "$CHANGED" | grep -q "^config/"; then
+              echo "Config changed — regenerating all"
+              entries="$ALL_ENTRIES"
+              team="$ALL_TEAM"
+            else
+              # Only regenerate changed speech scripts
+              entries="[]"
+              team="[]"
+
+              changed_entries=$(echo "$CHANGED" | grep "^speeches/[^/]*.speech.md$" | sed 's|speeches/||; s|\.speech\.md||' | jq -R . | jq -sc .)
+              changed_team=$(echo "$CHANGED" | grep "^speeches/team/.*\.speech\.md$" | sed 's|speeches/team/||; s|\.speech\.md||' | jq -R . | jq -sc .)
+
+              [ "$changed_entries" != "[]" ] && [ "$changed_entries" != "null" ] && entries="$changed_entries"
+              [ "$changed_team" != "[]" ] && [ "$changed_team" != "null" ] && team="$changed_team"
+            fi
+            echo "Mode: push, detected changes"
+          fi
+
           echo "entry_scripts=${entries}" >> $GITHUB_OUTPUT
           echo "team_scripts=${team}" >> $GITHUB_OUTPUT
           echo "Entries: $entries"
           echo "Team: $team"
 
   generate-entries:
-    if: ${{ inputs.dry_run != true }}
+    if: ${{ inputs.dry_run != true && needs.list-scripts.outputs.entry_scripts != '[]' }}
     runs-on: [self-hosted, beast-unit]
     needs: list-scripts
     strategy:
@@ -79,7 +140,7 @@ jobs:
             output/*.vtt
 
   generate-team:
-    if: ${{ inputs.dry_run != true }}
+    if: ${{ inputs.dry_run != true && needs.list-scripts.outputs.team_scripts != '[]' }}
     runs-on: [self-hosted, beast-unit]
     needs: list-scripts
     strategy:
