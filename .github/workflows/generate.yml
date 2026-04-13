@@ -131,13 +131,17 @@ jobs:
         run: |
           mkdir -p output output/team
           for dir in artifacts/entry-*; do
-            [ -d "$dir" ] && cp "$dir"/output/*.mp3 "$dir"/output/*.vtt output/ 2>/dev/null || true
+            [ -d "$dir" ] && cp "$dir"/*.mp3 "$dir"/*.vtt output/ 2>/dev/null || true
           done
           for dir in artifacts/team-*; do
-            [ -d "$dir" ] && cp "$dir"/output/team/*.mp3 "$dir"/output/team/*.vtt output/team/ 2>/dev/null || true
+            [ -d "$dir" ] && cp "$dir"/*.mp3 "$dir"/*.vtt output/team/ 2>/dev/null || true
           done
+          # Remove silence chunks that leaked from generate steps
+          rm -f output/_silence_*.mp3 output/team/_silence_*.mp3
           echo "Entry MP3s: $(ls output/*.mp3 2>/dev/null | wc -l)"
+          echo "Entry VTTs: $(ls output/*.vtt 2>/dev/null | wc -l)"
           echo "Team MP3s: $(ls output/team/*.mp3 2>/dev/null | wc -l)"
+          echo "Team VTTs: $(ls output/team/*.vtt 2>/dev/null | wc -l)"
 
       - name: Commit audio to audio repo
         run: |
