@@ -142,6 +142,106 @@
 		"gitignore": {
 			"sub": "git ignore",
 			"notes": "Two words."
+		},
+		"VOBsub": {
+			"sub": "VobSub",
+			"notes": "Two words run together — pronounce as Vob-Sub."
+		},
+		"VobSub": {
+			"ipa": "vɒb sʌb",
+			"notes": "Vob-Sub. DVD subtitle format."
+		},
+		"OCR": {
+			"say-as": "spell-out",
+			"notes": "Spell out: O-C-R."
+		},
+		"Tesseract": {
+			"ipa": "ˈtɛsərækt",
+			"notes": "TES-er-akt. OCR engine."
+		},
+		"HLS": {
+			"say-as": "spell-out",
+			"notes": "Spell out: H-L-S."
+		},
+		"HEVC": {
+			"say-as": "spell-out",
+			"notes": "Spell out: H-E-V-C."
+		},
+		"AVPlayer": {
+			"sub": "A-V Player",
+			"notes": "Apple's media player. AV is the abbreviation."
+		},
+		"HDR": {
+			"say-as": "spell-out",
+			"notes": "Spell out: H-D-R."
+		},
+		"MPEG": {
+			"ipa": "ˈɛmˌpɛɡ",
+			"notes": "EM-peg."
+		},
+		"PES": {
+			"say-as": "spell-out",
+			"notes": "Spell out: P-E-S. MPEG Packetized Elementary Stream."
+		},
+		"PTS": {
+			"say-as": "spell-out",
+			"notes": "Spell out: P-T-S. Presentation timestamp."
+		},
+		"swscale": {
+			"sub": "S-W-Scale",
+			"notes": "FFmpeg software scaling library."
+		},
+		"hlsplaylist": {
+			"sub": "H-L-S playlist",
+			"notes": "FFmpeg HLS playlist C file."
+		},
+		"hlsenc": {
+			"sub": "H-L-S enc",
+			"notes": "FFmpeg HLS encoder C file."
+		},
+		"avio_open2": {
+			"sub": "avio open 2",
+			"notes": "FFmpeg file IO function."
+		},
+		"ffprobe": {
+			"sub": "F-F-probe",
+			"notes": "FFmpeg inspection tool."
+		},
+		"libbluray": {
+			"sub": "lib Blu-ray",
+			"notes": "Blu-ray reading library."
+		},
+		"libgpg-error": {
+			"sub": "lib G-P-G error",
+			"notes": "GPG error library."
+		},
+		"pthread_mutex_t": {
+			"sub": "p-thread mutex",
+			"notes": "POSIX thread mutex type."
+		},
+		"ExoPlayer": {
+			"sub": "Exo Player",
+			"notes": "Android media player library."
+		},
+		"ldid": {
+			"sub": "el-did",
+			"notes": "Lightweight code signing tool by saurik."
+		},
+		"saurik": {
+			"ipa": "ˈsɔːrɪk",
+			"notes": "Creator of Cydia / ldid. SAW-rik."
+		},
+		"mkheader": {
+			"sub": "make-header",
+			"notes": "libgpg-error build tool."
+		},
+		"AVFMT_NOSTREAMS": {
+			"sub": "A-V-F-M-T no-streams",
+			"notes": "FFmpeg muxer flag."
+		},
+		"var_stream_map": {
+			"sub": "var stream map",
+			"notes": "FFmpeg HLS option."
 		}
 	},
 
