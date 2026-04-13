@@ -142,7 +142,7 @@ async def main():
             subprocess.run(
                 ['ffmpeg', '-y', '-f', 'lavfi', '-i', f'anullsrc=r=24000:cl=mono',
                  '-t', f'{dur/1000:.3f}', '-c:a', 'libmp3lame', '-b:a', '96k', sf],
-                capture_output=True, timeout=10)
+                capture_output=True, timeout=60)
             silence_cache[dur] = (sf, get_duration_ms(sf))
 
     # Step 2: Synthesize all speech segments in parallel → MP3 + VTT per segment

@@ -283,8 +283,8 @@
 
 	"special": {
 		"dutch": {
-			"voice": "nl-NL-ColetteNeural",
-			"displayName": "Colette",
+			"voice": "nl-NL-MaartenNeural",
+			"displayName": "Maarten",
 			"role": "Dutch language quotes",
 			"notes": "Used for Stoney's Dutch motto and any Dutch text."
 		},

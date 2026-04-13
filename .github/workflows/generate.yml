@@ -48,6 +48,7 @@ jobs:
     needs: list-scripts
     strategy:
       fail-fast: false
+      max-parallel: 8
       matrix:
         script: ${{ fromJson(needs.list-scripts.outputs.entry_scripts) }}
     steps:
@@ -83,6 +84,7 @@ jobs:
     needs: list-scripts
     strategy:
       fail-fast: false
+      max-parallel: 8
       matrix:
         script: ${{ fromJson(needs.list-scripts.outputs.team_scripts) }}
     steps:
