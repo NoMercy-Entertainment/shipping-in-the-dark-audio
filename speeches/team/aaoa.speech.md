@@ -14,7 +14,7 @@
 Who Is AAOA?
 
 <!-- p-1 -->
-The designer who made NoMercy look like a real product. Stoney found Ay streaming on Twitch, showed the project, and asked what he thought. Ay had words. Many things were designed badly — because Stoney is not a designer. But Stoney worked through the feedback fast, eager to improve, and that earned Ay's interest. He decided to fully redesign the app. Their workflow: Ay streams, Stoney sits in chat with a live dev server, they iterate in real time. "I am not a dev" is his favorite phrase — and he means it. He designs. Stoney implements.
+The designer who made NoMercy look like a real product. Stoney found AAOA streaming on Twitch, showed the project, and asked what he thought. AAOA had words. Many things were designed badly — because Stoney is not a designer. But Stoney worked through the feedback fast, eager to improve, and that earned AAOA's interest. He decided to fully redesign the app. Their workflow: AAOA streams, Stoney sits in chat with a live dev server, they iterate in real time. "I am not a dev" is his favorite phrase — and he means it. He designs. Stoney implements.
 
 [pause:600ms]
 

@@ -412,14 +412,6 @@
 			"sub": "A. A. O. A.",
 			"notes": "Spell out with periods to force letter-by-letter pronunciation."
 		},
-		"Ay ": {
-			"sub": "A. ",
-			"notes": "AAOA's short name. Trailing space prevents matching inside words. Period forces letter A pronunciation."
-		},
-		"Ay's": {
-			"sub": "A.'s",
-			"notes": "Possessive form of AAOA's short name."
-		},
 		"nomercy-tv": {
 			"sub": "no-mercy T-V",
 			"notes": "Project name. Hyphen + spell out TV."
