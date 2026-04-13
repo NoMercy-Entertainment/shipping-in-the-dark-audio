@@ -23,7 +23,7 @@ permissions:
 
 jobs:
   generate:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, beast-unit]
     steps:
       - name: Checkout audio repo
         uses: actions/checkout@v4
