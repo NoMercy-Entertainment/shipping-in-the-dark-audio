@@ -194,9 +194,7 @@ jobs:
     needs: [list-scripts, generate-entries, generate-team]
     if: >-
       always() &&
-      (needs.list-scripts.outputs.has_entries == 'true' || needs.list-scripts.outputs.has_team == 'true') &&
-      (needs.generate-entries.result == 'success' || needs.generate-team.result == 'success' ||
-       needs.generate-entries.result == 'skipped' || needs.generate-team.result == 'skipped')
+      (needs.generate-entries.result == 'success' || needs.generate-team.result == 'success')
     runs-on: [self-hosted, beast-unit]
     steps:
       - name: Checkout
@@ -239,7 +237,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add output/
+          git stash --include-untracked
           git pull --rebase origin master
+          git stash pop || true
           git add output/
           git diff --cached --quiet || {
             git commit -m "chore: update audio output"
