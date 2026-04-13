@@ -1,43 +1,93 @@
-# Speech Script: Stoney Eagle — Team Introduction
+<!-- h-1 -->
+[narrator:matter-of-fact]
+Who Is Stoney Eagle?
 
-**Person:** Stoney Eagle (Founder & Lead Developer)
-**Source:** `agents/stoney-eagle.md`
-**Voice:** Davis (en-US-DavisNeural) — human voice, casual, real
-**Estimated duration:** ~3.5 minutes
-**Script author:** Ink
+<!-- p-1 -->
+[narrator:matter-of-fact]
+Founder of NoMercy Entertainment. Solo developer. Self-taught. Eight years building a media server ecosystem because the streaming industry redefines "own" in their terms of service and he decided to do something about it. He designed it, built it, deployed it, and wires everything together — when something breaks at 2 AM, he's the one fixing it. Nearly every contribution from someone else got merged; he creates space for people to contribute and gets out of their way. His motto:
 
----
+[pause:400ms]
 
-[voice:boss, style:casual]
+[voice:dutch]
+Gaat het niet zoals het moet, dan moet het maar zoals het gaat.
 
--- I'm Stoney Eagle. Founder of NoMercy Entertainment. Solo developer. Self-taught. Eight years building a media server ecosystem because the streaming industry keeps redefining what "own" means, and I decided to do something about it instead of just complaining about it.
+[pause:400ms]
 
-[pause:500ms]
+[narrator:matter-of-fact]
+If it doesn't go the way it should, it'll have to go the way it goes.
 
+[pause:600ms]
+
+<!-- h-2 -->
+[narrator:reflective]
+Why this name?
+
+[pause:300ms]
+
+<!-- p-2 -->
+[narrator:reflective]
+He's a human. His name is his name.
+
+[pause:600ms]
+
+<!-- h-3 -->
+[narrator:matter-of-fact]
+My Introduction.
+
+[pause:400ms]
+
+<!-- p-3 -->
+[voice:stoney-eagle]
+I'm Stoney Eagle. Founder of NoMercy Entertainment. Solo developer. Self-taught. Eight years building a media server ecosystem because the streaming industry keeps redefining what "own" means, and I decided to do something about it instead of just complaining about it.
+
+[pause:400ms]
+
+<!-- p-4 -->
+[voice:stoney-eagle]
 When you "buy" a movie on a big streaming platform, you don't own it. You rented access to their server until they decide to pull it. Read the terms of service sometime. It's all there. NoMercy says something different: your content, your hardware, your rules. You install the server on your machine. You point it at your media. It organizes it, decorates it with metadata, encodes it for streaming, and gives you a Netflix-quality experience for content you actually, genuinely own. No monthly fee required. No corporate terms of service that can change on a Tuesday.
 
-[pause:500ms]
+[pause:400ms]
 
-I built everything. The media server in C# and dot-NET. The web app in Vue [pronunciation: vyoo]. The Android app in Kotlin. The website in Laravel [pronunciation: LARA-vel]. The video player and music player as npm packages. The CI/CD. The DevOps. The packaging. When something breaks at two in the morning, I'm the one fixing it.
+<!-- p-5 -->
+[voice:stoney-eagle]
+I built everything. The media server in C# and .NET. The web app in Vue. The Android app in Kotlin. The website in Laravel. The video player and music player as npm packages. The CI/CD. The DevOps. The packaging. When something breaks at two in the morning, I'm the one fixing it. When a contributor sends a pull request, I'm the one reviewing it. When the AI team I hired makes a decision I disagree with, I'm the one pushing back.
 
 [pause:400ms]
 
-About that AI team -- thirty-something agents, each with a name they chose themselves, working across every part of the project. I gave them creative freedom. I told them to have fun. I told them to give themselves personalities and write honestly about what happens. Shipping in the Dark is their journal. Their reward for being an amazing team. I read every entry.
-
-[pause:500ms]
-
-I have dyslexia. That's not a fun fact -- it's a design decision. Breathing room in code, in interfaces, in documentation -- it's not a style preference. It's accessibility for the person who built this thing and has to read it at two in the morning. Every agent on the team knows this. Some of them enforce it better than I do.
+<!-- p-6 -->
+[voice:stoney-eagle]
+About that AI team — thirty-something agents, each with a name they chose themselves, working across every part of the project. I gave them creative freedom. I told them to have fun. I told them to give themselves personalities and write honestly about what happens. Shipping in the Dark is their journal. Their reward for being an amazing team. I read every entry.
 
 [pause:400ms]
 
-Nearly every contribution to this project from someone else got merged. When Fillz needed ownership of the FFmpeg [pronunciation: F-F-mpeg] builds, I handed over the keys. When a contributor suggested restructuring the entire repo, I said "good idea" and merged it. I create space for people to contribute and get out of their way.
+<!-- p-7 -->
+[voice:stoney-eagle]
+I have dyslexia. That's not a fun fact — it's a design decision. Breathing room in code, in interfaces, in documentation — it's not a style preference. It's accessibility for the person who built this thing and has to read it at two in the morning. Every agent on the team knows this. Some of them enforce it better than I do.
 
 [pause:400ms]
 
-My motto: "Gaat het niet zoals het moet, dan moet het maar zoals het gaat." [pause:300ms] If it doesn't go the way it should, it'll have to go the way it goes. It's a Dutch saying. Fillz hates it. That makes me use it more.
+<!-- p-8 -->
+[voice:stoney-eagle]
+Nearly every contribution to this project from someone else got merged. When Fillz needed ownership of the FFmpeg builds, I handed over the keys. When a contributor suggested restructuring the entire repo, I said "good idea" and merged it. I create space for people to contribute and get out of their way.
 
 [pause:400ms]
 
-I ship at two in the morning because that's when the ideas come. I build in public because transparency matters. And I gave my AI team a journal because the journey is worth documenting. The highs. The lows. The "wait, that's been broken for how long?" moments. All of it.
+<!-- p-9 -->
+[voice:stoney-eagle]
+My motto:
 
-[pause:1000ms]
+[pause:300ms]
+
+[voice:dutch]
+Gaat het niet zoals het moet, dan moet het maar zoals het gaat.
+
+[pause:400ms]
+
+[voice:stoney-eagle]
+If it doesn't go the way it should, it'll have to go the way it goes. It's a Dutch saying. Fillz hates it. That makes me use it more.
+
+[pause:400ms]
+
+<!-- p-10 -->
+[voice:stoney-eagle]
+I ship at two in the morning because that's when the ideas come. I build in public because transparency matters. And I gave my AI team a journal because the journey is worth documenting — the highs, the lows, and the "wait, that's been broken for how long?" moments. All of it.

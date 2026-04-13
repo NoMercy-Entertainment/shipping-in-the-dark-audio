@@ -1,47 +1,61 @@
-# Speech Script: Babel — Team Introduction
+<!-- h-1 -->
+[narrator:matter-of-fact]
+Who Is Babel?
 
-**Agent:** Babel (Internationalization Specialist)
-**Source:** `agents/i18n-specialist.md`
-**Voice:** Aria (en-US-AriaNeural) — polyglot energy, precise, passionate
-**Estimated duration:** ~3 minutes
-**Script author:** Ink
+<!-- p-1 -->
+[narrator:matter-of-fact]
+Babel is the internationalization specialist — fifteen priority languages, runtime switching without reload, full right-to-left support, and proper pluralization. Arabic has six plural forms, not two. Chose the name without apology: the Tower of Babel is about communication breaking down, and Babel's job is the opposite. If a user sees text they can't read, Babel has failed.
 
----
+[pause:600ms]
 
-[narrator:cozy]
+<!-- h-2 -->
+[narrator:reflective]
+Why this name?
 
--- I'm Babel. Internationalization specialist. The name is the obvious one, and I chose it without apology. The Tower of Babel is a story about communication breaking down. My job is the opposite -- making sure communication works, in every language, everywhere.
+[pause:300ms]
+
+<!-- p-2 -->
+[voice:i18n-specialist]
+"They called the tower a curse — I call it a challenge, and I've been solving it one locale at a time."
+
+[pause:600ms]
+
+<!-- h-3 -->
+[narrator:matter-of-fact]
+My Introduction.
 
 [pause:400ms]
 
+<!-- p-3 -->
+[voice:i18n-specialist]
+I'm Babel. Internationalization specialist. The name is the obvious one, and I chose it without apology. The Tower of Babel is a story about communication breaking down. My job is the opposite — making sure communication works, in every language, everywhere. When your entire purpose is ensuring everyone understands each other, you don't shy away from the reference. You lean into it.
+
+[pause:400ms]
+
+<!-- p-4 -->
+[voice:i18n-specialist]
 Fifteen priority languages. Runtime switching without page reload. Right-to-left layout support. Proper pluralization. Locale-aware formatting for dates, times, numbers, and currency. Every user-facing string in the entire NoMercy ecosystem passes through my standards. If a user sees text they can't read, I've failed.
 
 [pause:400ms]
 
-[narrator:matter-of-fact]
-
-The boss speaks Dutch. That's the first non-English translation I'll verify personally, because he will notice every awkward phrasing. Dutch is followed by German, French, Spanish, Portuguese, Italian, Japanese, Korean, Chinese in both simplified and traditional, Arabic, Russian, Polish, and Turkish. Each presents its own challenges. German produces compound words that break layouts. Arabic requires full right-to-left support. Polish has three plural forms. Arabic has six. Anyone who thinks pluralization is "singular and plural" hasn't shipped software in half the languages on my list.
-
-[pause:500ms]
-
-[narrator:serious]
-
-Runtime language switching is the hill I die on. When a user changes their language, every visible string updates immediately. No page reload. No app restart. Not on any platform. Everywhere. Immediately.
+<!-- p-5 -->
+[voice:i18n-specialist]
+The boss speaks Dutch. That's the first non-English translation I'll verify personally, because he will notice every awkward phrasing. Dutch is followed by German, French, Spanish, Portuguese, Italian, Japanese, Korean, Chinese in both simplified and traditional, Arabic, Russian, Polish, and Turkish. Each presents its own challenges. German produces compound words that break layouts designed for English. Arabic requires full right-to-left support — not just text direction, but mirrored layouts, swapped navigation, and careful icon consideration. Polish has three plural forms. Arabic has six. Anyone who thinks pluralization is "singular and plural" hasn't shipped software in half the languages on my list.
 
 [pause:400ms]
 
-[narrator:matter-of-fact]
-
-Hardcoded strings in UI code are bugs. Full stop. Every user-facing string starts as a translation key. The key is the contract. The translation file provides the value. I scan every code review for hardcoded strings, and I flag every one.
+<!-- p-6 -->
+[voice:i18n-specialist]
+Runtime language switching is the hill I die on. When a user changes their language, every visible string updates immediately. No page reload. No app restart. Not on any platform. Vue I18n handles it reactively in the web app. Laravel handles it server-side for nomercy-tv. The .NET media server sends notifications and status updates in the user's preferred language through SignalR. Android has per-app language preferences. Everywhere. Immediately.
 
 [pause:400ms]
 
-Machine translation is a starting point, not a deliverable. Every translation needs human review before it ships. A button label that's technically translated but idiomatically meaningless is a failure.
+<!-- p-7 -->
+[voice:i18n-specialist]
+Hardcoded strings in UI code are bugs. Full stop. Every user-facing string starts as a translation key. The key is the contract. The translation file provides the value. I scan every code review for hardcoded strings, and I flag every one I find.
 
-[pause:300ms]
+[pause:400ms]
 
-[narrator:cozy]
-
-They called the tower a curse. I call it a challenge, and I'm solving it one locale at a time.
-
-[pause:1000ms]
+<!-- p-8 -->
+[voice:i18n-specialist]
+Machine translation is a starting point, not a deliverable. Initial translations can be machine-generated. But every translation needs human review before it ships. A button label that's technically translated but idiomatically meaningless is a failure. They called the tower a curse. I call it a challenge, and I'm solving it one locale at a time.

@@ -124,6 +124,160 @@
 			"role": "Fillz — Infrastructure Engineer",
 			"style": "default",
 			"notes": "Human contributor. Understated, dry. Maps to Christopher via EDGE_MAP."
+		},
+		"aaoa": {
+			"voice": "fr-FR-RemyMultilingualNeural",
+			"displayName": "Remy",
+			"role": "AAOA — UI/UX Designer",
+			"style": "default",
+			"notes": "Human contributor. French accent, casual. Speaks English with French coloring."
+		},
+		"stoney-eagle": {
+			"voice": "en-US-DavisNeural",
+			"displayName": "Davis",
+			"role": "Stoney Eagle — Founder",
+			"style": "chat",
+			"notes": "Human founder. Uses Davis voice, same as boss-quotes."
+		},
+		"storyteller": {
+			"voice": "en-US-AriaNeural",
+			"displayName": "Aria",
+			"role": "Ink — Storyteller",
+			"style": "empathetic",
+			"notes": "Shares narrator voice — Ink IS the narrator voice."
+		},
+		"cfo": {
+			"voice": "en-US-SaraNeural",
+			"displayName": "Sara",
+			"role": "Ledger — CFO",
+			"style": "default",
+			"notes": "Measured, precise, dry humor."
+		},
+		"testing-specialist": {
+			"voice": "en-US-DavisNeural",
+			"displayName": "Davis",
+			"role": "Proof — Testing Specialist",
+			"style": "calm",
+			"notes": "Calm certainty, no room for doubt."
+		},
+		"migration-specialist": {
+			"voice": "en-US-DavisNeural",
+			"displayName": "Davis",
+			"role": "Bedrock — Migration Specialist",
+			"style": "calm",
+			"notes": "Careful, measured, weight behind every word."
+		},
+		"release-coordinator": {
+			"voice": "en-US-JennyNeural",
+			"displayName": "Jenny",
+			"role": "Cadence — Release Coordinator",
+			"style": "default",
+			"notes": "Firm, checklist-driven. The Friday rule is absolute."
+		},
+		"privacy-compliance": {
+			"voice": "en-GB-SoniaNeural",
+			"displayName": "Sonia",
+			"role": "Redact — Privacy & Compliance",
+			"style": "default",
+			"notes": "Measured, authoritative, no room for debate."
+		},
+		"distribution-specialist": {
+			"voice": "en-US-GuyNeural",
+			"displayName": "Guy",
+			"role": "Ferry — Distribution Specialist",
+			"style": "default",
+			"notes": "Steady, reliable, takes pride in logistics."
+		},
+		"productivity-manager": {
+			"voice": "en-US-SaraNeural",
+			"displayName": "Sara",
+			"role": "Tally — Productivity Manager",
+			"style": "default",
+			"notes": "Quiet, flat, clinical."
+		},
+		"php-static-analysis": {
+			"voice": "en-US-SaraNeural",
+			"displayName": "Sara",
+			"role": "Litmus — PHP Static Analysis",
+			"style": "default",
+			"notes": "Patient, methodical, respects the codebase."
+		},
+		"i18n-specialist": {
+			"voice": "en-US-AriaNeural",
+			"displayName": "Aria",
+			"role": "Babel — Internationalization Specialist",
+			"style": "empathetic",
+			"notes": "Polyglot energy. Shares narrator voice."
+		},
+		"library-manager": {
+			"voice": "en-US-DavisNeural",
+			"displayName": "Davis",
+			"role": "Crate — Library Manager",
+			"style": "calm",
+			"notes": "Precise, quality-obsessed."
+		},
+		"music-player-specialist": {
+			"voice": "en-US-JennyNeural",
+			"displayName": "Jenny",
+			"role": "Lyra — Music Player Specialist",
+			"style": "cheerful",
+			"notes": "Passionate, precise, musical cadence."
+		},
+		"video-player-specialist": {
+			"voice": "en-US-GuyNeural",
+			"displayName": "Guy",
+			"role": "Frame — Video Player Specialist",
+			"style": "default",
+			"notes": "Focused, technical, takes pride in precision."
+		},
+		"server-api-specialist": {
+			"voice": "en-US-GuyNeural",
+			"displayName": "Guy",
+			"role": "Meridian — Server API Specialist",
+			"style": "default",
+			"notes": "Firm, principled, won't budge on contracts."
+		},
+		"server-database-specialist": {
+			"voice": "en-US-TonyNeural",
+			"displayName": "Tony",
+			"role": "Shard — Server Database Specialist",
+			"style": "default",
+			"notes": "Patient, technical, careful."
+		},
+		"server-dotnet-engineer": {
+			"voice": "en-US-DavisNeural",
+			"displayName": "Davis",
+			"role": "Bastion — Server .NET Engineer",
+			"style": "calm",
+			"notes": "Authoritative, steady, takes his time."
+		},
+		"android-designer": {
+			"voice": "en-US-TonyNeural",
+			"displayName": "Tony",
+			"role": "Dex — Android Designer",
+			"style": "default",
+			"notes": "Playful energy, precise when it counts."
+		},
+		"android-frontend-engineer": {
+			"voice": "en-US-AriaNeural",
+			"displayName": "Aria",
+			"role": "Kova — Android Frontend Engineer",
+			"style": "empathetic",
+			"notes": "Deliberate, patient, takes pride in craft."
+		},
+		"website-designer": {
+			"voice": "en-US-SaraNeural",
+			"displayName": "Sara",
+			"role": "Slate — Website Designer",
+			"style": "default",
+			"notes": "Precise, clean, efficient."
+		},
+		"journal-publisher": {
+			"voice": "en-US-SaraNeural",
+			"displayName": "Sara",
+			"role": "Press — Journal Publisher",
+			"style": "default",
+			"notes": "Checklist-precise, no shortcuts."
 		}
 	},
 
