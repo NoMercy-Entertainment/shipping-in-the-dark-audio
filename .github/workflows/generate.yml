@@ -70,15 +70,16 @@ jobs:
       - name: Generate audio
         if: ${{ inputs.dry_run != true }}
         run: |
+          source .venv/bin/activate
           if [ -n "${{ inputs.entry }}" ]; then
             slug="${{ inputs.entry }}"
             echo "Synthesizing: $slug"
-            .venv/bin/python scripts/synth-edge.py "speeches/${slug}.speech.md" "output/${slug}.mp3"
+            python scripts/synth-edge.py "speeches/${slug}.speech.md" "output/${slug}.mp3"
           else
             for script in speeches/*.speech.md; do
               slug=$(basename "$script" .speech.md)
               echo "Synthesizing: $slug"
-              .venv/bin/python scripts/synth-edge.py "$script" "output/${slug}.mp3"
+              python scripts/synth-edge.py "$script" "output/${slug}.mp3"
             done
           fi
 
