@@ -8,95 +8,139 @@ on:
       - 'config/**'
   workflow_dispatch:
     inputs:
-      entry:
-        description: 'Specific entry slug to generate (leave empty for all pending)'
+      target:
+        description: 'What to generate: "all", "entries", "team", or a specific slug'
         required: false
         type: string
+        default: 'all'
       dry_run:
-        description: 'Dry run — estimate costs without generating'
+        description: 'Dry run — skip generation'
         required: false
         type: boolean
-        default: true
+        default: false
 
 permissions:
   contents: write
 
 jobs:
-  generate:
+  list-scripts:
     runs-on: [self-hosted, beast-unit]
+    outputs:
+      entry_scripts: ${{ steps.list.outputs.entry_scripts }}
+      team_scripts: ${{ steps.list.outputs.team_scripts }}
     steps:
-      - name: Checkout audio repo
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Checkout journal entries
-        uses: actions/checkout@v4
-        with:
-          repository: NoMercy-Entertainment/shipping-in-the-dark
-          path: journal-source
-          sparse-checkout: entries
-
-      - name: Copy entries
+      - name: List speech scripts
+        id: list
         run: |
-          mkdir -p entries
-          cp journal-source/entries/*.md entries/
+          entries=$(ls speeches/*.speech.md 2>/dev/null | xargs -I{} basename {} .speech.md | jq -R . | jq -sc .)
+          team=$(ls speeches/team/*.speech.md 2>/dev/null | xargs -I{} basename {} .speech.md | jq -R . | jq -sc .)
+          echo "entry_scripts=${entries}" >> $GITHUB_OUTPUT
+          echo "team_scripts=${team}" >> $GITHUB_OUTPUT
+          echo "Entries: $entries"
+          echo "Team: $team"
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
+  generate-entries:
+    if: ${{ inputs.dry_run != true }}
+    runs-on: [self-hosted, beast-unit]
+    needs: list-scripts
+    strategy:
+      fail-fast: false
+      matrix:
+        script: ${{ fromJson(needs.list-scripts.outputs.entry_scripts) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Install ffmpeg
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
-
-      - name: Show status
-        run: node scripts/generate.mjs status
-
-      - name: Check entries
-        run: node scripts/generate.mjs check
-
-      - name: Estimate costs
-        if: ${{ inputs.dry_run == true }}
-        run: node scripts/generate.mjs estimate
-
-      - name: Setup Python venv and install edge-tts
-        if: ${{ inputs.dry_run != true }}
+      - name: Setup Python venv
         run: |
           python3 -m venv .venv
-          .venv/bin/pip install edge-tts
+          .venv/bin/pip install -q edge-tts
 
-      - name: Generate audio
-        if: ${{ inputs.dry_run != true }}
+      - name: Install ffmpeg
+        run: which ffmpeg || sudo apt-get install -y -qq ffmpeg
+
+      - name: Synthesize
         run: |
           source .venv/bin/activate
-          if [ -n "${{ inputs.entry }}" ]; then
-            slug="${{ inputs.entry }}"
-            echo "Synthesizing: $slug"
-            python scripts/synth-edge.py "speeches/${slug}.speech.md" "output/${slug}.mp3"
-          else
-            for script in speeches/*.speech.md; do
-              slug=$(basename "$script" .speech.md)
-              echo "Synthesizing: $slug"
-              python scripts/synth-edge.py "$script" "output/${slug}.mp3"
-            done
-          fi
+          mkdir -p output
+          echo "Synthesizing entry: ${{ matrix.script }}"
+          python scripts/synth-edge.py "speeches/${{ matrix.script }}.speech.md" "output/${{ matrix.script }}.mp3"
 
-      - name: Upload audio artifacts
-        if: ${{ inputs.dry_run != true }}
+      - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: audio-output
+          name: entry-${{ matrix.script }}
           path: |
             output/*.mp3
             output/*.vtt
 
-      - name: Commit updated hashes and budget
-        if: "!inputs.dry_run"
+  generate-team:
+    if: ${{ inputs.dry_run != true }}
+    runs-on: [self-hosted, beast-unit]
+    needs: list-scripts
+    strategy:
+      fail-fast: false
+      matrix:
+        script: ${{ fromJson(needs.list-scripts.outputs.team_scripts) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python venv
+        run: |
+          python3 -m venv .venv
+          .venv/bin/pip install -q edge-tts
+
+      - name: Install ffmpeg
+        run: which ffmpeg || sudo apt-get install -y -qq ffmpeg
+
+      - name: Synthesize
+        run: |
+          source .venv/bin/activate
+          mkdir -p output/team
+          echo "Synthesizing team: ${{ matrix.script }}"
+          python scripts/synth-edge.py "speeches/team/${{ matrix.script }}.speech.md" "output/team/${{ matrix.script }}.mp3"
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: team-${{ matrix.script }}
+          path: |
+            output/team/*.mp3
+            output/team/*.vtt
+
+  collect:
+    needs: [generate-entries, generate-team]
+    if: always() && (needs.generate-entries.result == 'success' || needs.generate-team.result == 'success')
+    runs-on: [self-hosted, beast-unit]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Collect outputs
+        run: |
+          mkdir -p output output/team
+          for dir in artifacts/entry-*; do
+            [ -d "$dir" ] && cp "$dir"/output/*.mp3 "$dir"/output/*.vtt output/ 2>/dev/null || true
+          done
+          for dir in artifacts/team-*; do
+            [ -d "$dir" ] && cp "$dir"/output/team/*.mp3 "$dir"/output/team/*.vtt output/team/ 2>/dev/null || true
+          done
+          echo "Entry MP3s: $(ls output/*.mp3 2>/dev/null | wc -l)"
+          echo "Team MP3s: $(ls output/team/*.mp3 2>/dev/null | wc -l)"
+
+      - name: Commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add config/budget.json output/hashes.json
-          git diff --cached --quiet || git commit -m "chore: update hashes and budget after audio generation"
+          git add output/
+          git diff --cached --quiet || git commit -m "chore: update audio output"
           git push
