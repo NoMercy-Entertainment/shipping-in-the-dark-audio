@@ -151,7 +151,7 @@ jobs:
             [ -f "$mp3" ] && gh release upload audio-v1 "$mp3" --repo NoMercy-Entertainment/shipping-in-the-dark --clobber || true
           done
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.PAT }}
 
       - name: Deploy VTTs to journal site
         run: |
@@ -177,4 +177,4 @@ jobs:
             git push
           }
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.PAT }}
