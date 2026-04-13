@@ -117,6 +117,13 @@
 			"role": "Throttle — performance specialist",
 			"style": "default",
 			"notes": "Measures everything. Thinks in p95 latency."
+		},
+		"fill": {
+			"voice": "en-US-TonyNeural",
+			"displayName": "Christopher",
+			"role": "Fillz — Infrastructure Engineer",
+			"style": "default",
+			"notes": "Human contributor. Understated, dry. Maps to Christopher via EDGE_MAP."
 		}
 	},
 

@@ -242,6 +242,154 @@
 		"var_stream_map": {
 			"sub": "var stream map",
 			"notes": "FFmpeg HLS option."
+		},
+		".NET": {
+			"sub": "dot-net",
+			"notes": "Microsoft runtime. Not 'dot net' as two words."
+		},
+		"ABR": {
+			"say-as": "spell-out",
+			"notes": "Adaptive Bitrate. A-B-R."
+		},
+		"AV1": {
+			"sub": "A-V-1",
+			"notes": "Video codec. Spell out A-V, then one."
+		},
+		"AnalyserNode": {
+			"sub": "Analyser Node",
+			"notes": "Web Audio API node. Break PascalCase."
+		},
+		"CMAF": {
+			"sub": "see-maff",
+			"notes": "Common Media Application Format."
+		},
+		"Chromecast": {
+			"ipa": "ˈkroʊmkæst",
+			"notes": "Chrome-cast. Google's casting device."
+		},
+		"Compose": {
+			"ipa": "kəmˈpoʊz",
+			"notes": "Jetpack Compose. Standard pronunciation."
+		},
+		"Cypress": {
+			"ipa": "ˈsaɪprəs",
+			"notes": "End-to-end testing framework."
+		},
+		"EF Core": {
+			"sub": "E-F Core",
+			"notes": "Entity Framework Core. Spell out E-F."
+		},
+		"InfiniFrame": {
+			"sub": "Infini-Frame",
+			"notes": "Desktop app wrapper. In-FINN-ee-frame."
+		},
+		"Kotlin": {
+			"ipa": "ˈkɒtlɪn",
+			"notes": "KOT-lin. JVM language."
+		},
+		"Larastan": {
+			"ipa": "ˈlærəstæn",
+			"notes": "LARR-uh-stan. Laravel static analysis."
+		},
+		"Moooom": {
+			"ipa": "muːm",
+			"notes": "Like 'moom' with a long 'oo'. Design system name."
+		},
+		"NuGet": {
+			"ipa": "ˈnuːɡɛt",
+			"notes": "NEW-get. .NET package manager."
+		},
+		"OIDC": {
+			"say-as": "spell-out",
+			"notes": "OpenID Connect. O-I-D-C."
+		},
+		"PHPStan": {
+			"sub": "P-H-P-Stan",
+			"notes": "PHP static analysis tool."
+		},
+		"PWA": {
+			"say-as": "spell-out",
+			"notes": "Progressive Web App. P-W-A."
+		},
+		"Pest": {
+			"ipa": "pɛst",
+			"notes": "PHP testing framework. Like the word pest."
+		},
+		"Pinia": {
+			"ipa": "ˈpiːnjə",
+			"notes": "PEEN-ya. Vue state management."
+		},
+		"PostgreSQL": {
+			"ipa": "ˈpoʊstɡrɛsˌkjuːˈɛl",
+			"notes": "Post-gres-Q-L."
+		},
+		"SQLite": {
+			"ipa": "ˌɛskjuːɛlˈaɪt",
+			"notes": "S-Q-L-ite. Not 'sequel-ite'."
+		},
+		"SignalR": {
+			"sub": "Signal-R",
+			"notes": "Microsoft real-time library."
+		},
+		"TanStack": {
+			"sub": "Tan-Stack",
+			"notes": "TanStack Query. Two words."
+		},
+		"Vitest": {
+			"ipa": "viːtɛst",
+			"notes": "Vee-test. Vite-based test runner."
+		},
+		"WAI": {
+			"sub": "W-A-I",
+			"notes": "Web Accessibility Initiative."
+		},
+		"WCAG": {
+			"sub": "W-CAG",
+			"notes": "Web Content Accessibility Guidelines. W-cag."
+		},
+		"WebVTT": {
+			"sub": "Web V-T-T",
+			"notes": "Web Video Text Tracks format."
+		},
+		"codec": {
+			"ipa": "ˈkoʊdɛk",
+			"notes": "COH-deck. Coder-decoder."
+		},
+		"codecs": {
+			"ipa": "ˈkoʊdɛks",
+			"notes": "COH-decks. Plural."
+		},
+		"fMP4": {
+			"sub": "fragmented M-P-4",
+			"notes": "Fragmented MP4 container."
+		},
+		"i18n": {
+			"sub": "i-eighteen-n",
+			"notes": "Internationalization. i, 18 letters, n."
+		},
+		"l10n": {
+			"sub": "l-ten-n",
+			"notes": "Localization. l, 10 letters, n."
+		},
+		"oklch": {
+			"sub": "O-K-L-C-H",
+			"notes": "Color space. Spell out."
+		},
+		"semver": {
+			"ipa": "ˈsɛmvɜːr",
+			"notes": "SEM-ver. Semantic versioning."
+		},
+		"vCPU": {
+			"sub": "virtual C-P-U",
+			"notes": "Virtual CPU."
+		},
+		"xUnit": {
+			"sub": "ex-unit",
+			"notes": "Testing framework for .NET."
+		},
+		"Reka UI": {
+			"sub": "REK-uh U-I",
+			"notes": "Component library. Break into Reka + UI."
 		}
 	},
 
