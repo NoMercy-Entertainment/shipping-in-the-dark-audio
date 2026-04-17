@@ -308,7 +308,7 @@ jobs:
 
       - name: Collect outputs
         run: |
-          mkdir -p output output/team
+          mkdir -p output output/team output/reports
 
           for dir in artifacts/entry-*; do
             [ -d "$dir" ] || continue
@@ -318,15 +318,51 @@ jobs:
             [ -d "$dir" ] || continue
             cp "$dir"/*.mp3 "$dir"/*.vtt output/team/ 2>/dev/null || true
           done
+          # Reports: the upload-artifact action flattens the common root, so
+          # each artifact directory contains bare {script}.{voice}.mp3 / .vtt.
+          # Reconstruct the report subdir from the artifact name, which has
+          # the pattern  report-{report_prefix}-{script_slug}-{voice}.
+          # report_prefix is the report folder name (e.g. "the-effortless-encoder").
+          for dir in artifacts/report-*; do
+            [ -d "$dir" ] || continue
+            artname="$(basename "$dir")"
+            # Strip the leading "report-" and trailing "-{script_slug}-{voice}".
+            # Matrix-inputs guarantee script_slug has no hyphen at its tail
+            # beyond the leading digit pair, so peel the last two dashes.
+            tmp="${artname#report-}"
+            # Peel last piece: voice (female|male)
+            voice="${tmp##*-}"
+            tmp="${tmp%-$voice}"
+            # Peel script slug — known matrix slugs are kebab (e.g. 00-overview).
+            # Since our matrix script values are two-part at most, we grep the
+            # audio file to find the right script slug.
+            report_prefix=""
+            script_slug=""
+            # The MP3 filename = {script_slug}.{voice}.mp3. Use it as ground truth.
+            mp3_name="$(ls "$dir"/*.mp3 2>/dev/null | head -1 | xargs -n1 basename)"
+            if [ -n "$mp3_name" ]; then
+              script_slug="${mp3_name%.${voice}.mp3}"
+              report_prefix="${tmp%-$script_slug}"
+            fi
+            if [ -z "$report_prefix" ] || [ -z "$script_slug" ]; then
+              echo "::warning::Could not parse report artifact name: $artname"
+              continue
+            fi
+            mkdir -p "output/reports/${report_prefix}"
+            cp "$dir"/*.mp3 "$dir"/*.vtt "output/reports/${report_prefix}/" 2>/dev/null || true
+          done
 
           entry_mp3=$(ls output/*.mp3 2>/dev/null | wc -l)
           entry_vtt=$(ls output/*.vtt 2>/dev/null | wc -l)
           team_mp3=$(ls output/team/*.mp3 2>/dev/null | wc -l)
           team_vtt=$(ls output/team/*.vtt 2>/dev/null | wc -l)
-          echo "Entry: ${entry_mp3} MP3s, ${entry_vtt} VTTs"
-          echo "Team:  ${team_mp3} MP3s, ${team_vtt} VTTs"
+          report_mp3=$(find output/reports -name '*.mp3' 2>/dev/null | wc -l)
+          report_vtt=$(find output/reports -name '*.vtt' 2>/dev/null | wc -l)
+          echo "Entry:   ${entry_mp3} MP3s, ${entry_vtt} VTTs"
+          echo "Team:    ${team_mp3} MP3s, ${team_vtt} VTTs"
+          echo "Reports: ${report_mp3} MP3s, ${report_vtt} VTTs"
 
-          total=$((entry_mp3 + team_mp3))
+          total=$((entry_mp3 + team_mp3 + report_mp3))
           if [ "$total" -eq 0 ]; then
             echo "::error::No audio files collected — nothing to deploy"
             exit 1
@@ -348,18 +384,31 @@ jobs:
 
       - name: Upload MP3s to GitHub Release
         run: |
+          # Entry and team MP3s upload with their basename
           for mp3 in output/*.mp3 output/team/*.mp3; do
             [ -f "$mp3" ] || continue
             echo "Uploading: $mp3"
             gh release upload audio-v1 "$mp3" --repo NoMercy-Entertainment/shipping-in-the-dark --clobber || true
           done
+          # Report MP3s: live under output/reports/{report_dir}/{script}.{voice}.mp3.
+          # Rename to {report_dir}--{script}.{voice}.mp3 so all release assets are
+          # flat and uniquely named.
+          while IFS= read -r mp3; do
+            [ -f "$mp3" ] || continue
+            rel="${mp3#output/reports/}"
+            report_dir="${rel%%/*}"
+            leaf="${rel#*/}"
+            upload_name="${report_dir}--${leaf}"
+            echo "Uploading: $mp3 → $upload_name"
+            gh release upload audio-v1 "${mp3}#${upload_name}" --repo NoMercy-Entertainment/shipping-in-the-dark --clobber || true
+          done < <(find output/reports -name '*.mp3' 2>/dev/null)
         env:
           GH_TOKEN: ${{ secrets.PAT }}
 
       - name: Deploy VTTs to journal site
         run: |
           git clone --depth 1 https://x-access-token:${GH_TOKEN}@github.com/NoMercy-Entertainment/shipping-in-the-dark.git journal-site
-          mkdir -p journal-site/site/public/audio/team
+          mkdir -p journal-site/site/public/audio/team journal-site/site/public/audio/reports
 
           for vtt in output/*.vtt; do
             [ -f "$vtt" ] && cp "$vtt" journal-site/site/public/audio/
@@ -367,6 +416,10 @@ jobs:
           for vtt in output/team/*.vtt; do
             [ -f "$vtt" ] && cp "$vtt" journal-site/site/public/audio/team/
           done
+          # Preserve the reports/{report_dir}/ structure under /audio/reports/
+          if [ -d output/reports ]; then
+            cp -r output/reports/* journal-site/site/public/audio/reports/ 2>/dev/null || true
+          fi
 
           cd journal-site
           git config user.name "github-actions[bot]"
