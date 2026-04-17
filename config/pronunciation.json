@@ -509,23 +509,23 @@
 			"notes": "Apple's media framework. Break into two words."
 		},
 		"libx264": {
-			"sub": "lib x 2 6 4",
+			"sub": "lib x two sixty four",
 			"notes": "Software H.264 encoder."
 		},
 		"libx265": {
-			"sub": "lib x 2 6 5",
+			"sub": "lib x two sixty five",
 			"notes": "Software H.265 encoder."
 		},
 		"libsvtav1": {
-			"sub": "lib S-V-T A-V-1",
+			"sub": "lib S-V-T AV1",
 			"notes": "SVT AV1 encoder."
 		},
 		"av1_nvenc": {
-			"sub": "A-V-1 N-V enc",
+			"sub": "AV1 NVENC",
 			"notes": "NVIDIA's AV1 encoder."
 		},
 		"h264_nvenc": {
-			"sub": "H 2 6 4 N-V enc",
+			"sub": "H two sixty four NVENC",
 			"notes": "NVIDIA's H.264 encoder handle in ffmpeg."
 		},
 		"VP9": {
@@ -580,7 +580,7 @@
 			"sub": "S-D-R"
 		},
 		"AES-128": {
-			"sub": "A-E-S 128",
+			"sub": "AES one twenty eight",
 			"notes": "128-bit AES encryption."
 		},
 		"AES": {
@@ -654,15 +654,15 @@
 			"sub": "H-M-A-C"
 		},
 		"HMAC-SHA256": {
-			"sub": "H-M-A-C S-H-A 256",
+			"sub": "HMAC SHA two fifty six",
 			"notes": "HMAC with SHA-256."
 		},
 		"SHA256": {
-			"sub": "S-H-A 256",
+			"sub": "SHA two fifty six",
 			"notes": "256-bit SHA hash."
 		},
 		"SHA-256": {
-			"sub": "S-H-A 256",
+			"sub": "SHA two fifty six",
 			"notes": "256-bit SHA hash."
 		},
 		"NAS": {
@@ -755,19 +755,19 @@
 			"notes": "4K resolution. Say 4 K not 4 kilo."
 		},
 		"1080p": {
-			"sub": "10 80 p",
+			"sub": "ten eighty p",
 			"notes": "Full HD resolution."
 		},
 		"720p": {
-			"sub": "7 20 p",
+			"sub": "seven twenty p",
 			"notes": "HD resolution."
 		},
 		"480p": {
-			"sub": "4 80 p",
+			"sub": "four eighty p",
 			"notes": "SD resolution."
 		},
 		"2160p": {
-			"sub": "2 1 60 p",
+			"sub": "twenty one sixty p",
 			"notes": "4K resolution suffix form."
 		},
 		"3D": {
@@ -775,11 +775,11 @@
 			"notes": "Three dimensional."
 		},
 		"H.264": {
-			"sub": "H 2 6 4",
+			"sub": "H two sixty four",
 			"notes": "H dot 264 codec."
 		},
 		"H.265": {
-			"sub": "H 2 6 5",
+			"sub": "H two sixty five",
 			"notes": "H dot 265 codec."
 		},
 		"HD DVD": {
@@ -947,7 +947,7 @@
 			"sub": "P-S-N-R"
 		},
 		"hevc_nvenc": {
-			"sub": "H-E-V-C N-V enc"
+			"sub": "HEVC NVENC"
 		},
 		"FLAC": {
 			"sub": "flack"
