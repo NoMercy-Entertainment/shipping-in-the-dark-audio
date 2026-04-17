@@ -12,6 +12,16 @@
 		"notes": "Warm, storytelling voice. Not to be confused with AnaNeural which is Stoney's personal voice."
 	},
 
+	"narrator_male": {
+		"voice": "en-US-GuyNeural",
+		"displayName": "Guy",
+		"role": "Alternate male narrator for long-form reports",
+		"style": "empathetic",
+		"rate": "-5%",
+		"pitch": "0%",
+		"notes": "Selected via the narrator-voice override in synth-edge.py (NARRATOR_VOICE_ID env var). Used by /reports/ pages."
+	},
+
 	"agents": {
 		"cto": {
 			"voice": "en-US-DavisNeural",

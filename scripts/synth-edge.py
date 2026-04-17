@@ -30,17 +30,30 @@ EDGE_MAP = {
 }
 
 def map_voice(v): return EDGE_MAP.get(v, v)
+
+# Narrator voice override. When NARRATOR_VOICE_ID env var is set to a top-level
+# voices.json key (e.g. "narrator_male"), all narrator segments use that voice
+# instead of the default "narrator". Agent voices and specials are unaffected.
+NARRATOR_ID = os.environ.get('NARRATOR_VOICE_ID', 'narrator')
+NARRATOR_VOICE = voices.get(NARRATOR_ID, voices['narrator'])['voice']
+
 def resolve_voice(seg):
-    if seg['voice_type'] == 'narrator': v = voices['narrator']['voice']
+    if seg['voice_type'] == 'narrator': v = NARRATOR_VOICE
     elif seg.get('voice_id') == 'boss': v = voices['special']['boss-quotes']['voice']
     elif seg.get('voice_id') == 'dutch': v = voices['special']['dutch']['voice']
     elif seg.get('voice_id') and seg['voice_id'] in voices.get('agents', {}):
         v = voices['agents'][seg['voice_id']]['voice']
-    else: v = voices['narrator']['voice']
+    else: v = NARRATOR_VOICE
     return map_voice(v)
 
 def apply_pronunciation(text):
-    for term, cfg in pronunciation.get('terms', {}).items():
+    # Apply longest terms first so "AES-128" matches before "AES",
+    # "HMAC-SHA256" before "HMAC", etc. Otherwise short prefixes eat
+    # the long terms before their specific rule can match.
+    terms = sorted(pronunciation.get('terms', {}).items(),
+                   key=lambda kv: -len(kv[0]))
+    for term, cfg in terms:
+        if not isinstance(cfg, dict): continue
         if term in text and cfg.get('sub'):
             text = text.replace(term, cfg['sub'])
     return re.sub(r'\{\{(\w+)\}\}', r'\1', text)

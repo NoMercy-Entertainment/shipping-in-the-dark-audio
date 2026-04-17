@@ -1,7 +1,6 @@
 {
 	"$schema": "./pronunciation.schema.json",
 	"_comment": "Pronunciation overrides for terms Azure TTS mispronounces. Uses IPA notation in SSML <phoneme> tags. Add entries as you discover mispronunciations.",
-
 	"terms": {
 		"NoMercy": {
 			"ipa": "noʊ ˈmɜːrsi",
@@ -34,11 +33,13 @@
 		},
 		"SSML": {
 			"say-as": "spell-out",
-			"notes": "Spell out: S-S-M-L."
+			"notes": "Spell out: S-S-M-L.",
+			"sub": "S-S-M-L"
 		},
 		"GDPR": {
 			"say-as": "spell-out",
-			"notes": "Spell out: G-D-P-R."
+			"notes": "Spell out: G-D-P-R.",
+			"sub": "G-D-P-R"
 		},
 		"CORS": {
 			"ipa": "kɔːrz",
@@ -47,7 +48,8 @@
 		},
 		"UUID": {
 			"say-as": "spell-out",
-			"notes": "Spell out: U-U-I-D."
+			"notes": "Spell out: U-U-I-D.",
+			"sub": "U-U-I-D"
 		},
 		"npm": {
 			"ipa": "ɛn piː ɛm",
@@ -55,19 +57,23 @@
 		},
 		"CLI": {
 			"say-as": "spell-out",
-			"notes": "Spell out: C-L-I."
+			"notes": "Spell out: C-L-I.",
+			"sub": "C-L-I"
 		},
 		"SSH": {
 			"say-as": "spell-out",
-			"notes": "Spell out: S-S-H."
+			"notes": "Spell out: S-S-H.",
+			"sub": "S-S-H"
 		},
 		"API": {
 			"say-as": "spell-out",
-			"notes": "Spell out: A-P-I."
+			"notes": "Spell out: A-P-I.",
+			"sub": "A-P-I"
 		},
 		"JWT": {
 			"say-as": "spell-out",
-			"notes": "Spell out: J-W-T. Not 'jot'."
+			"notes": "Spell out: J-W-T. Not 'jot'.",
+			"sub": "J-W-T"
 		},
 		"OAuth": {
 			"ipa": "oʊ ɔːθ",
@@ -164,7 +170,8 @@
 		},
 		"OCR": {
 			"say-as": "spell-out",
-			"notes": "Spell out: O-C-R."
+			"notes": "Spell out: O-C-R.",
+			"sub": "O-C-R"
 		},
 		"Tesseract": {
 			"ipa": "ˈtɛsərækt",
@@ -173,11 +180,13 @@
 		},
 		"HLS": {
 			"say-as": "spell-out",
-			"notes": "Spell out: H-L-S."
+			"notes": "Spell out: H-L-S.",
+			"sub": "H-L-S"
 		},
 		"HEVC": {
 			"say-as": "spell-out",
-			"notes": "Spell out: H-E-V-C."
+			"notes": "Spell out: H-E-V-C.",
+			"sub": "H-E-V-C"
 		},
 		"AVPlayer": {
 			"sub": "A-V Player",
@@ -185,7 +194,8 @@
 		},
 		"HDR": {
 			"say-as": "spell-out",
-			"notes": "Spell out: H-D-R."
+			"notes": "Spell out: H-D-R.",
+			"sub": "H-D-R"
 		},
 		"MPEG": {
 			"ipa": "ˈɛmˌpɛɡ",
@@ -194,11 +204,13 @@
 		},
 		"PES": {
 			"say-as": "spell-out",
-			"notes": "Spell out: P-E-S. MPEG Packetized Elementary Stream."
+			"notes": "Spell out: P-E-S. MPEG Packetized Elementary Stream.",
+			"sub": "P-E-S"
 		},
 		"PTS": {
 			"say-as": "spell-out",
-			"notes": "Spell out: P-T-S. Presentation timestamp."
+			"notes": "Spell out: P-T-S. Presentation timestamp.",
+			"sub": "P-T-S"
 		},
 		"swscale": {
 			"sub": "S-W-Scale",
@@ -262,10 +274,11 @@
 		},
 		"ABR": {
 			"say-as": "spell-out",
-			"notes": "Adaptive Bitrate. A-B-R."
+			"notes": "Adaptive Bitrate. A-B-R.",
+			"sub": "A-B-R"
 		},
 		"AV1": {
-			"sub": "A-V-1",
+			"sub": "A-V 1",
 			"notes": "Video codec. Spell out A-V, then one."
 		},
 		"AnalyserNode": {
@@ -315,7 +328,8 @@
 		},
 		"OIDC": {
 			"say-as": "spell-out",
-			"notes": "OpenID Connect. O-I-D-C."
+			"notes": "OpenID Connect. O-I-D-C.",
+			"sub": "O-I-D-C"
 		},
 		"PHPStan": {
 			"sub": "P-H-P-Stan",
@@ -323,7 +337,8 @@
 		},
 		"PWA": {
 			"say-as": "spell-out",
-			"notes": "Progressive Web App. P-W-A."
+			"notes": "Progressive Web App. P-W-A.",
+			"sub": "P-W-A"
 		},
 		"Pest": {
 			"ipa": "pɛst",
@@ -331,7 +346,8 @@
 		},
 		"Pinia": {
 			"ipa": "ˈpiːnjə",
-			"notes": "PEEN-ya. Vue state management."
+			"sub": "Peen-ya",
+			"notes": "Vue state management library."
 		},
 		"PostgreSQL": {
 			"ipa": "ˈpoʊstɡrɛsˌkjuːˈɛl",
@@ -448,13 +464,501 @@
 			"sub": "ax-ee-ose",
 			"notes": "JavaScript HTTP library."
 		},
-		"Pinia": {
-			"ipa": "ˈpiːnjə",
-			"sub": "Peen-ya",
-			"notes": "Vue state management library."
+		"_comment_encoder": "Encoder / video / codec terms — added for The NoMercy Encoder report.",
+		"MP4": {
+			"sub": "M-P-4",
+			"notes": "Container format. Spell out M-P then 4."
+		},
+		"MKV": {
+			"sub": "M-K-V",
+			"notes": "Matroska video container. Spell out."
+		},
+		"MP3": {
+			"sub": "M-P-3",
+			"notes": "Audio format."
+		},
+		"CRF": {
+			"say-as": "spell-out",
+			"notes": "Constant Rate Factor. Spell out C-R-F.",
+			"sub": "C-R-F"
+		},
+		"NVENC": {
+			"sub": "N-V enc",
+			"notes": "NVIDIA's hardware video encoder. Pronounced en-vee-enc."
+		},
+		"NVDEC": {
+			"sub": "N-V dec",
+			"notes": "NVIDIA's hardware video decoder."
+		},
+		"QSV": {
+			"say-as": "spell-out",
+			"notes": "Intel Quick Sync Video. Q-S-V.",
+			"sub": "Q-S-V"
+		},
+		"AMF": {
+			"say-as": "spell-out",
+			"notes": "AMD Advanced Media Framework. A-M-F.",
+			"sub": "A-M-F"
+		},
+		"VAAPI": {
+			"sub": "V-A-A-P-I",
+			"notes": "Video Acceleration API. Spell out."
+		},
+		"VideoToolbox": {
+			"sub": "Video Toolbox",
+			"notes": "Apple's media framework. Break into two words."
+		},
+		"libx264": {
+			"sub": "lib x 2 6 4",
+			"notes": "Software H.264 encoder."
+		},
+		"libx265": {
+			"sub": "lib x 2 6 5",
+			"notes": "Software H.265 encoder."
+		},
+		"libsvtav1": {
+			"sub": "lib S-V-T A-V-1",
+			"notes": "SVT AV1 encoder."
+		},
+		"av1_nvenc": {
+			"sub": "A-V-1 N-V enc",
+			"notes": "NVIDIA's AV1 encoder."
+		},
+		"h264_nvenc": {
+			"sub": "H 2 6 4 N-V enc",
+			"notes": "NVIDIA's H.264 encoder handle in ffmpeg."
+		},
+		"VP9": {
+			"sub": "V-P 9",
+			"notes": "Google video codec."
+		},
+		"AAC": {
+			"say-as": "spell-out",
+			"notes": "Advanced Audio Coding. Spell out A-A-C.",
+			"sub": "A-A-C"
+		},
+		"AC3": {
+			"sub": "A-C 3",
+			"notes": "Dolby Digital. Spell A-C then 3."
+		},
+		"EAC3": {
+			"sub": "E-A-C 3",
+			"notes": "Dolby Digital Plus."
+		},
+		"DTS": {
+			"say-as": "spell-out",
+			"notes": "DTS surround format.",
+			"sub": "D-T-S"
+		},
+		"TrueHD": {
+			"sub": "True H-D",
+			"notes": "Dolby TrueHD lossless surround."
+		},
+		"PGS": {
+			"say-as": "spell-out",
+			"notes": "Presentation Graphics Stream — Blu Ray subtitle format.",
+			"sub": "P-G-S"
+		},
+		"SRT": {
+			"say-as": "spell-out",
+			"notes": "SubRip subtitle format.",
+			"sub": "S-R-T"
+		},
+		"ASS": {
+			"say-as": "spell-out",
+			"notes": "Advanced SubStation Alpha subtitle format. Spell out to avoid the other word.",
+			"sub": "A-S-S"
+		},
+		"DVB": {
+			"say-as": "spell-out",
+			"notes": "Digital Video Broadcasting subtitle format.",
+			"sub": "D-V-B"
+		},
+		"SDR": {
+			"say-as": "spell-out",
+			"notes": "Standard Dynamic Range.",
+			"sub": "S-D-R"
+		},
+		"AES-128": {
+			"sub": "A-E-S 128",
+			"notes": "128-bit AES encryption."
+		},
+		"AES": {
+			"say-as": "spell-out",
+			"notes": "Advanced Encryption Standard.",
+			"sub": "A-E-S"
+		},
+		"CENC": {
+			"say-as": "spell-out",
+			"notes": "Common Encryption scheme for DASH.",
+			"sub": "C-E-N-C"
+		},
+		"Widevine": {
+			"sub": "Wide Vine",
+			"notes": "Google DRM system. Two words."
+		},
+		"PlayReady": {
+			"sub": "Play Ready",
+			"notes": "Microsoft DRM system."
+		},
+		"FairPlay": {
+			"sub": "Fair Play",
+			"notes": "Apple DRM system."
+		},
+		"mp4box": {
+			"sub": "M-P-4 box",
+			"notes": "GPAC packaging tool."
+		},
+		"m3u8": {
+			"sub": "M-3-U-8",
+			"notes": "HLS playlist extension."
+		},
+		"kbps": {
+			"sub": "kilobits per second",
+			"notes": "Kilobits per second."
+		},
+		"Kbps": {
+			"sub": "kilobits per second",
+			"notes": "Kilobits per second."
+		},
+		"Mbps": {
+			"sub": "megabits per second",
+			"notes": "Megabits per second."
+		},
+		"libdvdread": {
+			"sub": "lib D-V-D read",
+			"notes": "DVD reading library."
+		},
+		"AVCHD": {
+			"say-as": "spell-out",
+			"notes": "Advanced Video Coding High Definition.",
+			"sub": "A-V-C-H-D"
+		},
+		"AACS": {
+			"say-as": "spell-out",
+			"notes": "Advanced Access Content System. Blu Ray DRM.",
+			"sub": "A-A-C-S"
+		},
+		"BD+": {
+			"sub": "B-D plus",
+			"notes": "Blu Ray DRM layer."
+		},
+		"UDF": {
+			"say-as": "spell-out",
+			"notes": "Universal Disk Format.",
+			"sub": "U-D-F"
+		},
+		"HMAC": {
+			"say-as": "spell-out",
+			"notes": "Hash-based Message Authentication Code.",
+			"sub": "H-M-A-C"
+		},
+		"HMAC-SHA256": {
+			"sub": "H-M-A-C S-H-A 256",
+			"notes": "HMAC with SHA-256."
+		},
+		"SHA256": {
+			"sub": "S-H-A 256",
+			"notes": "256-bit SHA hash."
+		},
+		"SHA-256": {
+			"sub": "S-H-A 256",
+			"notes": "256-bit SHA hash."
+		},
+		"NAS": {
+			"say-as": "spell-out",
+			"notes": "Network Attached Storage.",
+			"sub": "N-A-S"
+		},
+		"SMB": {
+			"say-as": "spell-out",
+			"notes": "Server Message Block file protocol.",
+			"sub": "S-M-B"
+		},
+		"TLS": {
+			"say-as": "spell-out",
+			"notes": "Transport Layer Security.",
+			"sub": "T-L-S"
+		},
+		"mTLS": {
+			"sub": "mutual T-L-S",
+			"notes": "Mutual TLS authentication."
+		},
+		"VPN": {
+			"say-as": "spell-out",
+			"notes": "Virtual Private Network.",
+			"sub": "V-P-N"
+		},
+		"TMDB": {
+			"say-as": "spell-out",
+			"notes": "The Movie Database.",
+			"sub": "T-M-D-B"
+		},
+		"VMAF": {
+			"say-as": "spell-out",
+			"notes": "Video Multimethod Assessment Fusion. Netflix quality metric.",
+			"sub": "V-M-A-F"
+		},
+		"CQ": {
+			"say-as": "spell-out",
+			"notes": "Constant Quality — rate control mode. Spell C-Q.",
+			"sub": "C-Q"
+		},
+		"BRAW": {
+			"sub": "B raw",
+			"notes": "Blackmagic RAW."
+		},
+		"ProRes": {
+			"sub": "Pro Res",
+			"notes": "Apple ProRes codec."
+		},
+		"zscale": {
+			"sub": "Z scale",
+			"notes": "ffmpeg zimg scaling filter."
+		},
+		"Hable": {
+			"sub": "Hay bull",
+			"notes": "Hable tonemap algorithm, named after John Hable."
+		},
+		"AcoustID": {
+			"sub": "Acoustic I-D",
+			"notes": "Audio fingerprint database. Spell out ID."
+		},
+		"chromaprint": {
+			"sub": "chroma print",
+			"notes": "Audio fingerprint library."
+		},
+		"libplacebo": {
+			"sub": "lib placebo",
+			"notes": "GPU tonemap library."
+		},
+		"OpenCL": {
+			"sub": "Open C-L",
+			"notes": "Open Computing Language."
+		},
+		"Vulkan": {
+			"ipa": "ˈvʌlkən",
+			"notes": "Low-level graphics API. VUL-kuhn."
+		},
+		"Whisper": {
+			"ipa": "ˈwɪspər",
+			"notes": "OpenAI speech recognition model.",
+			"sub": "Whisper"
+		},
+		"Atmos": {
+			"ipa": "ˈætmɒs",
+			"notes": "Dolby Atmos. AT-moss.",
+			"sub": "at-moss"
+		},
+		"4K": {
+			"sub": "4 K",
+			"notes": "4K resolution. Say 4 K not 4 kilo."
+		},
+		"1080p": {
+			"sub": "10 80 p",
+			"notes": "Full HD resolution."
+		},
+		"720p": {
+			"sub": "7 20 p",
+			"notes": "HD resolution."
+		},
+		"480p": {
+			"sub": "4 80 p",
+			"notes": "SD resolution."
+		},
+		"2160p": {
+			"sub": "2 1 60 p",
+			"notes": "4K resolution suffix form."
+		},
+		"3D": {
+			"sub": "3 D",
+			"notes": "Three dimensional."
+		},
+		"H.264": {
+			"sub": "H 2 6 4",
+			"notes": "H dot 264 codec."
+		},
+		"H.265": {
+			"sub": "H 2 6 5",
+			"notes": "H dot 265 codec."
+		},
+		"HD DVD": {
+			"sub": "H-D D-V-D",
+			"notes": "HD DVD disc format."
+		},
+		"DVD": {
+			"say-as": "spell-out",
+			"notes": "Digital Versatile Disc.",
+			"sub": "D-V-D"
+		},
+		"Blu Ray": {
+			"sub": "Blue Ray",
+			"notes": "Blu Ray disc. Two words."
+		},
+		"Blu-Ray": {
+			"sub": "Blue Ray",
+			"notes": "Blu Ray disc alternate spelling."
+		},
+		"BDplus": {
+			"sub": "B-D plus",
+			"notes": "Blu Ray DRM layer."
+		},
+		"ffmpeg": {
+			"sub": "F-F-mpeg",
+			"notes": "Lowercase variant."
+		},
+		"FFprobe": {
+			"sub": "F-F-probe",
+			"notes": "Capitalized ffprobe."
+		},
+		"GPU": {
+			"sub": "G-P-U"
+		},
+		"GPUs": {
+			"sub": "G-P-Us"
+		},
+		"CPU": {
+			"sub": "C-P-U"
+		},
+		"CPUs": {
+			"sub": "C-P-Us"
+		},
+		"TV": {
+			"sub": "T-V"
+		},
+		"TVs": {
+			"sub": "T-Vs"
+		},
+		"PC": {
+			"sub": "P-C"
+		},
+		"ID": {
+			"sub": "I-D"
+		},
+		"HTTP": {
+			"sub": "H-T-T-P"
+		},
+		"HTTPS": {
+			"sub": "H-T-T-P-S"
+		},
+		"JSON": {
+			"sub": "jay-son"
+		},
+		"DRM": {
+			"sub": "D-R-M"
+		},
+		"URL": {
+			"sub": "U-R-L"
+		},
+		"URI": {
+			"sub": "U-R-I"
+		},
+		"USB": {
+			"sub": "U-S-B"
+		},
+		"CD-ROM": {
+			"sub": "C-D ROM"
+		},
+		"QP": {
+			"sub": "Q-P"
+		},
+		"VBR": {
+			"sub": "V-B-R"
+		},
+		"CBR": {
+			"sub": "C-B-R"
+		},
+		"RAM": {
+			"sub": "ram"
+		},
+		"VRAM": {
+			"sub": "V-ram"
+		},
+		"OS": {
+			"sub": "O-S"
+		},
+		"ISO": {
+			"sub": "I-S-O"
+		},
+		"GOP": {
+			"sub": "G-O-P"
+		},
+		"IO": {
+			"sub": "I-O"
+		},
+		"I/O": {
+			"sub": "I O"
+		},
+		"DV": {
+			"sub": "D-V"
+		},
+		"SSE": {
+			"sub": "S-S-E"
+		},
+		"QoS": {
+			"sub": "quality of service"
+		},
+		"GDC": {
+			"sub": "G-D-C"
+		},
+		"HD": {
+			"sub": "H-D"
+		},
+		"7.1": {
+			"sub": "7 point 1"
+		},
+		"5.1": {
+			"sub": "5 point 1"
+		},
+		"2.40:1": {
+			"sub": "2 point 40 to 1"
+		},
+		"16:9": {
+			"sub": "16 by 9"
+		},
+		"4:3": {
+			"sub": "4 by 3"
+		},
+		"SVT-AV1": {
+			"sub": "S-V-T A-V-1"
+		},
+		"libxvpx-vp9": {
+			"sub": "lib V-P-X V-P-9"
+		},
+		"libvpx-vp9": {
+			"sub": "lib V-P-X V-P-9"
+		},
+		"SIGSTOP": {
+			"sub": "sig stop"
+		},
+		"SIGCONT": {
+			"sub": "sig cont"
+		},
+		"AC-3": {
+			"sub": "A-C 3"
+		},
+		"EAC-3": {
+			"sub": "E-A-C 3"
+		},
+		"SSIM": {
+			"sub": "S-S-I-M"
+		},
+		"PSNR": {
+			"sub": "P-S-N-R"
+		},
+		"hevc_nvenc": {
+			"sub": "H-E-V-C N-V enc"
+		},
+		"FLAC": {
+			"sub": "flack"
+		},
+		"Vorbis": {
+			"sub": "vor-bis"
+		},
+		"Opus": {
+			"sub": "oh-pus"
 		}
 	},
-
 	"dutch": {
 		"Gaat het niet zoals het moet, dan moet het maar zoals het gaat": {
 			"voice": "dutch",

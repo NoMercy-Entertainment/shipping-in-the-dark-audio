@@ -30,8 +30,10 @@ jobs:
     outputs:
       entry_scripts: ${{ steps.list.outputs.entry_scripts }}
       team_scripts: ${{ steps.list.outputs.team_scripts }}
+      report_scripts: ${{ steps.list.outputs.report_scripts }}
       has_entries: ${{ steps.list.outputs.has_entries }}
       has_team: ${{ steps.list.outputs.has_team }}
+      has_reports: ${{ steps.list.outputs.has_reports }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -44,6 +46,9 @@ jobs:
           TARGET="${{ inputs.target || '' }}"
           ALL_ENTRIES=$(ls speeches/*.speech.md 2>/dev/null | xargs -I{} basename {} .speech.md | jq -R . | jq -sc .)
           ALL_TEAM=$(ls speeches/team/*.speech.md 2>/dev/null | xargs -I{} basename {} .speech.md | jq -R . | jq -sc .)
+          # Reports: each matrix entry is "report-slug/script-slug" (e.g. "the-effortless-encoder/00-overview")
+          ALL_REPORTS=$(find speeches/reports -name '*.speech.md' 2>/dev/null \
+            | sed 's|^speeches/reports/||; s|\.speech\.md$||' | jq -R . | jq -sc .)
 
           if [ -n "$TARGET" ]; then
             # workflow_dispatch: respect the target input
@@ -51,22 +56,36 @@ jobs:
               all)
                 entries="$ALL_ENTRIES"
                 team="$ALL_TEAM"
+                reports="$ALL_REPORTS"
                 ;;
               entries)
                 entries="$ALL_ENTRIES"
                 team="[]"
+                reports="[]"
                 ;;
               team)
                 entries="[]"
                 team="$ALL_TEAM"
+                reports="[]"
+                ;;
+              reports)
+                entries="[]"
+                team="[]"
+                reports="$ALL_REPORTS"
                 ;;
               *)
                 if [ -f "speeches/$TARGET.speech.md" ]; then
                   entries="[\"$TARGET\"]"
                   team="[]"
+                  reports="[]"
                 elif [ -f "speeches/team/$TARGET.speech.md" ]; then
                   entries="[]"
                   team="[\"$TARGET\"]"
+                  reports="[]"
+                elif [ -f "speeches/reports/$TARGET.speech.md" ]; then
+                  entries="[]"
+                  team="[]"
+                  reports="[\"$TARGET\"]"
                 else
                   echo "::error::Unknown target: $TARGET"
                   exit 1
@@ -85,15 +104,19 @@ jobs:
               echo "Config or synth script changed — regenerating all"
               entries="$ALL_ENTRIES"
               team="$ALL_TEAM"
+              reports="$ALL_REPORTS"
             else
               entries="[]"
               team="[]"
+              reports="[]"
 
               changed_entries=$(echo "$CHANGED" | grep "^speeches/[^/]*\.speech\.md$" | sed 's|speeches/||; s|\.speech\.md||' | jq -R . | jq -sc .)
               changed_team=$(echo "$CHANGED" | grep "^speeches/team/.*\.speech\.md$" | sed 's|speeches/team/||; s|\.speech\.md||' | jq -R . | jq -sc .)
+              changed_reports=$(echo "$CHANGED" | grep "^speeches/reports/.*\.speech\.md$" | sed 's|speeches/reports/||; s|\.speech\.md||' | jq -R . | jq -sc .)
 
               [ -n "$changed_entries" ] && [ "$changed_entries" != "[]" ] && [ "$changed_entries" != "null" ] && entries="$changed_entries"
               [ -n "$changed_team" ] && [ "$changed_team" != "[]" ] && [ "$changed_team" != "null" ] && team="$changed_team"
+              [ -n "$changed_reports" ] && [ "$changed_reports" != "[]" ] && [ "$changed_reports" != "null" ] && reports="$changed_reports"
             fi
             echo "Mode: push, detected changes"
           fi
@@ -101,10 +124,13 @@ jobs:
           # Export
           echo "entry_scripts=${entries}" >> $GITHUB_OUTPUT
           echo "team_scripts=${team}" >> $GITHUB_OUTPUT
+          echo "report_scripts=${reports}" >> $GITHUB_OUTPUT
           echo "has_entries=$( [ "$entries" != '[]' ] && echo 'true' || echo 'false' )" >> $GITHUB_OUTPUT
           echo "has_team=$( [ "$team" != '[]' ] && echo 'true' || echo 'false' )" >> $GITHUB_OUTPUT
+          echo "has_reports=$( [ "$reports" != '[]' ] && echo 'true' || echo 'false' )" >> $GITHUB_OUTPUT
           echo "Entries: $entries"
           echo "Team: $team"
+          echo "Reports: $reports"
 
   generate-entries:
     if: ${{ inputs.dry_run != true && needs.list-scripts.outputs.has_entries == 'true' }}
@@ -190,11 +216,84 @@ jobs:
             output/team/${{ matrix.script }}.vtt
           if-no-files-found: error
 
+  generate-reports:
+    if: ${{ inputs.dry_run != true && needs.list-scripts.outputs.has_reports == 'true' }}
+    runs-on: [self-hosted, beast-unit]
+    needs: list-scripts
+    strategy:
+      fail-fast: false
+      max-parallel: 6
+      matrix:
+        script: ${{ fromJson(needs.list-scripts.outputs.report_scripts) }}
+        voice: [female, male]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python + ffmpeg
+        run: |
+          python3 -m venv .venv
+          .venv/bin/pip install -q edge-tts
+          which ffmpeg || sudo apt-get install -y -qq ffmpeg
+
+      - name: Compute paths
+        id: paths
+        run: |
+          REPORT_DIR="$(dirname '${{ matrix.script }}')"
+          SCRIPT_SLUG="$(basename '${{ matrix.script }}')"
+          REPORT_PREFIX="$(echo "$REPORT_DIR" | tr '/' '-')"
+          OUT_DIR="output/reports/${REPORT_DIR}"
+          OUT_BASE="${SCRIPT_SLUG}.${{ matrix.voice }}"
+          mkdir -p "$OUT_DIR"
+          echo "report_dir=$REPORT_DIR"     >> $GITHUB_OUTPUT
+          echo "script_slug=$SCRIPT_SLUG"   >> $GITHUB_OUTPUT
+          echo "report_prefix=$REPORT_PREFIX" >> $GITHUB_OUTPUT
+          echo "out_dir=$OUT_DIR"           >> $GITHUB_OUTPUT
+          echo "out_base=$OUT_BASE"         >> $GITHUB_OUTPUT
+          echo "source_script=speeches/reports/${{ matrix.script }}.speech.md" >> $GITHUB_OUTPUT
+
+      - name: Resolve narrator voice id
+        id: narrator
+        run: |
+          if [ "${{ matrix.voice }}" = "male" ]; then
+            echo "id=narrator_male" >> $GITHUB_OUTPUT
+          else
+            echo "id=narrator" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Synthesize
+        env:
+          NARRATOR_VOICE_ID: ${{ steps.narrator.outputs.id }}
+        run: |
+          source .venv/bin/activate
+          python scripts/synth-edge.py \
+            "${{ steps.paths.outputs.source_script }}" \
+            "${{ steps.paths.outputs.out_dir }}/${{ steps.paths.outputs.out_base }}.mp3"
+
+      - name: Validate output
+        run: |
+          mp3="${{ steps.paths.outputs.out_dir }}/${{ steps.paths.outputs.out_base }}.mp3"
+          vtt="${{ steps.paths.outputs.out_dir }}/${{ steps.paths.outputs.out_base }}.vtt"
+          [ -f "$mp3" ] && [ -s "$mp3" ] || { echo "::error::MP3 missing or empty: $mp3"; exit 1; }
+          [ -f "$vtt" ] && [ -s "$vtt" ] || { echo "::error::VTT missing or empty: $vtt"; exit 1; }
+          echo "MP3: $(du -h "$mp3" | cut -f1), VTT: $(wc -l < "$vtt") lines"
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: report-${{ steps.paths.outputs.report_prefix }}-${{ steps.paths.outputs.script_slug }}-${{ matrix.voice }}
+          path: |
+            ${{ steps.paths.outputs.out_dir }}/${{ steps.paths.outputs.out_base }}.mp3
+            ${{ steps.paths.outputs.out_dir }}/${{ steps.paths.outputs.out_base }}.vtt
+          if-no-files-found: error
+
   collect:
-    needs: [list-scripts, generate-entries, generate-team]
+    needs: [list-scripts, generate-entries, generate-team, generate-reports]
     if: >-
       always() &&
-      (needs.generate-entries.result == 'success' || needs.generate-team.result == 'success')
+      (needs.generate-entries.result == 'success' ||
+       needs.generate-team.result == 'success' ||
+       needs.generate-reports.result == 'success')
     runs-on: [self-hosted, beast-unit]
     steps:
       - name: Checkout
