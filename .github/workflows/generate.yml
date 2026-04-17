@@ -391,16 +391,37 @@ jobs:
             gh release upload audio-v1 "$mp3" --repo NoMercy-Entertainment/shipping-in-the-dark --clobber || true
           done
           # Report MP3s: live under output/reports/{report_dir}/{script}.{voice}.mp3.
-          # Rename to {report_dir}--{script}.{voice}.mp3 so all release assets are
-          # flat and uniquely named.
+          # Copy into a flat staging dir with {report_dir}--{script}.{voice}.mp3
+          # names so GitHub's release asset is unique and collision-free.
+          # `gh release upload FILE#LABEL` only affects the label, not the
+          # uploaded filename — so we rename the actual files.
+          mkdir -p /tmp/report-upload
           while IFS= read -r mp3; do
             [ -f "$mp3" ] || continue
             rel="${mp3#output/reports/}"
             report_dir="${rel%%/*}"
             leaf="${rel#*/}"
             upload_name="${report_dir}--${leaf}"
+            cp "$mp3" "/tmp/report-upload/${upload_name}"
             echo "Uploading: $mp3 → $upload_name"
-            gh release upload audio-v1 "${mp3}#${upload_name}" --repo NoMercy-Entertainment/shipping-in-the-dark --clobber || true
+            gh release upload audio-v1 "/tmp/report-upload/${upload_name}" --repo NoMercy-Entertainment/shipping-in-the-dark --clobber
+          done < <(find output/reports -name '*.mp3' 2>/dev/null)
+          rm -rf /tmp/report-upload
+
+          # Clean up the short-named report MP3s that an earlier buggy
+          # workflow accidentally uploaded (00-overview.female.mp3, etc.).
+          while IFS= read -r mp3; do
+            [ -f "$mp3" ] || continue
+            rel="${mp3#output/reports/}"
+            leaf="${rel#*/}"
+            short_name="$leaf"   # e.g. 00-overview.female.mp3
+            # Only delete if it matches our report script naming pattern
+            # AND a full-name variant exists on the release.
+            report_dir="${rel%%/*}"
+            full_name="${report_dir}--${leaf}"
+            if gh release view audio-v1 --repo NoMercy-Entertainment/shipping-in-the-dark --json assets --jq ".assets[].name" | grep -Fx "$full_name" >/dev/null 2>&1; then
+              gh release delete-asset audio-v1 "$short_name" --repo NoMercy-Entertainment/shipping-in-the-dark --yes 2>/dev/null || true
+            fi
           done < <(find output/reports -name '*.mp3' 2>/dev/null)
         env:
           GH_TOKEN: ${{ secrets.PAT }}
