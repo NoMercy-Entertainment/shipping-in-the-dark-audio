@@ -359,15 +359,3 @@ The way we stay honest about this is tests. The encoder has a large and growing 
 This does not prevent all bugs. It prevents the same bug from shipping twice.
 
 [pause:900ms]
-
-[narrator:matter-of-fact]
-
-<!-- h-11 -->
-What the next page covers.
-
-[pause:400ms]
-
-<!-- p-57 -->
-Now that you know how the encoder thinks, we can talk about what it actually knows. The codec landscape. Why there are so many, which ones the encoder supports for output, and how it picks between them on your behalf.
-
-[pause:1000ms]

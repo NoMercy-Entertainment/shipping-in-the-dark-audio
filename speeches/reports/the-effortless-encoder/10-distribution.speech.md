@@ -474,15 +474,3 @@ Test coverage.
 The distribution layer has extensive test coverage across its components. The dispatcher, the task serializer, the HTTP worker, the registry, the self registration service, the source fetcher, and the progress store each have their own suite, focused on round trip signing, tamper detection, retry behaviour, stale eviction, health tracking, and cache reuse. A full end to end test runs a simulated cluster through a real encode, and a mismatched signing key test verifies that the coordinator falls back to local dispatch when workers reject signed payloads.
 
 [pause:900ms]
-
-[narrator:matter-of-fact]
-
-<!-- h-19 -->
-What the next page covers.
-
-[pause:400ms]
-
-<!-- p-74 -->
-You now have an encoder that can span one machine or many. That finishes the tour of what is shipping today. Part eleven covers what is not shipping. The roadmap. What is planned, what is not planned, and the honest trade offs behind both.
-
-[pause:1000ms]

@@ -313,15 +313,3 @@ Live skips the full analyze stage. The client already declared what it wants. Th
 The live specific code lives in its own namespace inside the encoder. It runs in the same server process as file encoding. Sessions compete for the same GPU and CPU budget. The session manager arbitrates.
 
 [pause:900ms]
-
-[narrator:matter-of-fact]
-
-<!-- h-11 -->
-What the next page covers.
-
-[pause:400ms]
-
-<!-- p-49 -->
-Live transcode closes the gap between what you stored and what you are watching on. But what about the input side of the library? How does a movie get into your library in the first place? Part nine covers disc ripping.
-
-[pause:1000ms]

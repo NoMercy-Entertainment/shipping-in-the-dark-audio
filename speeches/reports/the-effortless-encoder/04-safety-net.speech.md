@@ -256,15 +256,3 @@ For each stream, you see exactly what will happen. Copy. Transcode. Skip. With w
 The result is that before you click encode, you know exactly what will happen to your source. You get to decide whether the plan matches what you want. And you never get the "works on my PC, refuses on my Apple TV" surprise, because the validator would have caught the level mismatch at save time.
 
 [pause:900ms]
-
-[narrator:matter-of-fact]
-
-<!-- h-13 -->
-What the next page covers.
-
-[pause:400ms]
-
-<!-- p-33 -->
-You have a validated profile and a previewed action plan. Now the encoder has to actually do the work. That means understanding what your hardware can do. Part five covers hardware measurement and HDR handling.
-
-[pause:1000ms]

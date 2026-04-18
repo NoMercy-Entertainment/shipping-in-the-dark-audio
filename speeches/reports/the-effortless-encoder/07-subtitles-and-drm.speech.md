@@ -58,12 +58,12 @@ Why? Because PGS subtitles are not text. Each subtitle cue is a tiny image. A sc
 [pause:500ms]
 
 <!-- p-9 -->
-But HLS playlists cannot carry image subtitles. HLS only wants text subtitles, in a format called WebVTT. Your PGS subtitles, having no text content to begin with, need to be converted. And the only way to convert an image of text to text is to run OCR on every cue. That was covered on the previous page.
+But HLS playlists cannot carry image subtitles. HLS only wants text subtitles, in a format called WebVTT. Your PGS subtitles, having no text content to begin with, need to be converted. And the only way to convert an image of text to text is to run OCR on every cue. That is covered earlier, in the content analysis part.
 
 [pause:500ms]
 
 <!-- p-10 -->
-This page covers the wiring. How subtitle streams get routed from source to output based on what the container can actually hold.
+The rest of this part covers the wiring. How subtitle streams get routed from source to output based on what the container can actually hold.
 
 [pause:900ms]
 
@@ -171,7 +171,7 @@ Second. Convert text codecs to WebVTT with a subtitle filter.
 [pause:1000ms]
 
 <!-- p-26 -->
-Third. Convert bitmap codecs to WebVTT via OCR, covered on the previous page.
+Third. Convert bitmap codecs to WebVTT via OCR, covered in the content analysis part.
 
 [pause:1000ms]
 
@@ -202,22 +202,22 @@ Players that respect Apple's HLS spec. Safari, iOS, tvOS. Read the sidecar and o
 [narrator:matter-of-fact]
 
 <!-- h-6 -->
-Preserving styling, or not.
+Preserving ASS styling across containers.
 
 [pause:400ms]
 
 <!-- p-31 -->
-ASS carries rich typesetting. Positions, colours, fade effects, font choices, hand tuned karaoke. WebVTT has a much smaller subset.
+ASS carries rich typesetting. Positions, colours, fade effects, font choices, hand tuned karaoke. WebVTT has a much smaller subset. A naive HLS pipeline would convert ASS to WebVTT and drop most of that styling on the floor.
 
 [pause:500ms]
 
 <!-- p-32 -->
-When extracting ASS to WebVTT for HLS, most styling is lost. The validator warns and tells you to use MKV output or burn in mode if typesetting matters.
+NoMercy does not do that. ASS tracks ship as sidecar files in every output format. MKV, MP4, HLS, DASH. Right next to the video.
 
-[pause:1400ms]
+[pause:500ms]
 
 <!-- p-33 -->
-For anime in particular, MKV is the recommended output. ASS typesetting is central to the viewing experience, and HLS cannot carry it faithfully.
+The NoMercy web player renders ASS client side with JavaScript Subtitles Octopus, a libass WebAssembly port. Native platforms, Android and TV, render ASS through their bundled libass equivalent. Karaoke, positions, fades, all of it comes through faithfully. For third party clients that cannot render ASS, the validator suggests shipping a WebVTT fallback in parallel.
 
 [pause:900ms]
 
@@ -229,17 +229,17 @@ Attached fonts.
 [pause:400ms]
 
 <!-- p-34 -->
-MKV sources often ship with attached font files. TrueType and OpenType. That the original subtitle author used for typesetting. Renderers use them to match the intended look.
+MKV sources often ship with attached font files. TrueType and OpenType. That the original subtitle author used for typesetting. Renderers need those specific fonts to match the intended look.
 
 [pause:500ms]
 
 <!-- p-35 -->
-The font extractor pulls them out of MKV via ffmpeg's dump attachment flag.
+The font extractor pulls them out via ffmpeg's dump attachment flag on every encode that carries an ASS track, regardless of output container.
 
 [pause:1000ms]
 
 <!-- p-36 -->
-And writes them to the output directory alongside the subtitle files. Playback in supported clients picks them up automatically. For HLS output where typesetting is lost anyway, fonts are not extracted because they serve no purpose.
+The extracted fonts land in the output directory alongside the subtitle files. The NoMercy web player loads them into Subtitles Octopus at play time so libass WebAssembly renders the ASS with the same fonts the author picked. Native clients do the same with their platform libass. Without this step, even a libass capable client would fall back to system fonts and the typesetting would drift.
 
 [pause:900ms]
 
@@ -455,20 +455,3 @@ The validator enforces a few combinations. MP4 extract mode allows WebVTT, SRT, 
 When DRM is enabled on an HLS encode, subtitle sidecars are not encrypted. Subtitle files are tiny and carry no content worth stealing. The video segments are where the protection matters.
 
 [pause:900ms]
-
-[narrator:matter-of-fact]
-
-<!-- h-15 -->
-What the next page covers.
-
-[pause:400ms]
-
-<!-- p-76 -->
-You can now produce well subtitled, optionally protected streams. But what if the player is weak, and cannot decode the streams you produce?
-
-[pause:400ms]
-
-<!-- p-77 -->
-Part eight covers live transcode. How a cheap phone can watch a 4K Blu Ray rip by having the server re encode on the fly.
-
-[pause:1000ms]

@@ -299,20 +299,3 @@ Subscribers watch for events on the server's event bus. When an episode is scann
 The subscribers run in the background. They do not block anything. They just quietly improve the library over time.
 
 [pause:900ms]
-
-[narrator:matter-of-fact]
-
-<!-- h-6 -->
-What the next page covers.
-
-[pause:400ms]
-
-<!-- p-59 -->
-You have a well analyzed source and a validated profile. The encoder is ready to produce output.
-
-[pause:400ms]
-
-<!-- p-60 -->
-Part seven covers two topics that go together. Subtitles, and the optional encryption layer for paid streaming.
-
-[pause:1000ms]

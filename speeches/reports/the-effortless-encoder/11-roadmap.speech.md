@@ -21,7 +21,7 @@ What is shipped.
 [pause:400ms]
 
 <!-- p-2 -->
-The previous pages described what works today. As a reminder.
+The earlier parts described what works today. As a reminder.
 
 [pause:400ms]
 

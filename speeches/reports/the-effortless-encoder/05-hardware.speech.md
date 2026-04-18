@@ -317,12 +317,3 @@ The scheduler reads these numbers. If an existing encode is saturating the GPU, 
 On the dashboard, you can see the current utilization alongside the queue. If your encoder dashboard shows 95 percent GPU utilization and a long queue, you know encodes are landing one after another. If it shows 20 percent utilization and a long queue, something is holding encodes back and you should investigate. Most commonly, source disk I O, or a concurrent session cap from the hardware vendor.
 
 [pause:500ms]
-
-<!-- h-10 -->
-What the next page covers.
-
-[pause:400ms]
-
-Your machine has been measured. Your HDR path is handled. The scheduler knows what is running. Part six covers a different kind of hardware question. The encoder can also look at your content. Watch it. Learn from it. And use what it learns to encode more intelligently.
-
-[pause:1000ms]
