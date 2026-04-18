@@ -7,6 +7,18 @@
 
 ---
 
+[narrator:matter-of-fact]
+
+NoMercy MediaServer. The Effortless Encoder.
+
+[pause:700ms]
+
+[narrator:reflective]
+
+A deep report on the orchestration behind NoMercy MediaServer's video and audio encoding. Architecture, codecs, safety net, hardware, content analysis, subtitles, D-R-M, live transcode, disc ripping, distributed encoding, and roadmap.
+
+[pause:1200ms]
+
 [narrator:cozy]
 
 Overview. Why we built our own encoder.
