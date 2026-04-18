@@ -116,6 +116,7 @@ The rate control block is the most asked about part of a profile, so let us be p
 
 [pause:500ms]
 
+<!-- code-3 -->
 CRF mode takes just a quality number. ABR mode takes a bitrate plus a max bitrate and a buffer size. Capped CRF mode takes both — the quality number and the bitrate cap — for the hybrid case.
 
 [pause:900ms]
