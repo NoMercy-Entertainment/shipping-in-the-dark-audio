@@ -24,6 +24,15 @@ on:
 permissions:
   contents: write
 
+# Only one audio generation may be in flight at a time. A rapid
+# sequence of pushes cancels the older run, so only the latest
+# commit's audio lands on the release + journal site. Without this,
+# two concurrent collect steps race on git push — the older run can
+# land AFTER the newer run and leave stale audio on the page.
+concurrency:
+  group: generate-audio
+  cancel-in-progress: true
+
 jobs:
   list-scripts:
     runs-on: [self-hosted, beast-unit]
@@ -377,10 +386,23 @@ jobs:
           git pull --rebase origin master
           git stash pop || true
           git add output/
-          git diff --cached --quiet || {
-            git commit -m "chore: update audio output"
-            git push
-          }
+          if git diff --cached --quiet; then
+            echo "No audio changes to commit"
+            exit 0
+          fi
+          git commit -m "chore: update audio output"
+
+          for attempt in 1 2 3 4 5; do
+            if git push; then
+              echo "Pushed on attempt $attempt"
+              exit 0
+            fi
+            echo "Push rejected on attempt $attempt — pulling with rebase"
+            git pull --rebase --autostash origin master || true
+            sleep $((attempt * 2))
+          done
+          echo "::error::Failed to push audio output after 5 attempts"
+          exit 1
 
       - name: Upload MP3s to GitHub Release
         run: |
@@ -446,9 +468,27 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add site/public/audio/
-          git diff --cached --quiet || {
-            git commit -m "chore: update audio VTTs from CI generation"
-            git push
-          }
+          if git diff --cached --quiet; then
+            echo "No VTT changes to deploy"
+            exit 0
+          fi
+          git commit -m "chore: update audio VTTs from CI generation"
+
+          # Push with retry-on-conflict. Concurrency:cancel-in-progress on
+          # this workflow prevents simultaneous runs, but a push to the
+          # journal site by an unrelated workflow (deploy, docs) between
+          # our clone and push can still non-fast-forward. Rebase and
+          # retry a few times before giving up.
+          for attempt in 1 2 3 4 5; do
+            if git push; then
+              echo "Pushed on attempt $attempt"
+              exit 0
+            fi
+            echo "Push rejected on attempt $attempt — pulling with rebase"
+            git pull --rebase --autostash origin master || true
+            sleep $((attempt * 2))
+          done
+          echo "::error::Failed to push VTTs to journal site after 5 attempts"
+          exit 1
         env:
           GH_TOKEN: ${{ secrets.PAT }}
