@@ -4,10 +4,6 @@
 
 [narrator:reflective]
 
-Part eleven. What is not shipped, and why.
-
-[pause:900ms]
-
 <!-- p-1 -->
 Every piece of software has the same two halves. The part that is done, and the part that is not. The honest thing to do at the end of a report like this one is name the second half, so the reader knows where the edges are.
 
@@ -456,7 +452,3 @@ If any page raised questions this roadmap did not answer, the project's issue tr
 Thank you for reading.
 
 [pause:1200ms]
-
-This is the end of the report.
-
-[pause:1400ms]

@@ -4,10 +4,6 @@
 
 [narrator:cozy]
 
-Part seven. Subtitles and keeping streams yours.
-
-[pause:900ms]
-
 [narrator:reflective]
 
 <!-- p-1 -->

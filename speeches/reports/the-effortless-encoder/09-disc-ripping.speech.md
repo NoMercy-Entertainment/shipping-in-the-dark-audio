@@ -4,10 +4,6 @@
 
 [narrator:cozy]
 
-Part nine. From shelf to library.
-
-[pause:900ms]
-
 [narrator:reflective]
 
 <!-- p-1 -->

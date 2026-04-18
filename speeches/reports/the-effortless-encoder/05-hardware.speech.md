@@ -4,10 +4,6 @@
 
 [narrator:matter-of-fact]
 
-Part five. Measuring the machine.
-
-[pause:900ms]
-
 [narrator:reflective]
 
 <!-- p-1 -->

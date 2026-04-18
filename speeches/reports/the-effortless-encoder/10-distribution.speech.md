@@ -4,10 +4,6 @@
 
 [narrator:matter-of-fact]
 
-Part ten. When one machine is not enough.
-
-[pause:900ms]
-
 [narrator:reflective]
 
 <!-- p-1 -->

@@ -4,10 +4,6 @@
 
 [narrator:matter-of-fact]
 
-Part one. How it thinks.
-
-[pause:900ms]
-
 [narrator:reflective]
 
 <!-- p-1 -->

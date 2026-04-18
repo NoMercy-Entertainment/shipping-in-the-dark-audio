@@ -4,10 +4,6 @@
 
 [narrator:cozy]
 
-Part six. Watching the content.
-
-[pause:900ms]
-
 [narrator:reflective]
 
 <!-- p-1 -->

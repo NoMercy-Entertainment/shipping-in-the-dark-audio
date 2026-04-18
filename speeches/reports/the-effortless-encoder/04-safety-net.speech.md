@@ -4,10 +4,6 @@
 
 [narrator:tense]
 
-Part four. The safety net.
-
-[pause:900ms]
-
 [narrator:reflective]
 
 <!-- p-1 -->

@@ -4,10 +4,6 @@
 
 [narrator:matter-of-fact]
 
-Part eight. Playing what your device cannot decode.
-
-[pause:900ms]
-
 [narrator:reflective]
 
 <!-- p-1 -->
