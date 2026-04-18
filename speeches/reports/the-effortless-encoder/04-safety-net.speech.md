@@ -51,7 +51,7 @@ You POST a profile to the validate endpoint and get back a structured response.
 
 [pause:900ms]
 
-<!-- p-7 -->
+<!-- p-8 -->
 The response contains errors and warnings. Each with a stable ID, a field path, a human message, and a fix.
 
 [pause:500ms]
@@ -225,17 +225,17 @@ Reserved flag guards.
 
 [pause:400ms]
 
-<!-- p-27 -->
+<!-- p-26 -->
 The profile has a custom arguments field where you can pass raw ffmpeg flags we do not cover in the schema. It is an escape hatch for power users.
 
 [pause:500ms]
 
-<!-- p-28 -->
+<!-- p-27 -->
 But certain flags are managed by the encoder. If you pass them via custom arguments, you override the encoder's decisions in ways that break things subtly.
 
 [pause:1200ms]
 
-<!-- p-29 -->
+<!-- p-28 -->
 The reserved flag list includes dash c colon v, dash c colon a, dash preset, dash init H-W device, dash hwaccel, dash f, dash map, dash vf, dash af, dash hls time, and dash hls segment filename. Safe flags like dash metadata pass through.
 
 [pause:900ms]
@@ -247,7 +247,7 @@ The preview endpoint.
 
 [pause:400ms]
 
-<!-- p-30 -->
+<!-- p-29 -->
 The validator checks the profile in isolation. The preview endpoint adds the source file to the picture.
 
 [pause:500ms]
@@ -282,7 +282,7 @@ What the next page covers.
 
 [pause:400ms]
 
-<!-- p-34 -->
+<!-- p-33 -->
 You have a validated profile and a previewed action plan. Now the encoder has to actually do the work. That means understanding what your hardware can do. Part five covers hardware measurement and HDR handling.
 
 [pause:1000ms]

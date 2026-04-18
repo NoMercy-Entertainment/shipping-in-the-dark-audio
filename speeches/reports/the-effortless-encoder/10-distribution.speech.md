@@ -121,12 +121,12 @@ Inside it sit two key components. The remote worker dispatcher picks a worker pe
 
 [pause:500ms]
 
-<!-- p-19 -->
+<!-- p-20 -->
 The coordinator talks to each worker over HTTP with HMAC signed payloads. In a typical setup, you might have worker A on a workstation, worker B on a laptop, and worker C on a NAS.
 
 [pause:500ms]
 
-<!-- p-20 -->
+<!-- p-21 -->
 Each worker runs the same NoMercy binary, but with the distribution config pointing at the coordinator. Each worker has its own local dispatcher that runs ffmpeg jobs.
 
 [pause:900ms]
@@ -138,32 +138,32 @@ How tasks flow.
 
 [pause:400ms]
 
-<!-- p-21 -->
+<!-- p-22 -->
 Five steps run in sequence.
 
 [pause:400ms]
 
-<!-- p-22 -->
+<!-- p-23 -->
 First. User starts an encode on the coordinator.
 
 [pause:400ms]
 
-<!-- p-23 -->
+<!-- p-24 -->
 Second. Strategy decomposition. The selected strategy decomposes the job into an array of encode task records. One task per adaptive bitrate variant, or one per time range for a two pass chunked encode.
 
 [pause:2000ms]
 
-<!-- p-24 -->
+<!-- p-25 -->
 Third. Dispatch. The remote worker dispatcher reads the active workers from the registry, hiding cooled down ones. The worker assigner load balances tasks across workers based on speed multiplier times available slots. Each task is dispatched to its assigned worker in parallel.
 
 [pause:500ms]
 
-<!-- p-25 -->
+<!-- p-26 -->
 Fourth. Execute and return. The worker receives a signed task, runs it, and returns a signed result with status, output files, and encode stats.
 
 [pause:1800ms]
 
-<!-- p-26 -->
+<!-- p-27 -->
 Fifth. Assemble. The coordinator assembles results and runs the finalize stage locally. That means stitching playlists, writing master manifests, and linking subtitle sidecars.
 
 [pause:900ms]
@@ -182,17 +182,17 @@ HMAC signed payloads.
 
 [pause:400ms]
 
-<!-- p-27 -->
+<!-- p-28 -->
 Every coordinator to worker call, and every worker to coordinator call that carries task data, is signed with the shared key using HMAC-SHA256. The signature covers the HTTP method, the path, the timestamp, and the full request body.
 
 [pause:2000ms]
 
-<!-- p-28 -->
+<!-- p-29 -->
 The headers carry the signature and timestamp.
 
 [pause:1600ms]
 
-<!-- p-29 -->
+<!-- p-30 -->
 An attacker who intercepts the traffic can read payloads but cannot modify them. The signature will not verify.
 
 [pause:900ms]
@@ -204,7 +204,7 @@ Five minute replay window.
 
 [pause:400ms]
 
-<!-- p-30 -->
+<!-- p-31 -->
 Every signed payload carries a UTC timestamp. Requests older than five minutes are rejected. That stops someone from capturing a signed task and replaying it days later.
 
 [pause:900ms]
@@ -216,7 +216,7 @@ Library allowlisted source fetches.
 
 [pause:400ms]
 
-<!-- p-31 -->
+<!-- p-32 -->
 When a worker pulls source files from the coordinator, the coordinator checks the requested path against the video files table. Only paths that correspond to known library files get served. A leaked signing key does not turn the coordinator into a general purpose file read oracle.
 
 [pause:900ms]
@@ -228,7 +228,7 @@ HTTPS required for non loopback.
 
 [pause:400ms]
 
-<!-- p-32 -->
+<!-- p-33 -->
 The register endpoint rejects non HTTPS worker URLs unless the target is a loopback address. Local development can use plain HTTP on 127 dot 0 dot 0 dot 1. Deployments across a network must use TLS.
 
 [pause:900ms]
@@ -240,7 +240,7 @@ Progress payloads are unauthenticated.
 
 [pause:400ms]
 
-<!-- p-33 -->
+<!-- p-34 -->
 The progress push endpoint accepts anonymous POSTs. The rationale is that progress bodies contain no secrets. Spoofing just moves a fake progress bar. Real task dispatch and source fetch still require HMAC.
 
 [pause:900ms]
@@ -252,42 +252,42 @@ Self registration.
 
 [pause:400ms]
 
-<!-- p-34 -->
+<!-- p-35 -->
 The worker self registration service is a hosted background service that runs on workers.
 
 [pause:500ms]
 
-<!-- p-35 -->
+<!-- p-36 -->
 On boot, it POSTs to the coordinator's register endpoint with the worker ID, base URL, CPU cores, available CPU threads, available GPU slots, GPUs, and version.
 
 [pause:3000ms]
 
-<!-- p-36 -->
+<!-- p-37 -->
 Every heartbeat interval, default 20 seconds, it POSTs to the worker's heartbeat endpoint with a fresh budget so the coordinator sees current load.
 
 [pause:500ms]
 
-<!-- p-37 -->
+<!-- p-38 -->
 On clean shutdown, it DELETEs to unregister.
 
 [pause:400ms]
 
-<!-- p-38 -->
+<!-- p-40 -->
 Failure handling. Initial registration fails. The service logs a warning and retries on the heartbeat loop. The process does not crash.
 
 [pause:500ms]
 
-<!-- p-39 -->
+<!-- p-41 -->
 Heartbeat returns 404. The coordinator does not know us. Assume coordinator restart or late eviction after outage. Re register.
 
 [pause:500ms]
 
-<!-- p-40 -->
+<!-- p-42 -->
 Coordinator unreachable. Heartbeats fail silently. The coordinator's stale eviction removes us after 60 seconds. When the connection restores, auto re register on the next attempt.
 
 [pause:500ms]
 
-<!-- p-41 -->
+<!-- p-43 -->
 If no config is set, the service exits cleanly. Standalone installs have the service registered, but it does nothing.
 
 [pause:900ms]
@@ -299,17 +299,17 @@ Health tracking.
 
 [pause:400ms]
 
-<!-- p-42 -->
+<!-- p-44 -->
 Every task's outcome is reported back to the registry. Three consecutive failures put a worker into a cooldown. A couple minutes by default. Any success clears the counter. Re registration clears the cooldown explicitly. Cooldowns auto expire.
 
 [pause:500ms]
 
-<!-- p-43 -->
+<!-- p-45 -->
 During cooldown, the get active workers call hides the worker. The dispatcher skips it. But the get all workers with health call still returns it, with the cooldown status.
 
 [pause:1800ms]
 
-<!-- p-44 -->
+<!-- p-46 -->
 The dashboard can show, for example, worker B, cooldown, three failures, back at 12:05.
 
 [pause:900ms]
@@ -321,12 +321,12 @@ Retry chain.
 
 [pause:400ms]
 
-<!-- p-45 -->
+<!-- p-47 -->
 The dispatcher tries a small number of remote workers per task before falling back to local. Task T goes to worker A, the initial pick. If A succeeds, return the result. If A fails, task T goes to worker B, the next best. If B succeeds, return. If B also fails, task T goes to the local dispatcher, which always succeeds if the source is valid.
 
 [pause:1400ms]
 
-<!-- p-46 -->
+<!-- p-48 -->
 The retry only runs for this task. Other tasks continue on their original workers in parallel. A single bad GPU does not stall the whole job.
 
 [pause:900ms]
@@ -338,57 +338,57 @@ File transfer.
 
 [pause:400ms]
 
-<!-- p-47 -->
+<!-- p-49 -->
 When coordinator and workers share storage. Shared NAS, SMB mount, NFS. Workers see the task's input path on their own filesystem. There is zero network transfer for source files. The common case.
 
 [pause:500ms]
 
-<!-- p-48 -->
+<!-- p-50 -->
 When they do not share storage. Cloud worker, remote co op machine across the open internet. The HTTP source fetcher kicks in. Seven steps run.
 
 [pause:500ms]
 
-<!-- p-49 -->
+<!-- p-51 -->
 First. Worker receives signed task. Checks whether the input path exists locally.
 
 [pause:400ms]
 
-<!-- p-50 -->
+<!-- p-53 -->
 Second. Build signed download URL if the file is missing. The URL points at the worker source endpoint with path, timestamp, and signature query parameters. The signature is an HMAC over path plus timestamp, using the shared key.
 
 [pause:1400ms]
 
-<!-- p-51 -->
+<!-- p-54 -->
 Third. Coordinator verifies the signature, the timestamp, and that the path is in the library allowlist. Streams the file with range requests enabled.
 
 [pause:1600ms]
 
-<!-- p-52 -->
+<!-- p-55 -->
 Fourth. Worker writes to cache. Path is cache directory, then remote sources, then task ID, then the source extension. The file is streamed straight to disk, with no memory load.
 
 [pause:500ms]
 
-<!-- p-53 -->
+<!-- p-56 -->
 Fifth. Worker rewrites task command arguments. Swaps the original path for the cached path.
 
 [pause:400ms]
 
-<!-- p-54 -->
+<!-- p-57 -->
 Sixth. The encode runs.
 
 [pause:400ms]
 
-<!-- p-55 -->
+<!-- p-58 -->
 Seventh. Finally block runs. Release async deletes the cached file.
 
 [pause:500ms]
 
-<!-- p-56 -->
+<!-- p-59 -->
 Retries reuse the cached file. Downloading a 4K source once per attempt would be wasteful.
 
 [pause:500ms]
 
-<!-- p-57 -->
+<!-- p-60 -->
 Shared storage installs swap the HTTP source fetcher for a null source fetcher in dependency injection. It just returns the original path unchanged. No code changes needed. It is config driven.
 
 [pause:900ms]
@@ -400,22 +400,22 @@ Live progress.
 
 [pause:400ms]
 
-<!-- p-58 -->
+<!-- p-61 -->
 While a task runs, the worker posts progress snapshots to the coordinator every couple seconds. Percent complete, current frames per second, current speed, current stage, elapsed seconds, estimated remaining, current time, duration, and bitrate.
 
 [pause:2000ms]
 
-<!-- p-59 -->
+<!-- p-62 -->
 The coordinator caches the latest snapshot per task. The dashboard reads via a GET to the progress endpoint.
 
 [pause:500ms]
 
-<!-- p-60 -->
+<!-- p-63 -->
 It is fire and forget on the worker side. ffmpeg's progress thread never blocks on a slow coordinator. Failed pushes are logged and swallowed. Progress is best effort. The encode's success does not depend on it.
 
 [pause:500ms]
 
-<!-- p-61 -->
+<!-- p-64 -->
 It is throttled to one POST per couple seconds per task. ffmpeg emits more often, but the UI does not need more granularity.
 
 [pause:900ms]
@@ -427,17 +427,17 @@ Scaling hints.
 
 [pause:400ms]
 
-<!-- p-62 -->
+<!-- p-65 -->
 The worker assigner load balances by speed multiplier times available slots. Workers with more CPU plus GPU capacity get more work. Heavy quality variant tasks schedule onto fast workers first. Lighter time chunk tasks fill the remainder.
 
 [pause:500ms]
 
-<!-- p-63 -->
+<!-- p-66 -->
 The speed index per encoder, GPU, and resolution combination drives the speed multiplier. A worker with a higher throughput AV1 encoder wins AV1 tasks, even if it has fewer CPU cores.
 
 [pause:500ms]
 
-<!-- p-64 -->
+<!-- p-67 -->
 The cooldown window is tunable. Too short causes thrashing in and out of cooldown. Too long means failed workers stay benched after they recover.
 
 [pause:900ms]
@@ -449,7 +449,7 @@ What is not in this milestone.
 
 [pause:400ms]
 
-<!-- p-65 -->
+<!-- p-68 -->
 No mutual TLS. HMAC signed payloads are the full security story. Works on trusted LAN plus HTTPS to the coordinator. Deployments across the open internet should add a VPN or a TLS client certificate layer externally. No exponential backoff on retries. First worker fails. Second worker tries immediately. If all remotes are flaky, the retry chain exhausts in seconds. The max remote attempts is tunable. Source fetch is not resumable across worker restarts. A worker crash mid download discards the partial file. The next attempt re downloads from scratch. HTTP range requests are enabled on the server, so a fancier client could resume. The current one streams straight to disk without checkpoint state. Strategies do not auto distribute yet. The dispatcher infrastructure is wired end to end. But existing single machine strategies still run whole jobs locally. They do not yet decompose into encode task arrays plus dispatch. That is the final integration step. Plugin strategies can wire themselves up today.
 
 [pause:900ms]
@@ -461,7 +461,7 @@ Test coverage.
 
 [pause:400ms]
 
-<!-- p-66 -->
+<!-- p-72 -->
 The distribution layer has extensive test coverage across its components. The dispatcher, the task serializer, the HTTP worker, the registry, the self registration service, the source fetcher, and the progress store each have their own suite, focused on round trip signing, tamper detection, retry behaviour, stale eviction, health tracking, and cache reuse. A full end to end test runs a simulated cluster through a real encode, and a mismatched signing key test verifies that the coordinator falls back to local dispatch when workers reject signed payloads.
 
 [pause:900ms]
@@ -473,7 +473,7 @@ What the next page covers.
 
 [pause:400ms]
 
-<!-- p-67 -->
+<!-- p-74 -->
 You now have an encoder that can span one machine or many. That finishes the tour of what is shipping today. Part eleven covers what is not shipping. The roadmap. What is planned, what is not planned, and the honest trade offs behind both.
 
 [pause:1000ms]

@@ -216,7 +216,7 @@ The buffer manager watches the client's playback position versus the segments al
 
 [pause:1400ms]
 
-<!-- p-33 -->
+<!-- p-34 -->
 Suspend fires when the user has been pausing to read subtitles or left the tab in the background. Resume fires when the buffer drops. Drop quality fires when the buffer is thin. The runner switches the variant so segments produce faster.
 
 [pause:900ms]
@@ -228,17 +228,17 @@ Seek handling.
 
 [pause:400ms]
 
-<!-- p-34 -->
+<!-- p-35 -->
 HLS segments are sequential. When a client seeks, the current live session cannot jump ahead. It is either already encoded past that point, or not yet reached it.
 
 [pause:500ms]
 
-<!-- p-35 -->
+<!-- p-36 -->
 Current behaviour. A seek closes the session and creates a new one from the seek timestamp. Session creation is fast. ffmpeg spawn is about a second on a decent box, plus one segment's worth of encode time before the client can start playing. So the user experience is a brief pause and then a new stream continues.
 
 [pause:500ms]
 
-<!-- p-36 -->
+<!-- p-37 -->
 Future work on the roadmap. Transparent seek within an existing session by repositioning the ffmpeg input. Not shipped yet.
 
 [pause:900ms]
@@ -250,12 +250,12 @@ Concurrent sessions.
 
 [pause:400ms]
 
-<!-- p-37 -->
+<!-- p-38 -->
 Each session is an ffmpeg process. GPU encoders have concurrent session limits per card, imposed by the hardware vendor. The encoder detects the cap at runtime from the GPU driver and refuses new sessions above it. A clear error tells the user the GPU is saturated and suggests waiting or falling back to software.
 
 [pause:2000ms]
 
-<!-- p-38 -->
+<!-- p-39 -->
 CPU sessions do not have hard limits. The dispatcher just gets slower as the CPU saturates. If a session starts to lag, the buffer manager drops quality to keep up.
 
 [pause:900ms]
@@ -267,17 +267,17 @@ Where the live cache lives.
 
 [pause:400ms]
 
-<!-- p-39 -->
+<!-- p-40 -->
 Live session output goes into a configurable cache path. The default lives in the OS temp directory. Each session gets its own folder, named with the session ID.
 
 [pause:1600ms]
 
-<!-- p-40 -->
+<!-- p-41 -->
 On session end, the folder is deleted. On server restart, any leftover folders get swept. Sessions do not persist across restarts, so the folders are orphaned.
 
 [pause:500ms]
 
-<!-- p-41 -->
+<!-- p-42 -->
 The cache path is configurable. Put it on a fast SSD. Segments are written and read aggressively during playback.
 
 [pause:1000ms]
@@ -289,27 +289,27 @@ How this differs from file encoding.
 
 [pause:400ms]
 
-<!-- p-42 -->
+<!-- p-44 -->
 Live transcode and file encoding share the encoding strategy and the ffmpeg execution layer. But live differs in three ways.
 
 [pause:500ms]
 
-<!-- p-43 -->
+<!-- p-45 -->
 Live has no finalize stage. There is no stitching, no master playlist cleanup. Event playlists are the final form.
 
 [pause:500ms]
 
-<!-- p-44 -->
+<!-- p-46 -->
 Live has no checkpoints. Resume is not meaningful for a session tied to a live client.
 
 [pause:500ms]
 
-<!-- p-45 -->
+<!-- p-47 -->
 Live skips the full analyze stage. The client already declared what it wants. The planner takes a shortcut and uses the capabilities block directly instead of doing a full source analysis.
 
 [pause:500ms]
 
-<!-- p-46 -->
+<!-- p-48 -->
 The live specific code lives in its own namespace inside the encoder. It runs in the same server process as file encoding. Sessions compete for the same GPU and CPU budget. The session manager arbitrates.
 
 [pause:900ms]
@@ -321,7 +321,7 @@ What the next page covers.
 
 [pause:400ms]
 
-<!-- p-47 -->
+<!-- p-49 -->
 Live transcode closes the gap between what you stored and what you are watching on. But what about the input side of the library? How does a movie get into your library in the first place? Part nine covers disc ripping.
 
 [pause:1000ms]

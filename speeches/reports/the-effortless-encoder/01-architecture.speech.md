@@ -69,9 +69,18 @@ The validator returns a structured response with errors and warnings.
 
 [pause:500ms]
 
+<!-- variant:brief -->
 Every rule — whether it flags a level mismatch or a bad audio bitrate — returns the same shape. An ID, the field it concerns, a human sentence, and a suggested fix. That is why the dashboard can just render the feedback inline on whichever field the user is editing.
 
 [pause:900ms]
+<!-- /variant -->
+
+<!-- variant:elaborate -->
+The response carries a valid flag at the top, an errors array, and a warnings array. Each entry has five fields. A stable ID you can link to from documentation. A severity level — error or warning. A field path pointing at exactly which bit of the profile is wrong. A human sentence explaining what the problem is. And a fix field telling the user what to change. The example rejects a profile where video profile zero has Level 4.1 but the output resolution is 3840 by 2160 — Level 4.1 caps at 1080p, so the fix says raise the level to 5.1 or drop the resolution. The warnings array in this case is empty.
+
+[pause:1200ms]
+<!-- /variant -->
+
 
 <!-- p-10 -->
 Errors block the save. Warnings are things that will encode but may not be what you intended.
@@ -213,17 +222,17 @@ The encoder parses this continuously and computes percent complete, current fram
 
 [pause:500ms]
 
-<!-- p-30 -->
+<!-- p-35 -->
 All of that flows to the dashboard via SignalR. If you have the dashboard open you see progress in real time.
 
 [pause:500ms]
 
-<!-- p-31 -->
+<!-- p-36 -->
 If ffmpeg crashes, the encoder captures its error output, logs the last known state, and writes a checkpoint file that lets a future attempt resume from where it stopped.
 
 [pause:500ms]
 
-<!-- p-32 -->
+<!-- p-37 -->
 If the user cancels the job, a cancellation token flows down and the encoder kills the ffmpeg process cleanly, deleting any partial output.
 
 [pause:900ms]
@@ -235,32 +244,32 @@ Finalize.
 
 [pause:400ms]
 
-<!-- p-33 -->
+<!-- p-38 -->
 The encode is done. Now the encoder does the tidying.
 
 [pause:500ms]
 
-<!-- p-34 -->
+<!-- p-39 -->
 Master playlists get written. For HLS, that means a top-level master dot m 3 u 8 referencing each variant's playlist with the right E-X-T stream information attributes. Bandwidth, resolution, codec triplet, frame rate, video range. For DASH, it means writing the manifest with period, adaptation set, and representation elements.
 
 [pause:500ms]
 
-<!-- p-35 -->
+<!-- p-40 -->
 Chapter markers get inserted. As E-X-T date range tags for HLS, as event stream entries for DASH, as chapter atoms for MP4.
 
 [pause:500ms]
 
-<!-- p-36 -->
+<!-- p-41 -->
 Attached subtitles and fonts get linked from the playlists. The HLS master's subtitle references become E-X-T media tags with matching group ID, name, language, URI, and default attributes.
 
 [pause:500ms]
 
-<!-- p-37 -->
+<!-- p-42 -->
 Checkpoint files get cleaned up. Temp directories get purged.
 
 [pause:500ms]
 
-<!-- p-38 -->
+<!-- p-43 -->
 What the user sees at the end is not a mess of intermediate files. It is a clean output directory, with everything the playback side needs, organized the way playback expects.
 
 [pause:900ms]
@@ -272,12 +281,12 @@ The idea of strategies.
 
 [pause:400ms]
 
-<!-- p-39 -->
+<!-- p-44 -->
 Every output format is handled by a specialized strategy. A strategy is a class that implements the six stages for one container family.
 
 [pause:500ms]
 
-<!-- p-40 -->
+<!-- p-48 -->
 The shipped strategies cover HLS single pass and two pass, DASH single and two pass, MP4 single and two pass, MKV single pass, and three audio only strategies for MP3, F-L-A-C, and O-G-G.
 
 [pause:500ms]
@@ -304,22 +313,22 @@ Plugins.
 
 [pause:400ms]
 
-<!-- p-44 -->
+<!-- p-49 -->
 Everything above. Stages, strategies, codec resolvers, dispatchers, source fetchers, progress sinks. All registered through dependency injection. Plugins can register their own implementations alongside the built-ins.
 
 [pause:500ms]
 
-<!-- p-45 -->
+<!-- p-50 -->
 A plugin that wants to add a new output strategy registers an encoding strategy in the service collection.
 
 [pause:1000ms]
 
-<!-- p-46 -->
+<!-- p-51 -->
 A plugin that wants to override codec resolution, say, to force a specific hardware encoder for a specific GPU model, registers an encoder resolver with a higher priority than the default.
 
 [pause:500ms]
 
-<!-- p-47 -->
+<!-- p-52 -->
 The encoder's own strategies are built on the same hooks. Nothing in the built in set has access to anything a plugin could not reach. If you want to write a strategy for a container we did not ship, the API is there.
 
 [pause:900ms]
@@ -331,22 +340,22 @@ Maintenance, honestly.
 
 [pause:400ms]
 
-<!-- p-48 -->
+<!-- p-53 -->
 An architecture diagram on a whiteboard looks clean. The reality of maintaining this is messier.
 
 [pause:500ms]
 
-<!-- p-49 -->
+<!-- p-54 -->
 Every stage has bugs. Some of them are subtle. Analyze might misread an unusual fourth stream in an obscure container. Plan might pick the wrong encoder on a GPU we have not tested. Execute might fail to capture a specific ffmpeg error pattern. Build might generate a filter chain that works on libx264 but has a subtle syntax issue on NVENC.
 
 [pause:500ms]
 
-<!-- p-50 -->
+<!-- p-55 -->
 The way we stay honest about this is tests. The encoder has a large and growing test suite, covering each stage, each codec, each failure path. When a user reports a bug, the first thing we do is write a test that reproduces it. If the test passes, the bug was not where we thought it was. If the test fails, we have a concrete target. Fix the test, ship the fix, and the next person who hits the same issue does not.
 
 [pause:500ms]
 
-<!-- p-51 -->
+<!-- p-56 -->
 This does not prevent all bugs. It prevents the same bug from shipping twice.
 
 [pause:900ms]
@@ -358,7 +367,7 @@ What the next page covers.
 
 [pause:400ms]
 
-<!-- p-52 -->
+<!-- p-57 -->
 Now that you know how the encoder thinks, we can talk about what it actually knows. The codec landscape. Why there are so many, which ones the encoder supports for output, and how it picks between them on your behalf.
 
 [pause:1000ms]

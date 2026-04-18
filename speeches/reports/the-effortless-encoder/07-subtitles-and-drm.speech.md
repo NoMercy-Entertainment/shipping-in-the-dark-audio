@@ -319,32 +319,32 @@ The DRM configuration on a profile takes four fields. Scheme, currently only AES
 
 [pause:1800ms]
 
-<!-- p-48 -->
+<!-- p-52 -->
 Six steps run as part of the encode.
 
 [pause:400ms]
 
-<!-- p-49 -->
+<!-- p-53 -->
 First. Key generation. Before the encode starts, the DRM processor generates a random 128 bit key plus IV, or reuses an existing one.
 
 [pause:1000ms]
 
-<!-- p-50 -->
+<!-- p-54 -->
 Second. Write a key info file. ffmpeg's dash HLS key info file flag takes a small text file with the key URL that players will fetch, the local path to the binary key file, and the IV as a hex string.
 
 [pause:1200ms]
 
-<!-- p-51 -->
+<!-- p-55 -->
 Third. Pass the key info file to ffmpeg.
 
 [pause:1200ms]
 
-<!-- p-52 -->
+<!-- p-56 -->
 Fourth. ffmpeg writes each segment encrypted with AES-128 CBC.
 
 [pause:400ms]
 
-<!-- p-53 -->
+<!-- p-57 -->
 Fifth. The playlist gains an EXT-X-KEY tag with method AES-128, a URI pointing at the key location, and an IV value.
 
 [pause:600ms]
@@ -353,7 +353,7 @@ The only new line compared to an unencrypted playlist is a single EXT-X-KEY tag 
 
 [pause:900ms]
 
-<!-- p-54 -->
+<!-- p-58 -->
 Sixth. Players fetch the key over HTTPS, ideally with auth, and decrypt segments on the fly. The server is responsible for enforcing access on the key URI endpoint. Usually a bearer token check tied to the user's subscription or invite.
 
 [pause:900ms]
@@ -365,22 +365,22 @@ What this actually protects against.
 
 [pause:400ms]
 
-<!-- p-55 -->
+<!-- p-59 -->
 AES-128 HLS is not full DRM in the Widevine or PlayReady sense. Let us be precise about what it does.
 
 [pause:500ms]
 
-<!-- p-56 -->
+<!-- p-60 -->
 It protects against direct URL to stream scraping. A user who opens the m3u8 URL without passing through the paywall gets encrypted segments they cannot decode. They cannot pop the URL into a download tool and get the movie.
 
 [pause:500ms]
 
-<!-- p-57 -->
+<!-- p-61 -->
 Key delivery is the weak link. If the key URI is public, so is the content. The server must gate key delivery behind auth proportional to the content's sensitivity.
 
 [pause:500ms]
 
-<!-- p-58 -->
+<!-- p-62 -->
 Segments exist unencrypted on disk during encoding. The encryption happens as ffmpeg writes. If your source side storage is compromised, the unencrypted source still exists. AES-128 HLS is a streaming protection, not a storage protection.
 
 [pause:900ms]
@@ -392,12 +392,12 @@ What this does well.
 
 [pause:400ms]
 
-<!-- p-59 -->
+<!-- p-63 -->
 It works everywhere. Safari, Chrome, iOS, Android, most smart TVs, Apple TV. The entire device ecosystem speaks AES-128 HLS. There is no license server to operate. There is no integration with Widevine, PlayReady, or FairPlay. You do not need a commercial DRM partner. You run your own encoder, you gate your own key delivery, you are done.
 
 [pause:500ms]
 
-<!-- p-60 -->
+<!-- p-64 -->
 For home, prosumer, and small paywall use cases, this is enough.
 
 [pause:900ms]
@@ -409,32 +409,32 @@ CENC and DASH, planned but not shipped.
 
 [pause:400ms]
 
-<!-- p-61 -->
+<!-- p-65 -->
 DASH supports a different scheme called Common Encryption, or CENC. One encrypted stream, separate license servers for Widevine, PlayReady, and FairPlay. This covers the studio grade multi DRM story.
 
 [pause:500ms]
 
-<!-- p-62 -->
+<!-- p-66 -->
 Shipping CENC means three things.
 
 [pause:400ms]
 
-<!-- p-63 -->
+<!-- p-67 -->
 First. A packager. Either mp4box from G-PAC, or shaka packager, for segment level encryption.
 
 [pause:1200ms]
 
-<!-- p-64 -->
+<!-- p-69 -->
 Second. License server integration. Usually a paid service. ExpressPlay, Axinom, BuyDRM, and similar. The encoder emits the content key and PSSH boxes. The license server issues decryption licenses at playback time.
 
 [pause:500ms]
 
-<!-- p-65 -->
+<!-- p-71 -->
 Third. Certificate handling per DRM system. Widevine requires Google signed certs. PlayReady requires Microsoft signed certs. FairPlay requires Apple signed certs. Each has its own provisioning flow.
 
 [pause:500ms]
 
-<!-- p-66 -->
+<!-- p-73 -->
 CENC is marked on the roadmap as paid tier work. AES-128 HLS covers the home and prosumer and casual paywall case. CENC covers commercial streaming at scale, which is a smaller user base and a larger build.
 
 [pause:900ms]
@@ -446,12 +446,12 @@ Subtitle and DRM interaction.
 
 [pause:400ms]
 
-<!-- p-67 -->
+<!-- p-74 -->
 The validator enforces a few combinations. MP4 extract mode allows WebVTT, SRT, or mov text. HLS extract mode allows WebVTT only. ASS triggers a lossy conversion warning. MKV and DASH allow all subtitle codecs.
 
 [pause:1200ms]
 
-<!-- p-68 -->
+<!-- p-75 -->
 When DRM is enabled on an HLS encode, subtitle sidecars are not encrypted. Subtitle files are tiny and carry no content worth stealing. The video segments are where the protection matters.
 
 [pause:900ms]
@@ -463,12 +463,12 @@ What the next page covers.
 
 [pause:400ms]
 
-<!-- p-69 -->
+<!-- p-76 -->
 You can now produce well subtitled, optionally protected streams. But what if the player is weak, and cannot decode the streams you produce?
 
 [pause:400ms]
 
-<!-- p-70 -->
+<!-- p-77 -->
 Part eight covers live transcode. How a cheap phone can watch a 4K Blu Ray rip by having the server re encode on the fly.
 
 [pause:1000ms]

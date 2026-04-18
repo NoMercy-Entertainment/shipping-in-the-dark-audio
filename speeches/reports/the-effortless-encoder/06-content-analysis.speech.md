@@ -57,7 +57,7 @@ Solution. Run ffmpeg's crop detect filter against a sample of frames. It returns
 
 [pause:500ms]
 
-<!-- p-9 -->
+<!-- p-14 -->
 The detection command pipes crop detect output into a frequency count to find the most common rectangle.
 
 [pause:1800ms]
@@ -72,7 +72,7 @@ The result record carries the detected rectangle plus a confidence score.
 
 [pause:1600ms]
 
-<!-- p-12 -->
+<!-- p-15 -->
 You see this in the dashboard. If the detected rectangle matches the full frame, the should crop flag is false.
 
 [pause:500ms]
@@ -129,47 +129,47 @@ First. For each episode, extract the first three minutes of audio at 16 kilohert
 
 [pause:1200ms]
 
-<!-- p-22 -->
+<!-- p-23 -->
 Second. Fingerprint that audio with fpcalc.
 
 [pause:1400ms]
 
-<!-- p-23 -->
+<!-- p-26 -->
 Third. For each pair of episodes, slide one fingerprint against the other and compute a Hamming distance similarity score at each offset.
 
 [pause:500ms]
 
-<!-- p-24 -->
+<!-- p-28 -->
 Fourth. Cluster the pairs. The cluster with the most matching members is the intro. The start and end offsets within each episode come from the slide position of its best match.
 
 [pause:500ms]
 
-<!-- p-25 -->
+<!-- p-30 -->
 The detector uses a sliding window Hamming distance match with a small tolerance window, about 10 seconds on either side, to handle cases where intros start at slightly different times. Episode A starts its intro at 15 seconds, episode B at 22 seconds. Same audio, different offsets. The detector clusters them together.
 
 [pause:500ms]
 
-<!-- p-26 -->
+<!-- p-31 -->
 The output is an intro marker per episode. Start timestamp, end timestamp, confidence score 0 to 1, and a source flag so manual overrides are protected.
 
 [pause:1400ms]
 
-<!-- p-27 -->
+<!-- p-32 -->
 The marker goes into the content segments table in the database. The player reads it and shows a skip intro button.
 
 [pause:500ms]
 
-<!-- p-28 -->
+<!-- p-33 -->
 Outro detection is the mirror. Fingerprint the last three minutes of each episode. Look for the shared tail.
 
 [pause:500ms]
 
-<!-- p-29 -->
+<!-- p-34 -->
 You can edit detected segments through the dashboard. If auto detection got the end of the intro slightly wrong, you nudge it. When you manually edit a segment, the source flips to manual, which tells the auto detector to leave it alone on the next run.
 
 [pause:500ms]
 
-<!-- p-30 -->
+<!-- p-35 -->
 Like crop detection, fingerprinting is minutes of ffmpeg work per episode. Running it automatically on every episode in a large library takes hours. The intro detection subscriber runs it in the background, triggered by encoded episodes landing in a library folder. You do not wait for it.
 
 [pause:900ms]
@@ -181,42 +181,42 @@ Subtitle optical character recognition.
 
 [pause:400ms]
 
-<!-- p-31 -->
+<!-- p-36 -->
 Problem. Blu Ray sources ship with PGS subtitles, which are bitmap subtitles. Each subtitle cue is a tiny image. Apple TV can render them. Most smart TVs can render them. Web players cannot. DASH and HLS playlists cannot carry bitmap subs.
 
 [pause:500ms]
 
-<!-- p-32 -->
+<!-- p-37 -->
 To put PGS subtitles in an HLS playlist, you need to convert them to text. That means optical character recognition. Run an OCR engine against each subtitle frame and extract the text.
 
 [pause:500ms]
 
-<!-- p-33 -->
+<!-- p-38 -->
 Solution. Tesseract, via a custom OCR subtitle encoder that ships as part of NoMercy's ffmpeg build. The journal entry "The Wrong Filename", entry 8, covers how this encoder was built.
 
 [pause:500ms]
 
-<!-- p-34 -->
+<!-- p-39 -->
 The spot check endpoint accepts a video file ID, a stream index, and a language.
 
 [pause:1400ms]
 
-<!-- p-35 -->
+<!-- p-40 -->
 Internally, this runs ffmpeg with the OCR subtitle encoder, a language flag, and an upscale factor.
 
 [pause:1200ms]
 
-<!-- p-36 -->
+<!-- p-41 -->
 Tesseract needs trained data per language. English works out of the box. Adding a new language means downloading its trained data file. Managed through the dashboard.
 
 [pause:1000ms]
 
-<!-- p-37 -->
+<!-- p-42 -->
 Available language codes include English, Japanese, simplified and traditional Chinese, Korean, French, German, Spanish, Italian, Portuguese, Russian, Dutch, Arabic, and Hindi. The trained data ends up under the configured Tesseract models directory.
 
 [pause:500ms]
 
-<!-- p-38 -->
+<!-- p-43 -->
 One interesting implementation detail covered in entry 8. The OCR encoder uses a luminance weighted alpha composite before OCR instead of a naive grayscale. Subtitles are bright text on a transparent background. Naive grayscale produces low contrast images. Luminance weighted alpha composite produces high contrast black on white that Tesseract reads accurately. That single change took the OCR from "barely usable" to "production quality".
 
 [pause:900ms]
@@ -228,17 +228,17 @@ Speech transcription with Whisper.
 
 [pause:400ms]
 
-<!-- p-39 -->
+<!-- p-44 -->
 Problem. Some sources ship without subtitles at all. A foreign language documentary with no English subs. A home video you filmed on a phone. Manual transcription is hours of work per hour of content. Cloud transcription APIs require uploading your library to someone else, which defeats the point of self hosting.
 
 [pause:500ms]
 
-<!-- p-40 -->
+<!-- p-45 -->
 Solution. Run Whisper locally. Whisper is OpenAI's speech recognition model, released as open weights. A C plus plus port called whisper dot c-p-p runs on consumer hardware without requiring a cloud service.
 
 [pause:500ms]
 
-<!-- p-41 -->
+<!-- p-50 -->
 The endpoint accepts a video file ID, an audio stream index, a language, an optional translate to English flag, and a model size.
 
 [pause:1600ms]
@@ -263,7 +263,7 @@ Whisper has an interesting bonus feature. Translate to English mode. You give it
 
 [pause:500ms]
 
-<!-- p-46 -->
+<!-- p-51 -->
 Whisper is slow. A 90 minute movie takes roughly 15 to 30 minutes to transcribe on a decent GPU. Longer on CPU. The encoder reports progress as a percentage so the dashboard can show it. The output WebVTT lands next to the source file.
 
 [pause:900ms]
@@ -275,22 +275,22 @@ How analysis feeds the pipeline.
 
 [pause:400ms]
 
-<!-- p-47 -->
+<!-- p-52 -->
 These tools are standalone, but they really shine when combined with the rest of the pipeline.
 
 [pause:500ms]
 
-<!-- p-48 -->
+<!-- p-53 -->
 Crop detection feeds the profile's filter chain. Intro and outro markers flow to players via the content segments table. OCR subtitles become sidecars in HLS and DASH outputs. Whisper transcriptions become sidecars too, for sources that had no subtitles.
 
 [pause:500ms]
 
-<!-- p-49 -->
+<!-- p-57 -->
 Subscribers watch for events on the server's event bus. When an episode is scanned, the intro subscriber fires and runs fingerprinting. When a new file lands in a watched folder, the auto encode subscriber fires and starts an encode. When an encode completes, the OCR subscriber inspects the output's subtitle streams and runs OCR if needed.
 
 [pause:500ms]
 
-<!-- p-50 -->
+<!-- p-58 -->
 The subscribers run in the background. They do not block anything. They just quietly improve the library over time.
 
 [pause:900ms]
@@ -302,12 +302,12 @@ What the next page covers.
 
 [pause:400ms]
 
-<!-- p-51 -->
+<!-- p-59 -->
 You have a well analyzed source and a validated profile. The encoder is ready to produce output.
 
 [pause:400ms]
 
-<!-- p-52 -->
+<!-- p-60 -->
 Part seven covers two topics that go together. Subtitles, and the optional encryption layer for paid streaming.
 
 [pause:1000ms]

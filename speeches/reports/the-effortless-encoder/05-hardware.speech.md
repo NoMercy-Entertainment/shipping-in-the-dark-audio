@@ -259,7 +259,7 @@ This is the inverse direction. Your source is SDR. Your profile claims HDR outpu
 
 [pause:500ms]
 
-<!-- p-41 -->
+<!-- p-42 -->
 The encoder refuses with a clear error. Inverse tonemapping produces artifacts that look worse than the source. There is no good way to do it algorithmically. Real HDR grading is a human decision.
 
 [pause:1200ms]
@@ -271,27 +271,27 @@ The 10 bit downgrade guard.
 
 [pause:400ms]
 
-<!-- p-42 -->
+<!-- p-43 -->
 Related to HDR is bit depth. Most modern video is encoded in 8 bits per channel. HDR content needs 10 bits or more to represent the wider range.
 
 [pause:500ms]
 
-<!-- p-43 -->
+<!-- p-44 -->
 Every H.264 hardware encoder is 8 bit only. This is a silicon constraint. There is no driver update coming that adds 10 bit H.264 to NVENC.
 
 [pause:500ms]
 
-<!-- p-44 -->
+<!-- p-45 -->
 Before this encoder shipped its 10 bit downgrade guard, a profile that said H.264 10 bit on an NVENC machine would produce an empty pixel format string in the ffmpeg command line. ffmpeg would either pick the source's format, wrong, or fail at runtime with an Invalid pixel format error.
 
 [pause:500ms]
 
-<!-- p-45 -->
+<!-- p-46 -->
 Now the plan stage checks. If your profile requests 10 bit and the resolved encoder is 8 bit only, the output plan downgrades to 8 bit and records a warning.
 
 [pause:1000ms]
 
-<!-- p-46 -->
+<!-- p-47 -->
 HEVC, AV1, and VP9 hardware encoders support 10 bit natively. The downgrade only fires on H.264 hardware, and on Apple's HEVC VideoToolbox encoder which is also 8 bit only for reasons inside Apple's silicon.
 
 [pause:900ms]
@@ -303,17 +303,17 @@ The resource monitor.
 
 [pause:400ms]
 
-<!-- p-47 -->
+<!-- p-48 -->
 While encodes are running, the encoder tracks live CPU, RAM, and GPU utilization per running ffmpeg process. Sampled every couple seconds and surfaced via an API endpoint.
 
 [pause:2000ms]
 
-<!-- p-48 -->
+<!-- p-49 -->
 The scheduler reads these numbers. If an existing encode is saturating the GPU, the scheduler holds back on starting a new GPU encode. It might start a CPU encode instead, if one is queued.
 
 [pause:500ms]
 
-<!-- p-49 -->
+<!-- p-50 -->
 On the dashboard, you can see the current utilization alongside the queue. If your encoder dashboard shows 95 percent GPU utilization and a long queue, you know encodes are landing one after another. If it shows 20 percent utilization and a long queue, something is holding encodes back and you should investigate. Most commonly, source disk I O, or a concurrent session cap from the hardware vendor.
 
 [pause:500ms]

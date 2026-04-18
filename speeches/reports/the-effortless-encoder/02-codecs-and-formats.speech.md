@@ -151,12 +151,12 @@ Apple's VideoToolbox uses a totally different scale, 0 to 100. Feeding it a CRF 
 
 [pause:500ms]
 
-<!-- p-25 -->
+<!-- p-26 -->
 AMD's AV1 encoder uses 0 to 255 for its quality range instead of 0 to 63 like every software AV1 encoder. Off by a factor of four. The encoder translates that too.
 
 [pause:500ms]
 
-<!-- p-26 -->
+<!-- p-27 -->
 You did not have to know any of this. You wrote CRF 23. The encoder figured out where on each scale that landed.
 
 [pause:900ms]
@@ -173,17 +173,17 @@ The full translation table maps software CRF values to each hardware encoder's n
 
 [pause:500ms]
 
-<!-- p-28 -->
+<!-- p-29 -->
 The translation uses linear proportional math today. It is not perceptually perfect, because the perceived quality is not linear on any of these scales. But it is orders of magnitude closer than doing nothing, which is what most encoders do.
 
 [pause:500ms]
 
-<!-- p-29 -->
+<!-- p-30 -->
 One of the open questions on our roadmap is whether to let the community publish better scaling curves. Someone who ran rigorous quality measurements, VMAF, S-S-I-M, P-S-N-R, comparing encoders, could contribute a scaling curve that fits their hardware and content better than our linear default. The interface is called I Quality Scaler.
 
 [pause:1000ms]
 
-<!-- p-30 -->
+<!-- p-31 -->
 Plug in a better implementation via dependency injection and the plan stage picks it up. The default is a linear quality scaler.
 
 [pause:900ms]
@@ -195,12 +195,12 @@ Audio is a smaller menu.
 
 [pause:400ms]
 
-<!-- p-31 -->
+<!-- p-32 -->
 Where video has many encoder handles, audio is simpler. AAC is the workhorse. Opus for best quality per bit at low bitrates. F-L-A-C for lossless archival. AC-3 and EAC-3 for Dolby surround. MP3 legacy. Vorbis open alternative. TrueHD Dolby lossless surround. DTS competing surround.
 
 [pause:500ms]
 
-<!-- p-32 -->
+<!-- p-33 -->
 Audio encoders are just software. There is no Apple audio encoder that works differently from the A-M-D audio encoder. AAC is AAC. So the encoder just picks the best implementation of each codec and stays with it.
 
 [pause:900ms]
@@ -212,22 +212,22 @@ Why we limit output formats.
 
 [pause:400ms]
 
-<!-- p-33 -->
+<!-- p-34 -->
 The encoder accepts anything on input. If ffmpeg can read it, the encoder will try to encode it.
 
 [pause:500ms]
 
-<!-- p-34 -->
+<!-- p-35 -->
 But we limit what we produce. You cannot ask the encoder to output RealVideo from 2002. You cannot ask for Cinepak. You cannot ask for Theora, even though it is technically open source and technically decent.
 
 [pause:500ms]
 
-<!-- p-35 -->
+<!-- p-36 -->
 The reason is a thing we keep coming back to. Every output format we support is another set of edge cases, another set of player compatibility stories, another set of bugs to chase. The benefit of supporting it has to exceed the cost of maintaining it.
 
 [pause:500ms]
 
-<!-- p-36 -->
+<!-- p-37 -->
 The four codec families we ship cover the overwhelming majority of modern playback use cases. Adding the rest would serve the long tail. Given the trade offs, we said no to the long tail, for now. A plugin can add a fifth family if someone needs it badly enough to write and maintain that code.
 
 [pause:900ms]
@@ -239,12 +239,12 @@ Containers.
 
 [pause:400ms]
 
-<!-- p-37 -->
+<!-- p-38 -->
 A codec is the encoding. A container is the file format that holds the encoded bits.
 
 [pause:500ms]
 
-<!-- p-38 -->
+<!-- p-39 -->
 You can have H.264 video in an MP4 container, an MKV container, or an HLS playlist. The audio and video are the same. The container is the wrapper. Each container has its own quirks about what codecs it will hold. A common pitfall. An MP4 container with VP9 video. Technically the ISO standard has a VP9 in MP4 box definition, but most players never implemented it. ffmpeg will happily mux it. Most players will fail to play it. The safety net catches this before the encode runs.
 
 [pause:900ms]
