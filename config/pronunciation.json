@@ -990,6 +990,10 @@
 			"sub": "head",
 			"notes": "HTTP verb or Git HEAD — pronounce as English word 'head'."
 		},
+		"messier": {
+			"sub": "messyer",
+			"notes": "English comparative of 'messy' — TTS was pronouncing it French (mess-ee-ay) after the astronomer Charles Messier."
+		},
 		"G-E-T": {
 			"sub": "get",
 			"notes": "Legacy manual spell-out; fold back into the verb entry."
