@@ -145,7 +145,11 @@ A glimpse at the shape of things.
 <!-- p-18 -->
 Before we dive into the pipeline, the codecs, the hardware, and the rest, it helps to see a single concrete artifact. On screen is a real encoding profile, as it lives in the database.
 
-[pause:1800ms]
+[pause:700ms]
+
+Walk with me through what it says. At the top, an ID and a name, plus a container of HLS. One video profile: H.264 at 1920 by 1080, CRF 23, medium preset, high profile at level 4.2, 8 bit pixel format, two second keyframes. One audio profile: AAC stereo at 192 kbps, 48 kilohertz, with a language filter that keeps English, Japanese, and French. One subtitle profile in extract mode, WebVTT, English only. And two flags at the top level: auto ladder is on, auto detect crop is on.
+
+[pause:900ms]
 
 <!-- p-19 -->
 That is the whole input. The encoder takes this, combines it with whatever source file you point at, and produces a complete HLS package. Master playlist, per-variant playlists, segment files, and sidecar subtitle playlists, that plays on every HLS client in existence.

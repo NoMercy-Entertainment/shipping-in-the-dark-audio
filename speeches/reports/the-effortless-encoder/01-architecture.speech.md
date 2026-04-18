@@ -67,7 +67,11 @@ Validate rejects impossible combinations before the rest of the pipeline runs. A
 <!-- p-9 -->
 The validator returns a structured response with errors and warnings.
 
-[pause:1400ms]
+[pause:500ms]
+
+On screen you see an example. A JSON object with a valid flag set to false, an errors array holding one entry with severity error, a field path pointing at video profiles index zero dot level, a human message explaining that H.264 Level 4.1 caps at 1080p but the output is 3840 by 2160, and a fix that tells the user to raise the level to 5.1 or drop the resolution. The warnings array is empty.
+
+[pause:900ms]
 
 <!-- p-10 -->
 Errors block the save. Warnings are things that will encode but may not be what you intended.
@@ -99,7 +103,11 @@ The tool doing the inspection is ffprobe.
 <!-- p-14 -->
 The output is parsed into a source analysis record with the information every downstream stage needs.
 
-[pause:1800ms]
+[pause:600ms]
+
+The record on screen captures a 4K HDR source. Duration a little over two hours. Constant frame rate at 23.976. One video stream: HEVC 10 bit, 3840 by 2160, pixel format yuv420p10le, color transfer SMPTE 2084, HDR true, Dolby Vision profile 7. Three audio streams: TrueHD 8 channel English, AC-3 6 channel English, AAC 2 channel Japanese. Two subtitle streams: PGS English, ASS English. 27 chapters and four attached fonts.
+
+[pause:900ms]
 
 <!-- p-15 -->
 Whatever ffprobe can parse, the encoder will accept. Even if the content is unusual, exotic, or technically malformed in small ways, the encoder will try to work with it. The philosophy is to be strict about what you produce, and generous about what you accept.
@@ -121,7 +129,11 @@ Plan takes two inputs. The analysis from the previous stage, and the user's prof
 <!-- p-17 -->
 It produces a plan result. Not a command line, but a structured plan that says, for each output variant, exactly what will happen.
 
-[pause:1800ms]
+[pause:600ms]
+
+The example on screen picks apart a single variant. Strategy HLS single pass. One variant called v0 dash 1080p. The video section names the codec as H.264, the encoder handle as H.264 NVENC, GPU index zero, output 1920 by 1080, rate control mode CRF with value 23, preset p4, profile high, level 4.2, pixel format yuv420p, and a filter chain that crops 1920 by 800 from offset zero 140 then scales back to 1920 by 1080. The audio section keeps stream index one as AAC stereo 192 kbps. Segment duration six seconds. Keyframe interval two seconds. Hardware bindings name the primary GPU as NVIDIA RTX 4080 and the decoder handle as HEVC CUVID. And a decisions log holds four human sentences explaining what happened and why. That's the plan.
+
+[pause:900ms]
 
 <!-- p-18 -->
 This is the stage where the encoder's opinions show up the most.
@@ -158,7 +170,11 @@ Building a command line for ffmpeg is not trivial. ffmpeg is not a Swiss Army kn
 <!-- p-23 -->
 The output of Build for the plan above would look roughly like this.
 
-[pause:2200ms]
+[pause:600ms]
+
+Look at the shape of it. ffmpeg, a CUDA hardware device init, hardware accelerated HEVC decode on the input. A dash vf filter chain that reads: download from GPU, crop, zscale to linear, tonemap with Hable, zscale back to BT.709, scale to 1080p, upload back to GPU. Then the encoder flags: dash c colon v H.264 NVENC, preset p4, rate control VBR with a CQ of 23, profile high, level 4.2. Audio mapped to AAC 192 kbps stereo at 48 kilohertz. And finally the output format, HLS, with six second segments, VOD playlist type, MPEG-TS segments, independent segment flag, and filename patterns for segments and playlist.
+
+[pause:900ms]
 
 <!-- p-24 -->
 That command was produced from seven lines of profile JSON plus the source analysis. The translation is what Build does.
