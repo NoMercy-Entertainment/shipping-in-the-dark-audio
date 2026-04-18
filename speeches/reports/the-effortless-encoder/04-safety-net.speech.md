@@ -209,12 +209,7 @@ Segment and keyframe alignment.
 [pause:400ms]
 
 <!-- p-25 -->
-HLS and DASH chop your video into segments. Each segment should start on a keyframe. If your segment duration is not an integer multiple of your keyframe interval, the encoder has to either insert extra keyframes to land on boundaries, raising your bitrate, or let segments drift in length, making players rebuffer.
-
-[pause:500ms]
-
-<!-- p-26 -->
-A common mistake is a 5 second segment with a 2 second keyframe interval. 5 divided by 2 is not a whole number. The validator warns with an example of compatible values.
+HLS and DASH chop your video into segments. Each segment should start on a keyframe. If your segment duration is not an integer multiple of your keyframe interval, the encoder has to either insert extra keyframes to land on boundaries, raising your bitrate, or let segments drift in length, making players rebuffer. A common mistake is a 5 second segment with a 2 second keyframe interval. 5 divided by 2 is not a whole number. The validator warns with an example of compatible values.
 
 [pause:1200ms]
 
@@ -248,29 +243,16 @@ The preview endpoint.
 [pause:400ms]
 
 <!-- p-29 -->
-The validator checks the profile in isolation. The preview endpoint adds the source file to the picture.
-
-[pause:500ms]
-
-The endpoint takes a profile plus a source video file ID and returns a per-stream action plan.
+The validator checks the profile in isolation. The preview endpoint adds the source file to the picture. It takes a profile plus a source video file ID and returns a per-stream action plan.
 
 [pause:900ms]
 
 <!-- p-31 -->
-The response tells you exactly what will happen per stream. Copy. Transcode. Skip. With what target parameters. Plus source level warnings for things the plain validator could not know.
+For each stream, you see exactly what will happen. Copy. Transcode. Skip. With what target parameters. Plus source level warnings for things the plain validator could not know. Variable frame rate. Dolby Vision stripping. Upscaling.
 
 [pause:500ms]
-
-For each video, audio, and subtitle stream, the preview names the action — copy, transcode, extract, or skip — and the reason. It also surfaces source-level warnings the plain validator could not catch. Variable frame rate. Dolby Vision that will be stripped. Upscaling that will be clamped. The user sees everything before committing to the encode.
-
-[pause:900ms]
 
 <!-- p-32 -->
-For each stream, you see exactly what will happen. Copy? Transcode? Skip? With what target parameters. Plus source level warnings for things the plain validator could not know. Variable frame rate. Dolby Vision stripping. Upscaling.
-
-[pause:500ms]
-
-<!-- p-33 -->
 The result is that before you click encode, you know exactly what will happen to your source. You get to decide whether the plan matches what you want. And you never get the "works on my PC, refuses on my Apple TV" surprise, because the validator would have caught the level mismatch at save time.
 
 [pause:900ms]

@@ -457,7 +457,6 @@ Thank you for reading.
 
 [pause:1200ms]
 
-<!-- p-50 -->
 This is the end of the report.
 
 [pause:1400ms]

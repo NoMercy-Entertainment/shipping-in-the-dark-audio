@@ -57,7 +57,7 @@ Solution. Run ffmpeg's crop detect filter against a sample of frames. It returns
 
 [pause:500ms]
 
-<!-- p-14 -->
+<!-- p-9 -->
 The detection command pipes crop detect output into a frequency count to find the most common rectangle.
 
 [pause:1800ms]
@@ -72,13 +72,13 @@ The result record carries the detected rectangle plus a confidence score.
 
 [pause:1600ms]
 
-<!-- p-15 -->
+<!-- p-12 -->
 You see this in the dashboard. If the detected rectangle matches the full frame, the should crop flag is false.
 
 [pause:500ms]
 
 <!-- p-13 -->
-You can run crop detection manually via a P OST endpoint.
+You can run crop detection manually via a POST endpoint.
 
 [pause:1000ms]
 
@@ -263,7 +263,7 @@ Large V-3 is the recommended default. The smaller models miss specialized vocabu
 
 [pause:500ms]
 
-<!-- p-45 -->
+<!-- p-50 -->
 Whisper has an interesting bonus feature. Translate to English mode. You give it a Japanese audio track, ask for English subtitles with translate to English set to true, and it transcribes the Japanese and translates to English in one pass. Useful for anime and foreign content.
 
 [pause:500ms]

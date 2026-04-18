@@ -286,22 +286,22 @@ Every output format is handled by a specialized strategy. A strategy is a class 
 
 [pause:500ms]
 
-<!-- p-48 -->
+<!-- p-45 -->
 The shipped strategies cover HLS single pass and two pass, DASH single and two pass, MP4 single and two pass, MKV single pass, and three audio only strategies for MP3, F-L-A-C, and O-G-G.
 
 [pause:500ms]
 
-<!-- p-41 -->
+<!-- p-46 -->
 Each strategy composes the same underlying building blocks. Each one knows the quirks of its destination container.
 
 [pause:500ms]
 
-<!-- p-42 -->
+<!-- p-47 -->
 Two pass is a technique where the encoder reads the source twice. The first pass learns the content. The second encodes it, using what it learned to allocate bits more efficiently. Two pass produces smaller files at the same quality, at the cost of running twice. It is worth it for library encodes. It is not worth it for quick re encodes.
 
 [pause:500ms]
 
-<!-- p-43 -->
+<!-- p-48 -->
 MKV has only a one pass strategy. MKV is for keeping things. Two pass for MKV is rarely useful because you are optimizing for quality, not file size. And MKV's audio typically stays as a lossless stream copy anyway.
 
 [pause:900ms]

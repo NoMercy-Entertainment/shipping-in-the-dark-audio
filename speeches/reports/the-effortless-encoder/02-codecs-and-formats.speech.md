@@ -168,7 +168,7 @@ Quality translation, in practice.
 
 [pause:400ms]
 
-<!-- p-27 -->
+<!-- p-28 -->
 The full translation table maps software CRF values to each hardware encoder's native scale. QSV uses 1 to 51. NVENC uses CQ 0 to 51. VideoToolbox uses Q-P 0 to 100. AMD AV1 uses Q-P 0 to 255. Others use the expected 0 to 63.
 
 [pause:500ms]
