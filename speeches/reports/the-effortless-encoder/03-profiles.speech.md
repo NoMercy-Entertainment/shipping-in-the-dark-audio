@@ -64,7 +64,7 @@ On screen is the full JSON schema, with every field the encoder understands. Let
 
 [pause:500ms]
 
-A quick tour before we zoom in. At the top level you will see identity fields: id, name, description, parent id, is built in. Then behaviour flags: container, encode mode, auto ladder, auto detect crop, hardware preference, bit depth policy, HDR policy, tonemap algorithm. Then the three arrays: video profiles, audio profiles, subtitle profiles. Then container specific blocks: HLS options with segment duration, playlist type, segment type, independent segments flag. Then an optional DRM block and a custom arguments escape hatch. That is every knob the encoder exposes.
+There's an identity section at the top, a handful of behaviour flags in the middle, and three arrays at the heart — video profiles, audio profiles, subtitle profiles. Container specific blocks and an optional DRM entry sit at the bottom. Everything else the user cares about is one of those knobs.
 
 [pause:900ms]
 
@@ -110,7 +110,7 @@ The rate control block is the most asked about part of a profile, so let us be p
 
 [pause:500ms]
 
-On screen the three modes are shown side by side. Mode CRF with a single CRF value. Mode ABR with a bitrate, a max bitrate, and a buffer size. And mode Capped CRF that takes a CRF plus the max bitrate and buffer size, for the hybrid case.
+CRF mode takes just a quality number. ABR mode takes a bitrate plus a max bitrate and a buffer size. Capped CRF mode takes both — the quality number and the bitrate cap — for the hybrid case.
 
 [pause:900ms]
 
@@ -136,7 +136,7 @@ You do not have to write a profile from scratch. The encoder ships with ten buil
 
 [pause:500ms]
 
-The table on screen spells out all ten. General 1080p Fast is the default, H.264 medium preset, CRF 23, HLS. Web 720p for low bandwidth. Archival H.265 1080p for smaller files at higher quality, in MKV. Anime 1080p with the animation tune. Music AAC 192k for music libraries. Chromecast 1080p at level 4.1 for older devices. Apple TV 4K at 2160p with EAC-3 5.1. Mobile 480p with predictable bitrate. 4K Archival at CRF 18 with FLAC audio. And Anime HEVC 10-bit 1080p with Opus 5.1 for anime typesetting.
+They span General 1080p Fast as the everyday default, a low-bandwidth Web 720p, Archival H.265 for smaller files, an Anime 1080p with the animation tune, audio-only Music AAC, Chromecast 1080p for older devices, Apple TV 4K with HDR passthrough, Mobile 480p for data budgets, a no-compromise 4K Archival, and Anime HEVC 10-bit for the anime community.
 
 [pause:900ms]
 

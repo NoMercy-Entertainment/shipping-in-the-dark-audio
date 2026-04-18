@@ -147,7 +147,7 @@ Before we dive into the pipeline, the codecs, the hardware, and the rest, it hel
 
 [pause:700ms]
 
-Walk with me through what it says. At the top, an ID and a name, plus a container of HLS. One video profile: H.264 at 1920 by 1080, CRF 23, medium preset, high profile at level 4.2, 8 bit pixel format, two second keyframes. One audio profile: AAC stereo at 192 kbps, 48 kilohertz, with a language filter that keeps English, Japanese, and French. One subtitle profile in extract mode, WebVTT, English only. And two flags at the top level: auto ladder is on, auto detect crop is on.
+Seven lines that actually matter — the container is HLS, the video is H.264 at 1080p with a CRF of 23, the audio is AAC stereo at 192 kbps, one English subtitle track, and the auto ladder flag is on. Every other flag on every output variant will be derived from those choices.
 
 [pause:900ms]
 

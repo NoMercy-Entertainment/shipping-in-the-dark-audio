@@ -185,7 +185,7 @@ Fifth. Reference the sidecar playlist from the master with an EXT-X-MEDIA tag of
 
 [pause:700ms]
 
-The master playlist example on screen opens with EXTM3U, version 6, and independent segments. Then two EXT-X-MEDIA subtitle lines, both in group ID "subs", named English and Japanese respectively, with language tags en and jp, autoselect yes, URIs pointing at en slash subs_en dot m3u8 and jp slash subs_jp dot m3u8. Then an EXT-X-STREAM-INF line for a 1080p variant at 5 megabits per second, with a CODECS triplet, a VIDEO-RANGE of SDR, and a SUBTITLES attribute pointing at the "subs" group. The player reads that attribute and picks up all subtitle tracks in the group.
+The subtitle tracks live in a named group on the master playlist, and every video variant declares that group via its SUBTITLES attribute. That one attribute is what lets a player offer soft subtitles in its UI.
 
 [pause:900ms]
 
@@ -349,7 +349,7 @@ Fifth. The playlist gains an EXT-X-KEY tag with method AES-128, a URI pointing a
 
 [pause:600ms]
 
-On screen the playlist opens with EXTM3U, version 3, a target duration of 6 seconds, a media sequence starting at zero, and the EXT-X-KEY line holding method AES-128, a URI pointing at the gated keys endpoint, and the initialization vector as a 32 character hex string. Then the segment list: EXTINF of 6 seconds per segment, each pointing at its ts file. And finally EXT-X-ENDLIST.
+The only new line compared to an unencrypted playlist is a single EXT-X-KEY tag near the top — method AES-128, the URI where players fetch the key, and the initialization vector. Every segment below that tag is encrypted with the same key.
 
 [pause:900ms]
 

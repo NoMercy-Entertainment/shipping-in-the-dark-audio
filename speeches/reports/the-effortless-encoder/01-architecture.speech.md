@@ -69,7 +69,7 @@ The validator returns a structured response with errors and warnings.
 
 [pause:500ms]
 
-On screen you see an example. A JSON object with a valid flag set to false, an errors array holding one entry with severity error, a field path pointing at video profiles index zero dot level, a human message explaining that H.264 Level 4.1 caps at 1080p but the output is 3840 by 2160, and a fix that tells the user to raise the level to 5.1 or drop the resolution. The warnings array is empty.
+Every rule — whether it flags a level mismatch or a bad audio bitrate — returns the same shape. An ID, the field it concerns, a human sentence, and a suggested fix. That is why the dashboard can just render the feedback inline on whichever field the user is editing.
 
 [pause:900ms]
 
@@ -105,7 +105,7 @@ The output is parsed into a source analysis record with the information every do
 
 [pause:600ms]
 
-The record on screen captures a 4K HDR source. Duration a little over two hours. Constant frame rate at 23.976. One video stream: HEVC 10 bit, 3840 by 2160, pixel format yuv420p10le, color transfer SMPTE 2084, HDR true, Dolby Vision profile 7. Three audio streams: TrueHD 8 channel English, AC-3 6 channel English, AAC 2 channel Japanese. Two subtitle streams: PGS English, ASS English. 27 chapters and four attached fonts.
+Every later stage will read that same record — the duration, the frame rate, the per-stream inventory, and the HDR flags that tell the planner whether to tonemap, preserve Dolby Vision, or just pass the pixels through.
 
 [pause:900ms]
 
@@ -131,7 +131,7 @@ It produces a plan result. Not a command line, but a structured plan that says, 
 
 [pause:600ms]
 
-The example on screen picks apart a single variant. Strategy HLS single pass. One variant called v0 dash 1080p. The video section names the codec as H.264, the encoder handle as H.264 NVENC, GPU index zero, output 1920 by 1080, rate control mode CRF with value 23, preset p4, profile high, level 4.2, pixel format yuv420p, and a filter chain that crops 1920 by 800 from offset zero 140 then scales back to 1920 by 1080. The audio section keeps stream index one as AAC stereo 192 kbps. Segment duration six seconds. Keyframe interval two seconds. Hardware bindings name the primary GPU as NVIDIA RTX 4080 and the decoder handle as HEVC CUVID. And a decisions log holds four human sentences explaining what happened and why. That's the plan.
+The plan names which encoder handle to use, how to rate control it, what filter chain to run, which GPU to bind to — and crucially, a decisions log. Every choice written out in one human sentence. Whenever you look at an encode later and wonder why it picked HEVC over AV1, or why Dolby Vision got stripped, the log tells you.
 
 [pause:900ms]
 
@@ -172,7 +172,7 @@ The output of Build for the plan above would look roughly like this.
 
 [pause:600ms]
 
-Look at the shape of it. ffmpeg, a CUDA hardware device init, hardware accelerated HEVC decode on the input. A dash vf filter chain that reads: download from GPU, crop, zscale to linear, tonemap with Hable, zscale back to BT.709, scale to 1080p, upload back to GPU. Then the encoder flags: dash c colon v H.264 NVENC, preset p4, rate control VBR with a CQ of 23, profile high, level 4.2. Audio mapped to AAC 192 kbps stereo at 48 kilohertz. And finally the output format, HLS, with six second segments, VOD playlist type, MPEG-TS segments, independent segment flag, and filename patterns for segments and playlist.
+Notice what the command is doing, even if you don't read every flag: it inits CUDA, decodes HEVC on the GPU, runs a tonemap filter chain all the way down to 8 bit, hands the frames to H.264 NVENC at a CRF of 23, and muxes the result into HLS with six second segments. Every one of those choices came from the profile plus the source analysis. The user wrote seven lines.
 
 [pause:900ms]
 
