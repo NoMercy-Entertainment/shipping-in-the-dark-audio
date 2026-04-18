@@ -245,7 +245,12 @@ A codec is the encoding. A container is the file format that holds the encoded b
 [pause:500ms]
 
 <!-- p-39 -->
-You can have H.264 video in an MP4 container, an MKV container, or an HLS playlist. The audio and video are the same. The container is the wrapper. Each container has its own quirks about what codecs it will hold. A common pitfall. An MP4 container with VP9 video. Technically the ISO standard has a VP9 in MP4 box definition, but most players never implemented it. ffmpeg will happily mux it. Most players will fail to play it. The safety net catches this before the encode runs.
+You can have H.264 video in an MP4 container, an MKV container, or an HLS playlist. The audio and video are the same. The container is the wrapper.
+
+[pause:500ms]
+
+<!-- p-41 -->
+Each container has its own quirks about what codecs it will hold. A common pitfall. An MP4 container with VP9 video. Technically the ISO standard has a VP9 in MP4 box definition, but most players never implemented it. ffmpeg will happily mux it. Most players will fail to play it. The safety net catches this before the encode runs.
 
 [pause:900ms]
 

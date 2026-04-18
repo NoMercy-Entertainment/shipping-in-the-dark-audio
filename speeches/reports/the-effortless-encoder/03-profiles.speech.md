@@ -59,14 +59,20 @@ The full profile schema.
 
 [pause:400ms]
 
-<!-- p-8 -->
-On screen is the full JSON schema, with every field the encoder understands. Let us walk the four main pieces.
+<!-- code-2 -->
+<!-- variant:brief -->
+And here is the full JSON that drives it. Identity at the top, a handful of behaviour flags, then three arrays for video, audio, and subtitle profiles. Container specific blocks and an optional DRM entry sit at the bottom.
+<!-- /variant -->
+<!-- variant:elaborate -->
+And here is the full JSON that drives it. The top section is identity. An id, a name, a description, a parent id for inheritance, and a flag marking whether this is a built in preset. Below that, behaviour flags. Container picks the output format. Encode mode toggles single pass or two pass. Auto ladder expands one output into a full adaptive bitrate ladder. Auto detect crop trims black bars. Hardware preference, bit depth policy, H-D-R policy, and a tonemap algorithm round out the decisions the plan stage needs. Then three arrays, video profiles, audio profiles, subtitle profiles, each an array so you can ship more than one at a time. Container specific blocks and an optional DRM entry sit at the bottom. Custom arguments is an escape hatch for anything the schema does not cover.
+<!-- /variant -->
 
 [pause:500ms]
 
-There's an identity section at the top, a handful of behaviour flags in the middle, and three arrays at the heart — video profiles, audio profiles, subtitle profiles. Container specific blocks and an optional DRM entry sit at the bottom. Everything else the user cares about is one of those knobs.
+<!-- p-8 -->
+Four main pieces to focus on.
 
-[pause:900ms]
+[pause:500ms]
 
 <!-- p-9 -->
 Container. HLS for streaming, MKV for archival, MP4 for single file output, and so on. This is the container the outputs will go into.
@@ -127,21 +133,21 @@ You cannot set both CRF and A-B-R. The validator rejects it with a clear error m
 [narrator:matter-of-fact]
 
 <!-- h-4 -->
-Ten built in presets.
+Built in presets.
 
 [pause:400ms]
 
 <!-- p-18 -->
-You do not have to write a profile from scratch. The encoder ships with ten built in presets. Each one is tuned for a specific target. All are cloneable and editable.
+You do not have to write a profile from scratch. The encoder ships with a starter set of built in presets, each tuned for a specific target. All are cloneable and editable.
 
 [pause:500ms]
 
-They span General 1080p Fast as the everyday default, a low-bandwidth Web 720p, Archival H.265 for smaller files, an Anime 1080p with the animation tune, audio-only Music AAC, Chromecast 1080p for older devices, Apple TV 4K with HDR passthrough, Mobile 480p for data budgets, a no-compromise 4K Archival, and Anime HEVC 10-bit for the anime community.
+They span General 1080p Fast as the everyday default, a low-bandwidth Web 720p, Archival H.265 for smaller files, an Anime 1080p with the animation tune. For music, there is a Music AAC preset for modern players, Music MP3 at 320k for legacy compatibility, and Music FLAC for bit-perfect lossless archival. Then Chromecast 1080p for older devices, Apple TV 4K with HDR passthrough, Mobile 480p for data budgets, a no-compromise 4K Archival, and Anime HEVC 10-bit for the anime community.
 
 [pause:900ms]
 
 <!-- p-19 -->
-General 1080p Fast is the default. Most users find something that fits without writing their own.
+General 1080p Fast is the default for video. The music presets cover modern lossy, legacy lossy, and lossless. New presets can be added through the dashboard or imported from the community.
 
 [pause:900ms]
 
@@ -158,7 +164,7 @@ Built in presets are marked as is built in. You cannot edit them directly. If yo
 [pause:1000ms]
 
 <!-- p-21 -->
-The clone gets a copy of the profile, a new ID, and a name with "copy" appended. Parent ID is set to the original's ID, and is built in is set to false. You edit the copy. The original built in stays pristine so the next user who comes along gets the clean version.
+The clone gets a copy of the profile, a new ID, and a name with "copy" appended. Parent ID is set to the original's ID, and is built in is set to false. You edit the copy. The original built in stays pristine, so you always have a clean baseline to clone from again the next time.
 
 [pause:500ms]
 

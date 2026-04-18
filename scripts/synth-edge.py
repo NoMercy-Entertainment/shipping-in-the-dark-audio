@@ -58,12 +58,37 @@ def apply_pronunciation(text):
             text = text.replace(term, cfg['sub'])
     return re.sub(r'\{\{(\w+)\}\}', r'\1', text)
 
+SPEECH_VARIANT = os.environ.get('SPEECH_VARIANT', 'brief').strip().lower()
+
+def strip_variant_blocks(lines):
+    """
+    Resolve <!-- variant:NAME --> ... <!-- /variant --> blocks against the
+    SPEECH_VARIANT env var. Lines inside a non-matching block are dropped;
+    lines outside any block are kept. Markers themselves are always dropped.
+    """
+    out = []
+    current = None  # name of the open variant block, or None
+    for line in lines:
+        stripped = line.strip()
+        m = re.match(r'^<!--\s*variant:([a-z_-]+)\s*-->$', stripped)
+        if m:
+            current = m.group(1).strip().lower()
+            continue
+        if stripped == '<!-- /variant -->':
+            current = None
+            continue
+        if current is not None and current != SPEECH_VARIANT:
+            continue
+        out.append(line)
+    return out
+
 def parse_script(path):
     segments, current, next_pid = [], None, None
-    for line in open(path, encoding='utf-8'):
+    raw = open(path, encoding='utf-8').readlines()
+    for line in strip_variant_blocks(raw):
         line = line.rstrip('\n')
         if line.startswith('#') or line.startswith('**') or line.startswith('---'): continue
-        m = re.match(r'^<!--\s*([phi]-\d+)\s*-->$', line)
+        m = re.match(r'^<!--\s*((?:[phi]|code)-\d+)\s*-->$', line)
         if m: next_pid = m.group(1); continue
         m = re.match(r'^\[(.+)\]\s*$', line)
         if m:
