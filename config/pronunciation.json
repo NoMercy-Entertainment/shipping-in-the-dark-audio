@@ -965,6 +965,34 @@
 		"AMD": {
 			"sub": "A-M-D",
 			"notes": "Spelled out."
+		},
+		"POST": {
+			"sub": "post",
+			"notes": "HTTP verb — pronounce as English word 'post', not spelled P-O-S-T."
+		},
+		"GET": {
+			"sub": "get",
+			"notes": "HTTP verb — pronounce as English word 'get', not spelled G-E-T."
+		},
+		"PUT": {
+			"sub": "put",
+			"notes": "HTTP verb — pronounce as English word 'put', not spelled P-U-T."
+		},
+		"PATCH": {
+			"sub": "patch",
+			"notes": "HTTP verb — pronounce as English word 'patch', not spelled P-A-T-C-H."
+		},
+		"DELETE": {
+			"sub": "delete",
+			"notes": "HTTP verb — pronounce as English word 'delete', not spelled D-E-L-E-T-E."
+		},
+		"HEAD": {
+			"sub": "head",
+			"notes": "HTTP verb or Git HEAD — pronounce as English word 'head'."
+		},
+		"G-E-T": {
+			"sub": "get",
+			"notes": "Legacy manual spell-out; fold back into the verb entry."
 		}
 	},
 	"dutch": {
