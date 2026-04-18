@@ -238,22 +238,27 @@ Solution. Run Whisper locally. Whisper is OpenAI's speech recognition model, rel
 
 [pause:500ms]
 
-<!-- p-50 -->
-The endpoint accepts a video file ID, an audio stream index, a language, an optional translate to English flag, and a model size.
+<!-- p-46 -->
+The endpoint.
 
-[pause:1600ms]
+[pause:300ms]
 
-<!-- p-42 -->
+<!-- code-12 -->
+It accepts a video file ID, an audio stream index, a language, an optional translate to English flag, and a model size.
+
+[pause:1200ms]
+
+<!-- p-47 -->
 Internally, whisper is invoked against the first audio stream, after extracting the audio to 16 kilohertz mono.
 
 [pause:1200ms]
 
-<!-- p-43 -->
+<!-- p-48 -->
 Whisper has five model sizes. Pick by the speed and accuracy trade off. Tiny is 75 megabytes and fast but only recognizes words in rough shape. Base is 150 megabytes and okay for clear speech. Small is 500 megabytes and good for most content. Medium is 1 point 5 gigabytes and near human on clean audio. Large V-3 is 3 gigabytes and the best available.
 
 [pause:1400ms]
 
-<!-- p-44 -->
+<!-- p-49 -->
 Large V-3 is the recommended default. The smaller models miss specialized vocabulary. Show specific names, technical terms, proper nouns. All of that gets muddled. Only Large V-3 gets them reliably.
 
 [pause:500ms]
