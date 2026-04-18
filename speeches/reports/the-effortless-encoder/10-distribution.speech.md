@@ -116,8 +116,17 @@ At the top sits the coordinator. That is your regular NoMercy media server.
 
 [pause:1800ms]
 
+Inside it sit two key components.
+
+[pause:400ms]
+
 <!-- p-18 -->
-Inside it sit two key components. The remote worker dispatcher picks a worker per task. It handles the retry chain and falls back to local dispatch when no remote works out. The remote worker registry tracks active workers. It manages health tracking and cooldown eviction.
+The remote worker dispatcher picks a worker per task. It handles the retry chain and falls back to local dispatch when no remote works out.
+
+[pause:400ms]
+
+<!-- p-19 -->
+The remote worker registry tracks active workers. It manages health tracking and cooldown eviction.
 
 [pause:500ms]
 

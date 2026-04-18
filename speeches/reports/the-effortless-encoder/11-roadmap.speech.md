@@ -21,7 +21,72 @@ What is shipped.
 [pause:400ms]
 
 <!-- p-2 -->
-The previous pages described what works today. As a reminder. The four video codec families. H.264, HEVC, AV1, and VP9. Resolved to the right encoder handle for your hardware. The full audio codec lineup. AAC, Opus, FLAC, AC-3, EAC-3, MP3, Vorbis, TrueHD, DTS. Text subtitle routing plus optical character recognition for bitmap subtitles. PGS, DVD VobSub, DVB. Every output container listed on the codec page, each with its own encoding strategy. Built in presets covering the common hardware targets. A per GPU hardware benchmark across CPU and hardware encoders. A validator with a growing catalogue of rules at profile save time, plus a preview endpoint that adds the source file to the picture. HDR passthrough, Dolby Vision preservation, and tonemap methods for HDR to SDR conversion. Content analysis. Crop detection, intro and outro fingerprinting, subtitle OCR, Whisper speech transcription. AES-128 HLS encryption for paid tier content. Live transcode for on the fly playback to devices that cannot decode the stored file. Blu Ray and DVD disc ripping. The full distributed encoding stack, with signed HTTP transport, self registration, health tracking, retry chain, file transfer, and progress reporting.
+The previous pages described what works today. As a reminder.
+
+[pause:400ms]
+
+<!-- p-3 -->
+The four video codec families. H.264, HEVC, AV1, and VP9. Resolved to the right encoder handle for your hardware.
+
+[pause:300ms]
+
+<!-- p-4 -->
+The full audio codec lineup. AAC, Opus, FLAC, AC-3, EAC-3, MP3, Vorbis, TrueHD, DTS.
+
+[pause:300ms]
+
+<!-- p-5 -->
+Text subtitle routing plus optical character recognition for bitmap subtitles. PGS, DVD VobSub, DVB.
+
+[pause:300ms]
+
+<!-- p-6 -->
+Every output container listed on the codec page, each with its own encoding strategy.
+
+[pause:300ms]
+
+<!-- p-7 -->
+Built in presets covering the common hardware targets.
+
+[pause:300ms]
+
+<!-- p-8 -->
+A per GPU hardware benchmark across CPU and hardware encoders.
+
+[pause:300ms]
+
+<!-- p-9 -->
+A validator with a growing catalogue of rules at profile save time, plus a preview endpoint that adds the source file to the picture.
+
+[pause:300ms]
+
+<!-- p-10 -->
+HDR passthrough, Dolby Vision preservation, and tonemap methods for HDR to SDR conversion.
+
+[pause:300ms]
+
+<!-- p-11 -->
+Content analysis. Crop detection, intro and outro fingerprinting, subtitle OCR, Whisper speech transcription.
+
+[pause:300ms]
+
+<!-- p-12 -->
+AES-128 HLS encryption for paid tier content.
+
+[pause:300ms]
+
+<!-- p-13 -->
+Live transcode for on the fly playback to devices that cannot decode the stored file.
+
+[pause:300ms]
+
+<!-- p-14 -->
+Blu Ray and DVD disc ripping.
+
+[pause:300ms]
+
+<!-- p-15 -->
+The full distributed encoding stack, with signed HTTP transport, self registration, health tracking, retry chain, file transfer, and progress reporting.
 
 [pause:1000ms]
 
@@ -55,7 +120,22 @@ This would let the encoder produce DASH streams encrypted with Common Encryption
 [pause:500ms]
 
 <!-- p-19 -->
-Deferred because it needs three things that are not in the current build. A packager like mp4box or shaka packager for segment level encryption. License server integration, usually a paid service. And certificate handling per DRM system.
+Deferred because it needs three things that are not in the current build.
+
+[pause:400ms]
+
+<!-- p-20 -->
+A packager like mp4box or shaka packager for segment level encryption.
+
+[pause:300ms]
+
+<!-- p-21 -->
+License server integration, usually a paid service.
+
+[pause:300ms]
+
+<!-- p-22 -->
+And certificate handling per DRM system.
 
 [pause:500ms]
 
@@ -155,7 +235,12 @@ But existing single machine strategies, such as the HLS single pass strategy, st
 [pause:500ms]
 
 <!-- p-35 -->
-The work needed is per strategy. Each multi variant strategy needs to accept a worker dispatcher in its constructor. Build task arrays from the plan stage output. Dispatch them in parallel. Collect the results. Run finalize locally.
+The work needed is per strategy. Each multi variant strategy needs to do four things.
+
+[pause:500ms]
+
+<!-- p-36 -->
+Accept a worker dispatcher in its constructor. Build task arrays from the plan stage output. Dispatch them in parallel. Collect the results. Run finalize locally.
 
 [pause:1800ms]
 
