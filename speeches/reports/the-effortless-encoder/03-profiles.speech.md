@@ -62,7 +62,11 @@ The full profile schema.
 <!-- p-8 -->
 On screen is the full JSON schema, with every field the encoder understands. Let us walk the four main pieces.
 
-[pause:3000ms]
+[pause:500ms]
+
+A quick tour before we zoom in. At the top level you will see identity fields: id, name, description, parent id, is built in. Then behaviour flags: container, encode mode, auto ladder, auto detect crop, hardware preference, bit depth policy, HDR policy, tonemap algorithm. Then the three arrays: video profiles, audio profiles, subtitle profiles. Then container specific blocks: HLS options with segment duration, playlist type, segment type, independent segments flag. Then an optional DRM block and a custom arguments escape hatch. That is every knob the encoder exposes.
+
+[pause:900ms]
 
 <!-- p-9 -->
 Container. HLS for streaming, MKV for archival, MP4 for single file output, and so on. This is the container the outputs will go into.
@@ -104,7 +108,11 @@ Rate control modes.
 <!-- p-15 -->
 The rate control block is the most asked about part of a profile, so let us be precise. Three modes are supported.
 
-[pause:1600ms]
+[pause:500ms]
+
+On screen the three modes are shown side by side. Mode CRF with a single CRF value. Mode ABR with a bitrate, a max bitrate, and a buffer size. And mode Capped CRF that takes a CRF plus the max bitrate and buffer size, for the hybrid case.
+
+[pause:900ms]
 
 <!-- p-16 -->
 CRF targets a constant visual quality. File size varies with content. A-B-R targets a constant bitrate. Quality varies with content. Capped CRF is a hybrid. CRF most of the time, but cap the bitrate during high action scenes so your V-B-V buffer never overflows on a constrained player.
@@ -126,7 +134,11 @@ Ten built in presets.
 <!-- p-18 -->
 You do not have to write a profile from scratch. The encoder ships with ten built in presets. Each one is tuned for a specific target. All are cloneable and editable.
 
-[pause:2400ms]
+[pause:500ms]
+
+The table on screen spells out all ten. General 1080p Fast is the default, H.264 medium preset, CRF 23, HLS. Web 720p for low bandwidth. Archival H.265 1080p for smaller files at higher quality, in MKV. Anime 1080p with the animation tune. Music AAC 192k for music libraries. Chromecast 1080p at level 4.1 for older devices. Apple TV 4K at 2160p with EAC-3 5.1. Mobile 480p with predictable bitrate. 4K Archival at CRF 18 with FLAC audio. And Anime HEVC 10-bit 1080p with Opus 5.1 for anime typesetting.
+
+[pause:900ms]
 
 <!-- p-19 -->
 General 1080p Fast is the default. Most users find something that fits without writing their own.

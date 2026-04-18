@@ -114,7 +114,11 @@ What the ffmpeg command looks like.
 <!-- p-17 -->
 A typical live transcode command combines CUDA hardware acceleration with H.264 NVENC output, 4 second HLS segments in event playlist mode, and a progress pipe for live status.
 
-[pause:3000ms]
+[pause:700ms]
+
+Walking the command on screen. ffmpeg starts with dash ss zero as the seek position, then the input path on disk. CUDA hardware device init, hardware accelerated decode into CUDA frames. Output codec H.264 NVENC at preset p4, VBR rate control at 5 megabits per second with max rate 6 megabits and 10 megabit buffer. Profile high, level 4.2, pixel format yuv420p. GOP of 96 frames to align keyframes with four second segments at 24 fps. Audio as AAC stereo 192 kbps. Output format HLS, 4 second segments, event playlist type, MPEG TS segment type, and a session scoped segment filename pattern. Dash progress pipe colon 2 feeds structured status to the runner.
+
+[pause:900ms]
 
 <!-- p-18 -->
 Notable details.

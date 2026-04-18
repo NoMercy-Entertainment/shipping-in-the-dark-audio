@@ -183,7 +183,11 @@ Fourth. Slice WebVTT into segments aligned with the video segments. The slicer p
 <!-- p-28 -->
 Fifth. Reference the sidecar playlist from the master with an EXT-X-MEDIA tag of type SUBTITLES, plus stream inf lines that point at the subtitles group.
 
-[pause:2800ms]
+[pause:700ms]
+
+The master playlist example on screen opens with EXTM3U, version 6, and independent segments. Then two EXT-X-MEDIA subtitle lines, both in group ID "subs", named English and Japanese respectively, with language tags en and jp, autoselect yes, URIs pointing at en slash subs_en dot m3u8 and jp slash subs_jp dot m3u8. Then an EXT-X-STREAM-INF line for a 1080p variant at 5 megabits per second, with a CODECS triplet, a VIDEO-RANGE of SDR, and a SUBTITLES attribute pointing at the "subs" group. The player reads that attribute and picks up all subtitle tracks in the group.
+
+[pause:900ms]
 
 <!-- p-29 -->
 The SUBTITLES attribute on each stream inf line tells the player to pick up the group by ID.
@@ -343,7 +347,11 @@ Fourth. ffmpeg writes each segment encrypted with AES-128 CBC.
 <!-- p-53 -->
 Fifth. The playlist gains an EXT-X-KEY tag with method AES-128, a URI pointing at the key location, and an IV value.
 
-[pause:1400ms]
+[pause:600ms]
+
+On screen the playlist opens with EXTM3U, version 3, a target duration of 6 seconds, a media sequence starting at zero, and the EXT-X-KEY line holding method AES-128, a URI pointing at the gated keys endpoint, and the initialization vector as a 32 character hex string. Then the segment list: EXTINF of 6 seconds per segment, each pointing at its ts file. And finally EXT-X-ENDLIST.
+
+[pause:900ms]
 
 <!-- p-54 -->
 Sixth. Players fetch the key over HTTPS, ideally with auth, and decrypt segments on the fly. The server is responsible for enforcing access on the key URI endpoint. Usually a bearer token check tied to the user's subscription or invite.

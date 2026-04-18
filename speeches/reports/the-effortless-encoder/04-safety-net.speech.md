@@ -45,12 +45,20 @@ The validator API.
 <!-- p-6 -->
 Every profile goes through the validator at save time and every time a field changes.
 
-[pause:1200ms]
+[pause:500ms]
+
+The endpoint is a POST to api v1 encoder profiles validate, with the profile JSON as the body.
+
+[pause:900ms]
 
 <!-- p-7 -->
 The response contains errors and warnings. Each with a stable ID, a field path, a human message, and a fix.
 
-[pause:1600ms]
+[pause:500ms]
+
+The example on screen returns valid false. One error: ID "level dot resolution mismatch", severity error, field "video profiles index zero dot level", message "H.264 Level 4.1 caps at 1080p but the output is 3840 by 2160", fix "raise the level to 5.1 or drop the resolution to 1920 by 1080". One warning: ID "CRF dot out of typical range", field "video profiles zero rate control CRF", message "CRF 40 on H.264 produces noticeably blocky output", fix "typical quality range is 18 to 28, consider CRF 22".
+
+[pause:900ms]
 
 <!-- p-8 -->
 Errors block the save. Warnings do not. Every rule has a stable ID so dashboards and documentation can link to specific explanations.
@@ -242,12 +250,20 @@ The preview endpoint.
 <!-- p-30 -->
 The validator checks the profile in isolation. The preview endpoint adds the source file to the picture.
 
-[pause:1000ms]
+[pause:500ms]
+
+The endpoint is a POST to api v1 encoder profiles ID preview, carrying a single field: the source video file ID.
+
+[pause:900ms]
 
 <!-- p-31 -->
 The response tells you exactly what will happen per stream. Copy. Transcode. Skip. With what target parameters. Plus source level warnings for things the plain validator could not know.
 
-[pause:2200ms]
+[pause:500ms]
+
+The example response walks a typical preview. The per stream plan shows one video stream with action transcode, reason "source is HEVC 10 bit HDR but profile wants H.264 8 bit", target codec H.264 at 1080p CRF 23, filter chain summary "crop then tonemap then scale", bit depth downgrade flag set. Two audio streams: one transcode from TrueHD 8 channel to AAC stereo 192k, one skip because its language is not in the filter. One subtitle stream: extract via OCR from PGS English to WebVTT English. And two source warnings: variable frame rate detected, Dolby Vision will be stripped.
+
+[pause:900ms]
 
 <!-- p-32 -->
 For each stream, you see exactly what will happen. Copy? Transcode? Skip? With what target parameters. Plus source level warnings for things the plain validator could not know. Variable frame rate. Dolby Vision stripping. Upscaling.
