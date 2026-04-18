@@ -957,6 +957,14 @@
 		},
 		"Opus": {
 			"sub": "oh-pus"
+		},
+		"NVIDIA": {
+			"sub": "en-vidia",
+			"notes": "Pronounced en-VID-ee-uh, not spelled out. Same pattern for NVENC / NVDEC which are handled separately."
+		},
+		"AMD": {
+			"sub": "A-M-D",
+			"notes": "Spelled out."
 		}
 	},
 	"dutch": {
