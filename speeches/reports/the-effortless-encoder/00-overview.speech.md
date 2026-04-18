@@ -147,9 +147,19 @@ Before we dive into the pipeline, the codecs, the hardware, and the rest, it hel
 
 [pause:700ms]
 
+<!-- variant:brief -->
+<!-- code-1 -->
 Seven lines that actually matter — the container is HLS, the video is H.264 at 1080p with a CRF of 23, the audio is AAC stereo at 192 kbps, one English subtitle track, and the auto ladder flag is on. Every other flag on every output variant will be derived from those choices.
 
 [pause:900ms]
+<!-- /variant -->
+
+<!-- variant:elaborate -->
+<!-- code-1 -->
+Let me walk it. The container is HLS for streaming delivery. The single video profile targets H.264 at 1920 by 1080, quality set by a CRF of 23, medium preset for a balanced speed-quality trade-off, high profile at level 4.2, pixel format yuv420p meaning 8 bit, and a keyframe every two seconds so segment boundaries can land on keyframes. The single audio profile is AAC stereo at 192 kbps, 48 kilohertz, with a language filter that keeps English, Japanese, and French tracks. One subtitle profile in extract mode writes WebVTT for English. And at the top level, auto ladder is true so the encoder expands this into a full adaptive bitrate ladder on its own, and auto detect crop is true so the encoder detects and removes black bars before encoding. That is every field the user wrote. Every other flag on every output variant will be derived.
+
+[pause:1200ms]
+<!-- /variant -->
 
 <!-- p-19 -->
 That is the whole input. The encoder takes this, combines it with whatever source file you point at, and produces a complete HLS package. Master playlist, per-variant playlists, segment files, and sidecar subtitle playlists, that plays on every HLS client in existence.
