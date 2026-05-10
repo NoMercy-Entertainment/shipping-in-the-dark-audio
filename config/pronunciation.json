@@ -997,6 +997,83 @@
 		"G-E-T": {
 			"sub": "get",
 			"notes": "Legacy manual spell-out; fold back into the verb entry."
+		},
+		"_comment_players_v2": "Players V2 terms — added for Entry 009 The Shared Concern Call.",
+		"nomercy-player-kit": {
+			"sub": "no-mercy player kit",
+			"notes": "Shared base package for the v2 player rewrite."
+		},
+		"nomercy-music-player-v2": {
+			"sub": "no-mercy music player version 2",
+			"notes": "V2 audio engine package."
+		},
+		"nomercy-video-player-v2": {
+			"sub": "no-mercy video player version 2",
+			"notes": "V2 video engine package."
+		},
+		"nomercy-subtitle-octopus": {
+			"sub": "no-mercy subtitle octopus",
+			"notes": "Vendored Octopus subtitle renderer package."
+		},
+		"player-testbed": {
+			"sub": "player testbed",
+			"notes": "Two words. Vue 3 reference consumer for the v2 API."
+		},
+		"MediaSource": {
+			"sub": "Media Source",
+			"notes": "Browser Media Source Extensions API. Break PascalCase."
+		},
+		"MediaError": {
+			"sub": "Media Error",
+			"notes": "Browser MediaError object. Break PascalCase."
+		},
+		"HLS.js": {
+			"sub": "H-L-S dot js",
+			"notes": "JavaScript HLS streaming library."
+		},
+		"hls.js": {
+			"sub": "H-L-S dot js",
+			"notes": "Lowercase variant."
+		},
+		"audioGraphPlugin": {
+			"sub": "audio graph plugin",
+			"notes": "Break camelCase into words."
+		},
+		"§9": {
+			"sub": "section 9",
+			"notes": "Rule book section marker."
+		},
+		"§6.5": {
+			"sub": "section 6 point 5",
+			"notes": "Rule book subsection."
+		},
+		"P0": {
+			"sub": "priority zero",
+			"notes": "Task priority level. P-zero is clearer than P-oh."
+		},
+		"P0-1": {
+			"sub": "priority zero task 1",
+			"notes": "Task priority and number."
+		},
+		"P0-3": {
+			"sub": "priority zero task 3",
+			"notes": "Task priority and number."
+		},
+		"P0-4": {
+			"sub": "priority zero task 4",
+			"notes": "Task priority and number."
+		},
+		"P4": {
+			"sub": "priority four",
+			"notes": "Task priority level."
+		},
+		"Octopus": {
+			"sub": "Octopus",
+			"notes": "libass-wasm subtitle renderer — standard pronunciation."
+		},
+		"keyHandlerPlugin.ts": {
+			"sub": "key handler plugin dot T-S",
+			"notes": "TypeScript file. Break camelCase + spell out extension."
 		}
 	},
 	"dutch": {

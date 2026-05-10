@@ -288,6 +288,13 @@
 			"role": "Press — Journal Publisher",
 			"style": "default",
 			"notes": "Checklist-precise, no shortcuts."
+		},
+		"player-architect": {
+			"voice": "en-GB-LibbyNeural",
+			"displayName": "Libby",
+			"role": "Spine — Player Architect",
+			"style": "default",
+			"notes": "Authoritative, horizontal thinker, owns the shared-concern boundary. British accent is distinct from all other current voices."
 		}
 	},
 
