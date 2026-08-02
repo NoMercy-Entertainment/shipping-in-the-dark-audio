@@ -474,7 +474,17 @@ The Fix.
 [narrator:matter-of-fact]
 
 <!-- p-58 -->
-The fix was two lines. Copy the header file to both names: the short name that make-header wants, and the full architecture triplet name that configure wants. Both tools find what they're looking for. configure picks up the correct p-thread mutex size. config.h agrees with the header. The runtime check passes.
+The fix was two lines. Copy the header file to both names:
+
+[pause:400ms]
+
+<!-- p-59 -->
+Here's the line that was missing in the ARM64 code path — creating the full-triplet filename alongside the short one.
+
+[pause:600ms]
+
+<!-- p-60 -->
+Both tools find what they're looking for. configure picks up the correct p-thread mutex size. config.h agrees with the header. The runtime check passes.
 
 [pause:700ms]
 
@@ -487,18 +497,12 @@ Verified on Real Hardware.
 
 [narrator:triumphant]
 
-<!-- p-59 -->
+<!-- p-61 -->
 The fix wasn't declared done until it ran on real macOS ARM64 hardware. A Linux C-I runner cross-compiled the patched lib G-P-G error, built a small test binary, and transferred it to a macOS-latest ARM64 runner. The output:
 
 [pause:400ms]
 
-<!-- p-60 -->
-O-K: libgpg-error 1.51 initialized successfully.
-
-[pause:300ms]
-
-<!-- p-61 -->
-O-K: lock object sizeof check passed. No abort.
+O-K: libgpg-error 1.51 initialized successfully. O-K: lock object sizeof check passed. No abort.
 
 [pause:500ms]
 
@@ -753,10 +757,5 @@ That's one overnight session. That's what shipping looks like.
 
 <!-- p-96 -->
 This is Entry {{008}} of Shipping in the Dark. The last time we wrote about code signing, it was because we needed it. This time it was because we thought we needed it. Knowing the difference cost us a few hours and saved us from shipping the wrong fix. If you've ever confidently explained a bug to your team only to discover you were completely wrong — welcome. You're in the right place.
-
-[pause:500ms]
-
-<!-- p-97 -->
-Previous entries: How the C-T-O Locked the Boss Out, Twenty-Seven Repos and a Makefile, Validate Reality Not Assumptions, Movie Night, The Great Office Cleanup, The Day the Supply Chain Broke, and When N-P-M Install Means Game Over.
 
 [pause:1000ms]

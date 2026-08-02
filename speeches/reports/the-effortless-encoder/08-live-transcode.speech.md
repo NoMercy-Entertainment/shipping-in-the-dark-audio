@@ -212,9 +212,14 @@ Buffer management.
 [pause:400ms]
 
 <!-- p-32 -->
-The buffer manager watches the client's playback position versus the segments already generated. It emits buffer action events to ffmpeg. Thresholds. If the buffer is more than 30 seconds ahead, suspend the encode. If it drops below 15 seconds after a suspend, resume. If it is less than 5 seconds ahead, drop quality. If less than 3 seconds, emergency drop to the lowest variant.
+The buffer manager watches the client's playback position versus the segments already generated. It emits buffer action events to ffmpeg, via SIGSTOP and SIGCONT, or by pausing the ffmpeg standard-input pipe.
 
-[pause:1400ms]
+[pause:500ms]
+
+<!-- p-33 -->
+Thresholds. If the buffer is more than 30 seconds ahead, suspend the encode. If it drops below 15 seconds after a suspend, resume. If it is less than 5 seconds ahead, drop quality. If less than 3 seconds, emergency drop to the lowest variant.
+
+[pause:900ms]
 
 <!-- p-34 -->
 Suspend fires when the user has been pausing to read subtitles or left the tab in the background. Resume fires when the buffer drops. Drop quality fires when the buffer is thin. The runner switches the variant so segments produce faster.
@@ -278,9 +283,14 @@ On session end, the folder is deleted. On server restart, any leftover folders g
 [pause:500ms]
 
 <!-- p-42 -->
-The cache path is configurable. Put it on a fast SSD. Segments are written and read aggressively during playback.
+The cache path is configurable.
 
-[pause:1000ms]
+[pause:400ms]
+
+<!-- p-43 -->
+Put it on a fast SSD. Segments are written and read aggressively during playback.
+
+[pause:900ms]
 
 [narrator:matter-of-fact]
 

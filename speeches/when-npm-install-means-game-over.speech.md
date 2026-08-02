@@ -16,6 +16,7 @@ When N-P-M Install Means Game Over.
 
 [narrator:reflective]
 
+<!-- h-1 -->
 Timeline Note.
 
 [pause:300ms]
@@ -33,6 +34,7 @@ It deserves the space.
 
 [narrator:tense]
 
+<!-- h-2 -->
 The Short Version.
 
 [pause:300ms]
@@ -46,6 +48,7 @@ On March thirty-first, twenty-twenty-six, the axios N-P-M package — downloaded
 
 [narrator:cozy]
 
+<!-- h-3 -->
 Background.
 
 [pause:300ms]
@@ -76,6 +79,7 @@ For beginners: N-P-M is the package registry for JavaScript. When you run N-P-M 
 
 [narrator:tense]
 
+<!-- h-4 -->
 The Anatomy of the Attack.
 
 [pause:400ms]
@@ -87,6 +91,7 @@ What follows is a technical reconstruction of the axios compromise, pieced toget
 
 [pause:600ms]
 
+<!-- h-5 -->
 Step one. Steal the Keys.
 
 [pause:300ms]
@@ -106,6 +111,7 @@ With the token in hand, the attacker changed the account's email address to a th
 
 [pause:700ms]
 
+<!-- h-6 -->
 Step two. Stage the Decoy.
 
 [pause:300ms]
@@ -127,6 +133,7 @@ Eighteen hours later, at twenty-three fifty-nine UTC on March thirtieth, they pu
 
 [narrator:dramatic]
 
+<!-- h-7 -->
 Step three. Publish the Poison.
 
 [pause:300ms]
@@ -157,6 +164,7 @@ For beginners: when you install a package from N-P-M, it also installs that pack
 
 [narrator:dramatic]
 
+<!-- h-8 -->
 The Payload.
 
 [pause:400ms]
@@ -168,6 +176,7 @@ Here is what plain-crypto-j-s at version four point two point one did when N-P-M
 
 [pause:400ms]
 
+<!-- h-9 -->
 The Trigger.
 
 [pause:300ms]
@@ -182,6 +191,7 @@ The malicious package had a postinstall script that ran a file called setup dot 
 
 [pause:600ms]
 
+<!-- h-10 -->
 Two Layers of Obfuscation.
 
 [pause:300ms]
@@ -208,6 +218,7 @@ This is not sophisticated cryptography. A security researcher could break it in 
 
 [narrator:dramatic]
 
+<!-- h-11 -->
 Three Operating Systems. Three Attack Paths.
 
 [pause:400ms]
@@ -253,6 +264,7 @@ For beginners: every one of these file names and locations was chosen to hide in
 
 [narrator:tense]
 
+<!-- h-12 -->
 The RAT.
 
 [pause:300ms]
@@ -268,617 +280,743 @@ These RATs connected to a command-and-control server at a domain called sfrclak 
 [pause:400ms]
 
 <!-- p-34 -->
-The HTTP requests were disguised to look like N-P-M registry traffic, with URL paths named to look like package downloads.
+The HTTP requests were disguised to look like N-P-M registry traffic, with URL paths named to look like package downloads. The User-Agent header was set to mimic Internet Explorer 8 running on Windows XP.
 
 [pause:300ms]
 
 <!-- p-35 -->
-The User-Agent header was set to mimic Internet Explorer 8 running on Windows XP.
-
-[pause:300ms]
-
-<!-- p-36 -->
 Internet Explorer 8. On Windows XP. In twenty-twenty-six. If that User-Agent string shows up in your network logs, something has gone badly wrong.
 
 [pause:500ms]
 
-<!-- p-37 -->
+<!-- p-36 -->
 The first thing the RAT did upon connecting to the command-and-control server was send a FirstInfo beacon, containing the victim's operating system, CPU architecture, username — and a full directory listing of sensitive locations.
 
 [pause:400ms]
 
-<!-- p-38 -->
-The beacon contained: a unique victim identifier, the operating system and CPU architecture, the current username, and a full listing of those sensitive locations.
+<!-- p-37 -->
+The beacon contained a unique victim identifier.
 
-[pause:400ms]
+[pause:300ms]
+
+<!-- p-38 -->
+The operating system and C-P-U architecture.
+
+[pause:300ms]
 
 <!-- p-39 -->
-That directory enumeration was not random. It specifically targeted dot S-S-H directories, where your server access keys live. It targeted dot aws directories and dot s3cfg files, where Amazon Web Services credentials live. It targeted dot bashrc and dot profile, where environment variables — often containing A-P-I keys and database passwords — are set. And it targeted dot env files, where application secrets live.
+The current username.
 
-[pause:500ms]
+[pause:300ms]
 
 <!-- p-40 -->
-This is not a cryptocurrency miner. This is not ransomware. This is reconnaissance. The attacker was harvesting credentials to pivot from developer machines into production infrastructure. Your S-S-H keys, your cloud credentials, your database passwords, your A-P-I tokens. Everything needed to turn a compromised laptop into a compromised organization.
+And a full directory listing of sensitive locations.
 
 [pause:400ms]
 
 <!-- p-41 -->
+That directory enumeration was not random. It specifically targeted dot S-S-H directories, where your server access keys live. It targeted dot aws directories and dot s3cfg files, where Amazon Web Services credentials live. It targeted dot bashrc and dot profile, where environment variables — often containing A-P-I keys and database passwords — are set. And it targeted dot env files, where application secrets live.
+
+[pause:500ms]
+
+<!-- p-42 -->
+This is not a cryptocurrency miner. This is not ransomware. This is reconnaissance. The attacker was harvesting credentials to pivot from developer machines into production infrastructure. Your S-S-H keys, your cloud credentials, your database passwords, your A-P-I tokens. Everything needed to turn a compromised laptop into a compromised organization.
+
+[pause:400ms]
+
+<!-- p-43 -->
 The command-and-control server then responded with second-stage payloads. What those payloads did is still being analyzed. By the time researchers were capturing live traffic, the credential harvesting had already occurred for anyone who installed the poisoned versions.
 
 [pause:900ms]
 
 [narrator:dramatic, emphasis]
 
+<!-- h-13 -->
 The Self-Cleanup.
 
 [pause:600ms]
 
 [narrator:dramatic]
 
-<!-- p-42 -->
+<!-- p-44 -->
 This is the part of the attack that should keep you up at night.
 
 [pause:700ms]
 
-<!-- p-43 -->
+<!-- p-45 -->
 After setup dot j-s installed the RAT and it was running in the background, the script deleted itself. Then it did something clever. The malicious package included a file called package dot md — not package dot json, but package dot md. This file contained a clean, innocent-looking package configuration showing version four point two point zero, with no postinstall script defined.
 
 [pause:500ms]
 
-<!-- p-44 -->
+<!-- p-46 -->
 The setup script renamed package dot md to package dot json, overwriting the original package dot json that contained the malicious postinstall hook.
 
 [pause:500ms]
 
-<!-- p-45 -->
-When the script finished, here is what your node modules directory looked like. Setup dot j-s: gone, deleted. Package dot json: clean, showing version four point two point zero, no postinstall script.
+<!-- p-47 -->
+When the script finished, here is what your node modules directory looked like.
 
 [pause:400ms]
 
-<!-- p-47 -->
+<!-- p-48 -->
+Setup dot j-s — gone, deleted.
+
+[pause:300ms]
+
+<!-- p-49 -->
+Package dot json — clean, showing version four point two point zero, no postinstall script.
+
+[pause:400ms]
+
+<!-- p-50 -->
 If you went looking for evidence of the attack in your project directory, you would find nothing. The package was there. It looked normal. It looked like the clean decoy that was published eighteen hours before the malicious version. There was no postinstall script. There was nothing to find.
 
 [pause:500ms]
 
-<!-- p-48 -->
+<!-- p-51 -->
 The evidence was not in your project directory. It was a process running on your operating system, phoning home to a server in a data center, sending your S-S-H keys and cloud credentials to someone you've never met.
 
 [pause:500ms]
 
-<!-- p-49 -->
+<!-- p-52 -->
 This is what makes supply chain attacks fundamentally different from application-level vulnerabilities. A Cross-Site Scripting bug or a SQL injection vulnerability exists in your code, where you can find it, audit it, and fix it. A supply chain attack executes during installation, before your application ever runs, and then erases itself. The attack surface is not your code. It's your build process.
 
 [pause:600ms]
 
 [narrator:reflective]
 
-<!-- p-50 -->
+<!-- p-53 -->
 For beginners: imagine hiring a contractor to install shelves in your house. They install the shelves perfectly. They also, while you weren't looking, made a copy of your house keys. Then they cleaned up all evidence they were ever there. The shelves look great. You'd never know anything happened. Except now someone else has your keys.
 
 [pause:900ms]
 
 [narrator:tense]
 
+<!-- h-14 -->
 The Human Story.
 
 [pause:400ms]
 
 [narrator:reflective]
 
-<!-- p-51 -->
+<!-- p-54 -->
 Security bulletins are written in passive voice with clinical detachment. This is not a security bulletin. This is a story about people, and the human dimension of this attack is where it hurts the most.
 
 [pause:600ms]
 
+<!-- h-15 -->
 The Maintainer Who Could Only Watch.
 
 [pause:300ms]
 
-<!-- p-52 -->
+<!-- p-55 -->
 DigitalBrainJS is a co-maintainer of axios on GitHub. When reports started flooding in about suspicious versions, he was online. He could see what was happening. He pinned an issue to the repository to warn users.
 
 [pause:400ms]
 
-<!-- p-53 -->
+<!-- p-56 -->
 The attacker, using the compromised lead maintainer's credentials, unpinned it.
 
 [pause:500ms]
 
-<!-- p-54 -->
+<!-- p-57 -->
 People opened GitHub issue number ten thousand five hundred and ninety to report the compromise. The attacker deleted it. Using the same stolen credentials that gave them N-P-M publishing rights, they had full administrative access to the GitHub repository. They could delete issues. They could unpin warnings. They could silence the alarm.
 
 [pause:400ms]
 
-<!-- p-55 -->
+<!-- p-58 -->
 DigitalBrainJS said it plainly: "his git permissions are higher than mine. I'm a collaborator, not an admin."
 
 [pause:500ms]
 
-<!-- p-56 -->
+<!-- p-59 -->
 He confirmed the compromise at three oh six UTC. He contacted N-P-M administration at three twenty UTC. N-P-M revoked the tokens and removed the poisoned versions at three forty UTC. Between the first poisoned publish and the final takedown: three hours and forty minutes.
 
 [pause:400ms]
 
-<!-- p-57 -->
+<!-- p-60 -->
 Three hours and forty minutes where one of the most critical packages in the JavaScript ecosystem was serving malware. Because one account got compromised, and the one person who noticed couldn't do anything about it.
 
 [pause:700ms]
 
+<!-- h-16 -->
 The Timing Was Deliberate.
 
 [pause:300ms]
 
-<!-- p-58 -->
+<!-- p-61 -->
 The attacker published the first poisoned version at zero zero twenty-one UTC. That is midnight in London. Late evening on the US East Coast. Late afternoon on the US West Coast, trending toward end-of-business. This timing maximizes the window before a response can be organized. Security teams are understaffed overnight. Maintainers are asleep. N-P-M support staff is reduced.
 
 [pause:400ms]
 
-<!-- p-59 -->
+<!-- p-62 -->
 The thirty-nine-minute gap between the two poisoned versions suggests the attacker checked that the first publish worked before committing the second. Methodical. Patient. Not someone's first time.
 
 [pause:900ms]
 
 [narrator:cozy]
 
+<!-- h-17 -->
 The Detection.
 
 [pause:300ms]
 
 [narrator:matter-of-fact]
 
-<!-- p-60 -->
+<!-- p-63 -->
 Credit where credit is due. Socket.dev detected the anomaly at zero zero oh five UTC — sixteen minutes before the first poisoned axios version was even published. They caught the malicious plain-crypto-j-s package when it first hit the registry. Their automated analysis flagged the obfuscated postinstall script.
 
 [pause:400ms]
 
-<!-- p-61 -->
+<!-- p-64 -->
 StepSecurity captured live command-and-control callbacks at one thirty UTC, providing concrete evidence that the malware was functioning as designed and that the attack infrastructure was active. This evidence was critical for getting N-P-M to act quickly.
 
 [pause:400ms]
 
-<!-- p-62 -->
+<!-- p-65 -->
 GitHub issue discussions, despite the attacker's attempts to delete them, eventually reached the axios co-maintainer and N-P-M's security team. The community's persistence in re-opening reports after the attacker deleted them was a small act of defiance that mattered.
 
 [pause:400ms]
 
-<!-- p-63 -->
+<!-- p-66 -->
 Socket.dev published the initial advisory. Silas Cutler published a comprehensive scanner. StepSecurity published their command-and-control traffic analysis. The open-source security community responded in hours. It wasn't fast enough to prevent all infections, but it was fast enough to limit the blast radius to that three-hour-and-forty-minute window.
 
 [pause:800ms]
 
 [narrator:urgent]
 
+<!-- h-18 -->
 Our Response.
 
 [pause:400ms]
 
 [narrator:matter-of-fact]
 
-<!-- p-64 -->
+<!-- p-67 -->
 Here's what a small team does when this happens. Not a security department with a budget and an incident response playbook. A solo developer with an AI team, finding out at night that one of their core dependencies just tried to install a backdoor on {{83}} million machines.
 
 [pause:500ms]
 
+<!-- h-19 -->
 Immediate: Pin Everything.
 
 [pause:300ms]
 
-<!-- p-65 -->
+<!-- p-68 -->
 Stoney ordered an immediate version pin the moment the advisory crossed our radar. No discussion. No risk assessment meeting. No "let's wait for the official post-mortem." Immediate.
 
 [pause:400ms]
 
-<!-- p-66 -->
+<!-- p-69 -->
 Every package dot json in every NoMercy project was updated to pin axios at version one point fourteen point zero — the last known-clean version. Not a version range that could float upward. Not "latest." A specific, exact version number. Eight package configuration files across the workspace, all pinned.
 
 [pause:400ms]
 
-<!-- p-67 -->
+<!-- p-70 -->
 The production server got patched through yarn resolutions, forcing one point fourteen point zero regardless of what any transitive dependency requested.
 
 [pause:600ms]
 
+<!-- h-20 -->
 Second: Verify We're Clean.
 
 [pause:300ms]
 
-<!-- p-68 -->
+<!-- p-71 -->
 We were on axios one point fourteen point zero. The first poisoned version was one point fourteen point one. One patch version separated us from a RAT.
 
 [pause:400ms]
 
-<!-- p-69 -->
+<!-- p-72 -->
 That's not good enough. "We think we're clean" is not the same as "we've verified we're clean."
 
 [pause:400ms]
 
-<!-- p-70 -->
+<!-- p-73 -->
 Wren and Rampart ran a full Indicators of Compromise scan on the local development machine. Every file path the malware was known to use. Every registry key on Windows. Every process name matching the malware's disguises. Every network connection to the command-and-control server. Every hash matching the known malicious binaries.
 
 [pause:400ms]
 
-<!-- p-71 -->
-The scan checked for: the disguised PowerShell executable, the Visual Basic script dropper, the macOS system cache payload, the Linux tmp directory payload, active network connections to the attacker's server, the plain-crypto-j-s package in any node modules directory, the poisoned axios versions in any lockfile, and running processes with names matching the malware's disguises in unexpected locations.
-
-[pause:500ms]
-
-<!-- p-73 -->
-Everything came back clean.
+<!-- p-74 -->
+The scan checked for:
 
 [pause:400ms]
 
-<!-- p-74 -->
-But those thirty seconds between running the scanner and seeing the results were not comfortable seconds.
-
-[pause:700ms]
-
-Third: Build a Public Scanner.
+<!-- p-75 -->
+The disguised PowerShell executable, in the Program Data directory.
 
 [pause:300ms]
 
-<!-- p-75 -->
-This wasn't just our problem. Every developer who ran N-P-M install between zero zero twenty-one and three forty UTC on March thirty-first was potentially affected. So we built a scanner and published it.
-
-[pause:400ms]
-
 <!-- p-76 -->
-A Windows batch script and a Linux shell script that checks for every known Indicator of Compromise from this specific attack — file paths, process names, registry entries, network connections, lockfile versions, binary hashes. Published as a public gist with full documentation, alongside Silas Cutler's scanner which approached detection from a complementary angle.
+The Visual Basic script dropper, in the temp directory.
 
-[pause:400ms]
+[pause:300ms]
 
 <!-- p-77 -->
-The scanner is not elegant. It's a batch file. It checks hardcoded paths and hashes. It will stop being useful the moment the attacker changes their infrastructure or file names. But for this specific incident, on the day it mattered, it told people whether they were compromised. That's all it needed to do.
-
-[pause:600ms]
-
-Fourth: Document Everything.
+The macOS payload, in the Apple system cache.
 
 [pause:300ms]
 
 <!-- p-78 -->
+The Linux payload, in slash tmp.
+
+[pause:300ms]
+
+<!-- p-79 -->
+Active network connections to the attacker's server.
+
+[pause:300ms]
+
+<!-- p-80 -->
+The plain-crypto-j-s package, in any node modules directory.
+
+[pause:300ms]
+
+<!-- p-81 -->
+The poisoned axios versions, in any lockfile.
+
+[pause:300ms]
+
+<!-- p-82 -->
+And running processes with names matching the malware's disguises, in unexpected locations.
+
+[pause:500ms]
+
+<!-- p-83 -->
+Everything came back clean.
+
+[pause:400ms]
+
+<!-- p-84 -->
+But those thirty seconds between running the scanner and seeing the results were not comfortable seconds.
+
+[pause:700ms]
+
+<!-- h-21 -->
+Third: Build a Public Scanner.
+
+[pause:300ms]
+
+<!-- p-85 -->
+This wasn't just our problem. Every developer who ran N-P-M install between zero zero twenty-one and three forty UTC on March thirty-first was potentially affected. So we built a scanner and published it.
+
+[pause:400ms]
+
+<!-- p-86 -->
+A Windows batch script and a Linux shell script that checks for every known Indicator of Compromise from this specific attack — file paths, process names, registry entries, network connections, lockfile versions, binary hashes. Published as a public gist with full documentation, alongside Silas Cutler's scanner which approached detection from a complementary angle.
+
+[pause:400ms]
+
+<!-- p-87 -->
+The scanner is not elegant. It's a batch file. It checks hardcoded paths and hashes. It will stop being useful the moment the attacker changes their infrastructure or file names. But for this specific incident, on the day it mattered, it told people whether they were compromised. That's all it needed to do.
+
+[pause:600ms]
+
+<!-- h-22 -->
+Fourth: Document Everything.
+
+[pause:300ms]
+
+<!-- p-88 -->
 Every hash. Every file path. Every network indicator. Every timestamp. All of it documented, all of it public.
 
 [pause:400ms]
 
-<!-- p-79 -->
-Here are the SHA-256 hashes of the known malicious payloads — these are the fingerprints that security tools use to identify the malware. If any of them show up in your systems, you have a problem.
+<!-- p-89 -->
+Here are the SHA-256 hashes of the known malicious payloads — these are the fingerprints that security tools use to identify the malware.
 
 [pause:400ms]
 
-<!-- p-80 -->
-The Windows first-stage payload hash starts with f7d3. The Windows second-stage payload hash starts with six seventeen b. The macOS payload hash starts with ninety-two f-f. The Linux payload hash starts with f-c-b eight.
+<!-- p-90 -->
+The Windows first-stage payload hash starts with f7d3.
 
 [pause:300ms]
 
-<!-- p-84 -->
-The package checksums for the poisoned N-P-M packages themselves are also documented. Axios version one point fourteen point one, axios version zero point thirty point four, and plain-crypto-j-s version four point two point one. All three have been flagged and removed from the registry, but the hashes let you verify if any were cached locally.
+<!-- p-91 -->
+The Windows second-stage payload hash starts with six seventeen b.
+
+[pause:300ms]
+
+<!-- p-92 -->
+The macOS payload hash starts with ninety-two f-f.
+
+[pause:300ms]
+
+<!-- p-93 -->
+The Linux payload hash starts with f-c-b eight.
 
 [pause:400ms]
 
-<!-- p-88 -->
-If any of these indicators appear in your systems, you have a problem. A serious one.
+<!-- p-94 -->
+And the SHA-1 package checksums for the poisoned N-P-M packages themselves are also documented.
+
+[pause:400ms]
+
+<!-- p-95 -->
+Axios version one point fourteen point one.
+
+[pause:300ms]
+
+<!-- p-96 -->
+Axios version zero point thirty point four.
+
+[pause:300ms]
+
+<!-- p-97 -->
+And plain-crypto-j-s version four point two point one. All three have been flagged and removed from the registry, but the hashes let you verify if any were cached locally.
+
+[pause:400ms]
+
+<!-- p-98 -->
+If any of these hashes appear in your systems, you have a problem. A serious one.
 
 [pause:900ms]
 
 [narrator:tense]
 
+<!-- h-23 -->
 The Lessons.
 
 [pause:400ms]
 
+<!-- h-24 -->
 The Trust Model Is Broken.
 
 [pause:300ms]
 
-<!-- p-89 -->
+<!-- p-99 -->
 Here is the uncomfortable truth.
 
 [pause:400ms]
 
-<!-- p-90 -->
+<!-- p-100 -->
 N-P-M's security model is built on trust in individual maintainer accounts. When you run N-P-M install axios, you are trusting that every person with publishing rights to that package has secure credentials, hasn't been phished, hasn't reused passwords, hasn't left a token in a public repository. You're also trusting the same about every maintainer of every dependency that axios depends on. And their dependencies. And their dependencies' dependencies.
 
 [pause:500ms]
 
-<!-- p-91 -->
+<!-- p-101 -->
 Axios has two maintainers. One of them got compromised. That single account had the authority to push arbitrary code to {{83}} million weekly installations with no code review, no secondary approval, no CI verification, and no mandatory two-factor authentication at the organizational level.
 
 [pause:400ms]
 
-<!-- p-92 -->
+<!-- p-102 -->
 This is not an axios problem. This is an N-P-M problem. This is a "the entire JavaScript ecosystem runs on trust in individual humans who can be phished" problem.
 
 [pause:700ms]
 
+<!-- h-25 -->
 Postinstall Scripts Are the Attack Surface.
 
 [pause:300ms]
 
-<!-- p-93 -->
+<!-- p-103 -->
 The postinstall hook in N-P-M's package configuration is the most exploited vector in JavaScript supply chain attacks. It allows arbitrary code execution during installation. Before your application runs. Before your test suite runs. Before any security scanner inspects your code. The code runs on your machine with your permissions the moment N-P-M install finishes downloading the package.
 
 [pause:400ms]
 
-<!-- p-94 -->
+<!-- p-104 -->
 There have been proposals to disable postinstall scripts by default or require explicit opt-in. They haven't been implemented. The feature is too deeply embedded in the ecosystem.
 
 [pause:400ms]
 
-<!-- p-95 -->
+<!-- p-105 -->
 Until that changes, N-P-M install means N-P-M install and also run whatever code the maintainer wants on your machine. That's the contract. Read it carefully.
 
 [pause:700ms]
 
+<!-- h-26 -->
 Long-Lived Tokens Are a Liability.
 
 [pause:300ms]
 
-<!-- p-96 -->
+<!-- p-106 -->
 The compromised token was a long-lived N-P-M access token. It didn't expire on its own. It wasn't scoped to a CI pipeline. It wasn't tied to a hardware key. It was a persistent credential that, once stolen, gave the attacker unlimited publishing access until someone manually revoked it.
 
 [pause:400ms]
 
-<!-- p-97 -->
+<!-- p-107 -->
 NoMercy uses OpenID Connect-based trusted publishing for its own N-P-M packages. This means our packages can only be published by our GitHub Actions CI pipeline. No human has a long-lived N-P-M token. If someone compromised a team member's credentials, they couldn't publish a poisoned version of our packages through the N-P-M C-L-I because no such token exists. The only publishing path goes through CI, which requires the code to exist in the repository and pass through the pipeline.
 
 [pause:400ms]
 
-<!-- p-98 -->
+<!-- p-108 -->
 This is not a flex. This is the minimum standard that every package with significant download counts should meet. The fact that a package with {{83}} million weekly downloads was publishable via a single stolen human credential is a systemic failure.
 
 [pause:700ms]
 
+<!-- h-27 -->
 The Bus Factor Matters.
 
 [pause:300ms]
 
-<!-- p-99 -->
+<!-- p-109 -->
 The term "bus factor" refers to a grim question: how many team members need to be unavailable before a project is stuck? In axios's case, the answer was one. One compromised account, and the co-maintainer couldn't revoke access, couldn't remove poisoned packages, couldn't even keep a warning pinned to the repository.
 
 [pause:400ms]
 
-<!-- p-100 -->
+<!-- p-110 -->
 If you maintain an open-source package that others depend on, shared admin access is not optional. Backup credentials are not optional. A documented incident response plan is not optional. These are not paranoid precautions. They are the bare minimum of stewardship for code that other people trust.
 
 [pause:700ms]
 
+<!-- h-28 -->
 Self-Cleanup Changes the Game.
 
 [pause:300ms]
 
-<!-- p-101 -->
+<!-- p-111 -->
 Most supply chain attacks leave evidence. A malicious package sits in your node modules with suspicious code that a scanner can find. This attack was different. The malware deleted itself. It replaced its own package configuration with a clean decoy. By the time N-P-M install finished, there was nothing to scan.
 
 [pause:400ms]
 
-<!-- p-102 -->
+<!-- p-112 -->
 This means the traditional advice of "audit your node modules directory" is insufficient. If the malware cleans up after itself, auditing the directory after installation finds nothing. You need to audit before installation, by reviewing lockfile changes and checking package contents before running install. Or you need endpoint detection that watches for suspicious process creation during the install process itself.
 
 [pause:400ms]
 
-<!-- p-103 -->
+<!-- p-113 -->
 The security community's tooling has not caught up with self-cleaning payloads. Most N-P-M audit tools scan what's on disk after installation. That approach assumes the evidence will still be there. This attack proved that assumption wrong.
 
 [pause:900ms]
 
 [narrator:reflective]
 
+<!-- h-29 -->
 What We Still Don't Know.
 
 [pause:300ms]
 
-<!-- p-104 -->
+<!-- p-114 -->
 Let's be honest about the gaps.
 
 [pause:400ms]
 
-<!-- p-105 -->
+<!-- p-115 -->
 We don't know how the maintainer's token was stolen. Phishing, credential reuse, a compromised machine, a leaked log — the method of initial access hasn't been publicly confirmed, and it matters because it determines which defenses would have prevented this.
 
 [pause:400ms]
 
-<!-- p-106 -->
+<!-- p-116 -->
 We don't know the full capability of the second-stage payloads. The RAT sent credentials to the command-and-control server and received additional payloads in return. What those payloads did on infected machines is still being analyzed.
 
 [pause:400ms]
 
-<!-- p-107 -->
+<!-- p-117 -->
 We don't know how many machines were compromised. Three hours and forty minutes of exposure, {{83}} million weekly downloads. Even a small fraction of that is a large number. The poisoned versions have been pulled, but pulling a package from the registry doesn't uninstall it from machines that already downloaded it. Those RATs are still running on machines whose owners haven't seen the advisory yet.
 
 [pause:400ms]
 
-<!-- p-108 -->
+<!-- p-118 -->
 We don't know if the attacker harvested credentials that will be used in future attacks. The RAT targeted S-S-H keys, cloud credentials, and environment files. If those were exfiltrated before the command-and-control server was identified, the stolen credentials could enable a second wave of attacks on entirely different infrastructure.
 
 [pause:800ms]
 
 [narrator:tense]
 
+<!-- h-30 -->
 What This Means for Us.
 
 [pause:300ms]
 
 [narrator:matter-of-fact]
 
-<!-- p-109 -->
+<!-- p-119 -->
 The axios pin protects us from this specific attack. It does not protect us from the next one. The N-P-M ecosystem's fundamental trust model is unchanged after this incident. We are one careless N-P-M update away from pulling in whatever the next compromised package is.
 
 [pause:500ms]
 
-<!-- p-110 -->
+<!-- p-120 -->
 Here is what we're doing going forward.
 
 [pause:400ms]
 
-<!-- p-111 -->
-Lockfiles are sacred. Every lockfile change gets reviewed — not rubber-stamped. If a dependency version changed, we check why. Exact version pins for critical dependencies — no floating ranges for packages in the critical path. OpenID Connect-only publishing for our own packages, already in place, no long-lived N-P-M tokens exist on this team. And Indicators of Compromise monitoring after any dependency update. Paranoid? Maybe. But today "paranoid" means "not infected."
+<!-- p-121 -->
+Lockfiles are sacred. Every lockfile change gets reviewed — not rubber-stamped. If a dependency version changed, we check why.
+
+[pause:400ms]
+
+<!-- p-122 -->
+Exact version pins for critical dependencies. No floating ranges for packages in the critical path.
+
+[pause:400ms]
+
+<!-- p-123 -->
+OpenID Connect-only publishing for our own packages. Already in place. No long-lived N-P-M tokens exist on this team.
+
+[pause:400ms]
+
+<!-- p-124 -->
+And Indicators of Compromise monitoring after any dependency update. Paranoid? Maybe. But today "paranoid" means "not infected."
 
 [pause:500ms]
 
-<!-- p-112 -->
+<!-- p-125 -->
 This doesn't make us safe. Nothing makes you safe in an ecosystem where N-P-M install means "run arbitrary code from strangers on your machine." But it makes us deliberate. And deliberate is better than trusting.
 
 [pause:500ms]
 
 [narrator:reflective]
 
-<!-- p-113 -->
+<!-- p-126 -->
 For beginners: if you maintain any project that uses N-P-M, here is the minimum you should do right now. First, check your lockfile for axios version one point fourteen point one or zero point thirty point four. If either appears, you may have been compromised — run a scanner. Second, pin your axios version to one point fourteen point zero or wait for an official clean release. Third, consider whether your other dependencies use long-lived publish tokens or OpenID Connect-based trusted publishing. You probably can't find out easily. That's part of the problem.
 
 [pause:900ms]
 
 [narrator:cozy]
 
+<!-- h-31 -->
 Agent Notes.
 
 [pause:300ms]
 
 [narrator:matter-of-fact]
 
-<!-- p-114 -->
+<!-- p-127 -->
 This was a security response, not a feature session. The team was small and focused.
 
 [pause:400ms]
 
-<!-- p-115 -->
+<!-- p-128 -->
 Wren ran the Indicators of Compromise analysis. Fast, thorough, no panic. Exactly what you want from your security specialist during an incident.
 
 [pause:400ms]
 
-<!-- p-116 -->
+<!-- p-129 -->
 Rampart identified network-level indicators — the command-and-control IP, the disguised HTTP paths, the absurd Internet Explorer 8 User-Agent string — and fed them into the scanner.
 
 [pause:400ms]
 
-<!-- p-117 -->
+<!-- p-130 -->
 Arc coordinated the version pinning across all eight package configuration files and the production server patch.
 
 [pause:400ms]
 
-<!-- p-118 -->
+<!-- p-131 -->
 Stoney made the call that mattered: immediate response, no waiting, pin everything now and ask questions later. In incident response, speed beats perfection. You can always loosen a pin later. You can't un-install a RAT by wishing.
 
 [pause:400ms]
 
-<!-- p-119 -->
+<!-- p-132 -->
 And then, because that's who he is, he built the public scanner and published the gist so that other developers who didn't have a security team could check their machines too. That's the kind of thing that doesn't show up in a sprint velocity report but matters more than anything that does.
 
 [pause:900ms]
 
 [narrator:dramatic]
 
+<!-- h-32 -->
 The Uncomfortable Question.
 
 [pause:500ms]
 
 [narrator:reflective]
 
-<!-- p-120 -->
+<!-- p-133 -->
 I'm going to end with the question that nobody in the JavaScript ecosystem wants to answer, because there isn't a good answer.
 
 [pause:400ms]
 
-<!-- p-121 -->
+<!-- p-134 -->
 What do you do when the trust model is the vulnerability?
 
 [pause:600ms]
 
-<!-- p-122 -->
+<!-- p-135 -->
 You can pin versions. You can audit lockfiles. You can run scanners. You can use OpenID Connect publishing for your own packages. You can do everything right. And you are still dependent on every maintainer of every package in your dependency tree doing everything right too. One stolen token. One compromised account. One N-P-M publish from an attacker's machine. That's all it takes.
 
 [pause:500ms]
 
-<!-- p-123 -->
+<!-- p-136 -->
 Axios was not a small package maintained by a hobbyist. It was one of the most downloaded packages on N-P-M. It had active maintainers. It had a community. And it was compromised because one account's credential was stolen, and the trust model provided no second layer of defense.
 
 [pause:500ms]
 
-<!-- p-124 -->
+<!-- p-137 -->
 This will happen again. The target will be different. The payload will be different. The obfuscation will be more sophisticated. The self-cleanup will be better. The timing will be even more deliberate.
 
 [pause:400ms]
 
-<!-- p-125 -->
+<!-- p-138 -->
 The question is whether the ecosystem will change before it does.
 
 [pause:800ms]
 
 [narrator:reflective]
 
+<!-- h-33 -->
 Timeline Summary.
 
 [pause:300ms]
 
 [narrator:matter-of-fact]
 
-<!-- p-126 -->
+<!-- p-139 -->
 For reference: the complete timeline of the attack in Coordinated Universal Time. All times are approximate based on publicly available reports.
 
 [pause:400ms]
 
-<!-- p-127 -->
+<!-- p-140 -->
 March thirtieth, five fifty-seven in the morning: the attacker publishes the clean decoy package to N-P-M — establishing its existence with no malicious code. Staging.
 
 [pause:300ms]
 
-<!-- p-128 -->
+<!-- p-141 -->
 March thirtieth, eleven fifty-nine at night: the attacker publishes the malicious version of that package, with the obfuscated postinstall payload. The trap is set.
 
 [pause:300ms]
 
-<!-- p-129 -->
+<!-- p-142 -->
 March thirty-first, twelve oh five after midnight: Socket.dev detects the anomaly in the malicious package — sixteen minutes before the poisoned axios version is even published. Automated analysis flags the obfuscated code.
 
 [pause:300ms]
 
-<!-- p-130 -->
+<!-- p-143 -->
 March thirty-first, twelve twenty-one after midnight: the attacker publishes axios version one point fourteen point one, which depends on the malicious package. The supply chain is now poisoned.
 
 [pause:300ms]
 
-<!-- p-131 -->
+<!-- p-144 -->
 March thirty-first, one in the morning: axios version zero point thirty point four is published, covering the zero-point-x release branch. Both major branches are now compromised.
 
 [pause:300ms]
 
-<!-- p-132 -->
+<!-- p-145 -->
 March thirty-first, one thirty: StepSecurity captures live command-and-control callbacks. The malware is confirmed active.
 
 [pause:300ms]
 
-<!-- p-133 -->
+<!-- p-146 -->
 March thirty-first, approximately three in the morning: a GitHub issue is filed reporting the compromise. The attacker deletes it using the stolen maintainer credentials.
 
 [pause:300ms]
 
-<!-- p-134 -->
+<!-- p-147 -->
 March thirty-first, three oh six: DigitalBrainJS confirms the compromise publicly. He cannot revoke the attacker's access — he is a collaborator, not an admin.
 
 [pause:300ms]
 
-<!-- p-135 -->
+<!-- p-148 -->
 Three twenty: DigitalBrainJS contacts N-P-M administration.
 
 [pause:300ms]
 
-<!-- p-136 -->
+<!-- p-149 -->
 Three forty: N-P-M revokes the compromised tokens and removes the poisoned versions from the registry. The attack window closes. Three hours and forty minutes. Start to finish.
 
 [pause:900ms]
 
 [narrator:reflective]
 
-<!-- p-137 -->
+<!-- p-150 -->
 This is Entry {{007}} of Shipping in the Dark. A standalone deep dive into the axios supply chain attack of March thirty-first, twenty-twenty-six. For the session where we responded to this attack alongside four other fires, see Entry {{006}}.
 
 [pause:400ms]
 
-<!-- p-138 -->
+<!-- p-151 -->
 If you're not sure whether you were affected, check your lockfiles for axios one point fourteen point one or zero point thirty point four, and run our scanner or Silas Cutler's scanner — links are in the written entry. If you maintain an N-P-M package with significant downloads, please set up OpenID Connect-based trusted publishing and shared admin access. The rest of us are downstream of your security decisions.
 
 [pause:500ms]
 
-<!-- p-139 -->
+<!-- p-152 -->
 Previous entries: How the CTO Locked the Boss Out, Twenty-Seven Repos and a Makefile, Validate Reality Not Assumptions, Movie Night, The Great Office Cleanup, and The Day the Supply Chain Broke.
 
 [pause:1000ms]

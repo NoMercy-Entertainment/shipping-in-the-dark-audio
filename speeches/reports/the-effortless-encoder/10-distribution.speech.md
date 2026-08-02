@@ -207,6 +207,18 @@ Security model.
 
 [narrator:matter-of-fact]
 
+<!-- h-6 -->
+License-gated signing keys.
+
+[pause:400ms]
+
+<!-- p-33 -->
+There is no long-lived shared secret on disk. The HMAC key used to sign coordinator-to-worker traffic is derived from the short-lived cluster token the API server issues on boot and refreshes every heartbeat. A stolen config file is worthless on its own; without a current token, nothing signs or verifies. A revoked subscription drops the cluster within seconds of its next heartbeat.
+
+[pause:900ms]
+
+[narrator:matter-of-fact]
+
 <!-- h-7 -->
 HMAC signed payloads.
 
@@ -283,14 +295,34 @@ Self registration.
 [pause:400ms]
 
 <!-- p-41 -->
-The worker self registration service is a hosted background service that runs on workers.
+The worker self registration service is a hosted background service that runs on every worker. The operator does not call an endpoint by hand, does not paste a shared secret, and does not configure HMAC keys. The service handles it end to end.
 
 [pause:500ms]
 
-<!-- p-45 -->
-On boot, it POSTs to the coordinator's register endpoint with the worker ID, base URL, CPU cores, available CPU threads, available GPU slots, GPUs, and version.
+<!-- p-42 -->
+On boot.
 
-[pause:3000ms]
+[pause:400ms]
+
+<!-- p-43 -->
+The worker authenticates to the NoMercy API server with the machine's existing device certificate plus the logged-in account identity.
+
+[pause:400ms]
+
+<!-- p-44 -->
+It calls the cluster token endpoint on the API server. The license service checks that the account has a paid tier that covers distributed encoding, and that the worker fits inside the account's allowed worker count. On success it returns a short-lived HMAC signing token plus the scope — account I-D, cluster I-D, expiry.
+
+[pause:400ms]
+
+<!-- p-45 -->
+The worker presents that token to its configured coordinator's register endpoint, along with the worker I-D, base U-R-L, C-P-U cores, available C-P-U threads, available G-P-U slots, GPUs, and version.
+
+[pause:600ms]
+
+<!-- p-46 -->
+The coordinator verifies the token with the API server's introspection endpoint, cached for a short T-T-L, checks that the token's cluster I-D matches its own account, and adds the worker to the registry. A failed verification returns 401 with a reason — expired token, account not entitled, cluster I-D mismatch, worker count cap hit.
+
+[pause:900ms]
 
 <!-- p-47 -->
 Every heartbeat interval, default 20 seconds, it POSTs to the worker's heartbeat endpoint with a fresh budget so the coordinator sees current load.
@@ -393,10 +425,15 @@ First. Worker receives signed task. Checks whether the input path exists locally
 
 [pause:400ms]
 
-<!-- p-64 -->
-Second. Build signed download URL if the file is missing. The URL points at the worker source endpoint with path, timestamp, and signature query parameters. The signature is an HMAC over path plus timestamp, using the shared key.
+<!-- p-63 -->
+Second. Build signed download URL if the file is missing. The URL points at the worker source endpoint with path, timestamp, and signature query parameters.
 
-[pause:1400ms]
+[pause:500ms]
+
+<!-- p-64 -->
+The signature is an HMAC over path plus timestamp, using the shared key.
+
+[pause:900ms]
 
 <!-- p-65 -->
 Third. Coordinator verifies the signature, the timestamp, and that the path is in the library allowlist. Streams the file with range requests enabled.
@@ -489,8 +526,23 @@ What is not in this milestone.
 
 [pause:400ms]
 
+<!-- p-79 -->
+No mutual TLS. HMAC signed payloads are the full security story. Works on trusted LAN plus HTTPS to the coordinator. Deployments across the open internet should add a VPN or a TLS client certificate layer, externally.
+
+[pause:500ms]
+
 <!-- p-80 -->
-No mutual TLS. HMAC signed payloads are the full security story. Works on trusted LAN plus HTTPS to the coordinator. Deployments across the open internet should add a VPN or a TLS client certificate layer externally. No exponential backoff on retries. First worker fails. Second worker tries immediately. If all remotes are flaky, the retry chain exhausts in seconds. The max remote attempts is tunable. Source fetch is not resumable across worker restarts. A worker crash mid download discards the partial file. The next attempt re downloads from scratch. HTTP range requests are enabled on the server, so a fancier client could resume. The current one streams straight to disk without checkpoint state. Strategies do not auto distribute yet. The dispatcher infrastructure is wired end to end. But existing single machine strategies still run whole jobs locally. They do not yet decompose into encode task arrays plus dispatch. That is the final integration step. Plugin strategies can wire themselves up today.
+No exponential backoff on retries. First worker fails. Second worker tries immediately. If all remotes are flaky, the retry chain exhausts in seconds. The max remote attempts is tunable.
+
+[pause:500ms]
+
+<!-- p-81 -->
+Source fetch is not resumable across worker restarts. A worker crash mid download discards the partial file. The next attempt re downloads from scratch. HTTP range requests are enabled on the server, so a fancier client could resume. The current one streams straight to disk without checkpoint state.
+
+[pause:500ms]
+
+<!-- p-82 -->
+Strategies do not auto distribute yet. The dispatcher infrastructure is wired end to end. But existing single machine strategies still run whole jobs locally. They do not yet decompose into encode task arrays plus dispatch. That is the final integration step needed to make distribution active for the built-in strategies. Plugin strategies can wire themselves up today.
 
 [pause:900ms]
 
@@ -501,7 +553,12 @@ Test coverage.
 
 [pause:400ms]
 
+<!-- p-83 -->
+The distribution layer has extensive test coverage across its components. The dispatcher, the task serializer, the HTTP worker, the registry, the self registration service, the source fetcher, and the progress store each have their own suite, focused on round trip signing, tamper detection, retry behaviour, stale eviction, health tracking, and cache reuse.
+
+[pause:600ms]
+
 <!-- p-84 -->
-The distribution layer has extensive test coverage across its components. The dispatcher, the task serializer, the HTTP worker, the registry, the self registration service, the source fetcher, and the progress store each have their own suite, focused on round trip signing, tamper detection, retry behaviour, stale eviction, health tracking, and cache reuse. A full end to end test runs a simulated cluster through a real encode, and a mismatched signing key test verifies that the coordinator falls back to local dispatch when workers reject signed payloads.
+A full end to end test runs a simulated cluster through a real encode, and a mismatched signing key test verifies that the coordinator falls back to local dispatch when workers reject signed payloads.
 
 [pause:900ms]

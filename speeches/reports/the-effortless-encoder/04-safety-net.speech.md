@@ -51,7 +51,7 @@ You POST a profile to the validate endpoint and get back a structured response.
 
 [pause:900ms]
 
-<!-- p-8 -->
+<!-- p-7 -->
 The response contains errors and warnings. Each with a stable ID, a field path, a human message, and a fix.
 
 [pause:500ms]
@@ -245,7 +245,12 @@ The preview endpoint.
 <!-- p-29 -->
 The validator checks the profile in isolation. The preview endpoint adds the source file to the picture. It takes a profile plus a source video file ID and returns a per-stream action plan.
 
-[pause:900ms]
+[pause:700ms]
+
+<!-- p-30 -->
+The response.
+
+[pause:600ms]
 
 <!-- p-31 -->
 For each stream, you see exactly what will happen. Copy. Transcode. Skip. With what target parameters. Plus source level warnings for things the plain validator could not know. Variable frame rate. Dolby Vision stripping. Upscaling.

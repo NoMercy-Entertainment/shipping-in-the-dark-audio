@@ -282,6 +282,16 @@ Security.
 [pause:400ms]
 
 <!-- p-44 -->
-The ripper runs with mounted filesystem access. On Linux it does not need elevated privileges, as long as the user is in the CD-ROM group. Output paths are checked against the path allowlist. The ripper cannot write outside configured output directories, even if someone manages to feed it a malicious filename. Disc content is not trusted input the way random network media is. But the scanner still runs in a restricted ffprobe invocation, with no filter chain evaluation, because disc structures have historically contained a surprising amount of creative malformation.
+The ripper runs with mounted filesystem access. On Linux it does not need elevated privileges, as long as the user is in the CD-ROM group.
+
+[pause:500ms]
+
+<!-- p-45 -->
+Output paths are checked against the path allowlist. The ripper cannot write outside configured output directories, even if someone manages to feed it a malicious filename.
+
+[pause:500ms]
+
+<!-- p-46 -->
+Disc content is not trusted input the way random network media is. But the scanner still runs in a restricted ffprobe invocation, with no filter chain evaluation, because disc structures have historically contained a surprising amount of creative malformation.
 
 [pause:900ms]

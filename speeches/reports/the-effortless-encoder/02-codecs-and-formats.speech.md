@@ -147,7 +147,12 @@ Intel's Quick Sync encoder has a quality range of 1 to 51 instead of the usual 0
 [pause:500ms]
 
 <!-- p-24 -->
-Apple's VideoToolbox uses a totally different scale, 0 to 100. Feeding it a CRF value in the 0 to 51 range produces wildly different output than what you meant. So the encoder translates. If you write CRF 23 and VideoToolbox is picked, the translation lands at roughly 45 on the 0 to 100 scale, which is the equivalent quality level.
+Apple's VideoToolbox uses a totally different scale, 0 to 100. Feeding it a CRF value in the 0 to 51 range produces wildly different output than what you meant. So the encoder translates. If you write CRF 23 and VideoToolbox is picked, the translation lands at roughly 45 on the 0 to 100 scale.
+
+[pause:600ms]
+
+<!-- p-25 -->
+Which is roughly the equivalent quality level on VideoToolbox's scale.
 
 [pause:500ms]
 
@@ -232,24 +237,65 @@ The four codec families we ship cover the overwhelming majority of modern playba
 
 [pause:900ms]
 
-[narrator:matter-of-fact]
+[narrator:reflective]
 
 <!-- h-7 -->
-Containers.
+"Ship" is doing some work in that sentence.
 
 [pause:400ms]
 
 <!-- p-38 -->
-A codec is the encoding. A container is the file format that holds the encoded bits.
+Everything above describes what the encoder is built to do. It assumes the ffmpeg binary underneath it actually has the libraries compiled in, and that assumption has been wrong.
 
 [pause:500ms]
 
 <!-- p-39 -->
+We build our own ffmpeg, because the decryption and the codec mix we need are not in anybody's stock build. That build is Fillz's work. Every encoder handle in the table above is usable because somebody produced a binary that contains it, across six platform targets, and that somebody is him. It is the least visible layer in this entire report, and everything else described here is standing on it. That build is produced by merging separate 8, 10, and 12 bit passes into one binary. On one of those merges, the final link quietly dropped lib x265, and the resulting ffmpeg reported "x265 not found" at encode time. Nothing failed during the build. The pipeline was green, the artifact was published, and the missing codec only turned up when something tried to use it.
+
+[pause:700ms]
+
+<!-- p-40 -->
+The first diagnosis was pkg-config, which is the obvious suspect and was entirely innocent. The multilib merge was relinking the library away after the configure step had already found it, so every check that ran before the merge agreed the codec was there.
+
+[pause:600ms]
+
+<!-- p-41 -->
+That is worth stating plainly in a document whose title contains the word effortless. The encoder chooses codecs by probing what the binary in front of it can actually do, rather than trusting a compiled-in list, and the reason that indirection exists is that the binary has lied to us. A capability table is a description of intent. The only authority on what your build supports is your build.
+
+[pause:600ms]
+
+<!-- p-42 -->
+None of which is a criticism of the build. A multilib merge that produces one binary carrying 8, 10, and 12 bit paths, with decryption linked in, for six platform targets, is a genuinely hard piece of engineering that most projects avoid by shipping whatever the distribution gives them. The failure mode is subtle precisely because the thing being attempted is not.
+
+[pause:900ms]
+
+[narrator:matter-of-fact]
+
+<!-- h-8 -->
+Containers.
+
+[pause:400ms]
+
+<!-- p-43 -->
+A codec is the encoding. A container is the file format that holds the encoded bits.
+
+[pause:500ms]
+
+<!-- p-44 -->
 You can have H.264 video in an MP4 container, an MKV container, or an HLS playlist. The audio and video are the same. The container is the wrapper.
 
 [pause:500ms]
 
-<!-- p-41 -->
+<!-- p-45 -->
+The encoder produces seven container families.
+
+[pause:500ms]
+
+Seven container families. HLS and MP4 take H.264, HEVC, or AV1 video; DASH allows the same three plus VP9. HLS pairs that with AAC, AC-3, E-A-C-3, or Opus audio in TS segments; DASH and MP4 pair it with AAC, Opus, or E-A-C-3 — MP4 swaps Opus for FLAC. MKV takes anything, video or audio. And three audio-only families — MP3, FLAC, and OGG — carry exactly the codec their name promises, except OGG, which also allows Vorbis and Opus.
+
+[pause:700ms]
+
+<!-- p-46 -->
 Each container has its own quirks about what codecs it will hold. A common pitfall. An MP4 container with VP9 video. Technically the ISO standard has a VP9 in MP4 box definition, but most players never implemented it. ffmpeg will happily mux it. Most players will fail to play it. The safety net catches this before the encode runs.
 
 [pause:900ms]

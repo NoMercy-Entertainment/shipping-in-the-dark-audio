@@ -315,9 +315,29 @@ How AES-128 HLS works.
 [pause:400ms]
 
 <!-- p-47 -->
-The DRM configuration on a profile takes four fields. Scheme, currently only AES-128 HLS. Key URI, what ends up in the playlist. Key file path, local path to the 16 byte key file. And an optional IV hex string.
+The DRM configuration on a profile:
 
-[pause:1800ms]
+[pause:400ms]
+
+<!-- p-48 -->
+Scheme — currently AES-128 HLS is the only supported value.
+
+[pause:300ms]
+
+<!-- p-49 -->
+Key U-R-I — what ends up in the playlist. The server can gate access behind any auth layer.
+
+[pause:300ms]
+
+<!-- p-50 -->
+Key file path — local path to the 16 byte key file. If null, the encoder generates a random key and writes it.
+
+[pause:300ms]
+
+<!-- p-51 -->
+I-V hex — an optional initialization vector, as hex. If null, the encoder generates a random I-V per encode.
+
+[pause:800ms]
 
 <!-- p-52 -->
 Six steps run as part of the encode.
@@ -424,17 +444,17 @@ First. A packager. Either mp4box from G-PAC, or shaka packager, for segment leve
 
 [pause:1200ms]
 
-<!-- p-69 -->
+<!-- p-68 -->
 Second. License server integration. Usually a paid service. ExpressPlay, Axinom, BuyDRM, and similar. The encoder emits the content key and PSSH boxes. The license server issues decryption licenses at playback time.
 
 [pause:500ms]
 
-<!-- p-71 -->
+<!-- p-69 -->
 Third. Certificate handling per DRM system. Widevine requires Google signed certs. PlayReady requires Microsoft signed certs. FairPlay requires Apple signed certs. Each has its own provisioning flow.
 
 [pause:500ms]
 
-<!-- p-73 -->
+<!-- p-70 -->
 CENC is marked on the roadmap as paid tier work. AES-128 HLS covers the home and prosumer and casual paywall case. CENC covers commercial streaming at scale, which is a smaller user base and a larger build.
 
 [pause:900ms]
@@ -446,12 +466,12 @@ Subtitle and DRM interaction.
 
 [pause:400ms]
 
-<!-- p-74 -->
+<!-- p-71 -->
 The validator enforces a few combinations. MP4 extract mode allows WebVTT, SRT, or mov text. HLS extract mode allows WebVTT only. ASS triggers a lossy conversion warning. MKV and DASH allow all subtitle codecs.
 
 [pause:1200ms]
 
-<!-- p-75 -->
+<!-- p-72 -->
 When DRM is enabled on an HLS encode, subtitle sidecars are not encrypted. Subtitle files are tiny and carry no content worth stealing. The video segments are where the protection matters.
 
 [pause:900ms]

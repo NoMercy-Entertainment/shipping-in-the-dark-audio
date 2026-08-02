@@ -259,8 +259,13 @@ This is the inverse direction. Your source is SDR. Your profile claims HDR outpu
 
 [pause:500ms]
 
+<!-- p-41 -->
+The encoder refuses, with a clear error. Inverse tonemapping produces artifacts that look worse than the source.
+
+[pause:500ms]
+
 <!-- p-42 -->
-The encoder refuses with a clear error. Inverse tonemapping produces artifacts that look worse than the source. There is no good way to do it algorithmically. Real HDR grading is a human decision.
+There is no good way to do it algorithmically. Real HDR grading is a human decision.
 
 [pause:1200ms]
 
@@ -317,3 +322,8 @@ The scheduler reads these numbers. If an existing encode is saturating the GPU, 
 On the dashboard, you can see the current utilization alongside the queue. If your encoder dashboard shows 95 percent GPU utilization and a long queue, you know encodes are landing one after another. If it shows 20 percent utilization and a long queue, something is holding encodes back and you should investigate. Most commonly, source disk I O, or a concurrent session cap from the hardware vendor.
 
 [pause:500ms]
+
+<!-- p-51 -->
+This is the kind of feedback you would never get from a raw ffmpeg invocation. ffmpeg encodes. It does not schedule. The encoder layer adds the scheduling.
+
+[pause:900ms]

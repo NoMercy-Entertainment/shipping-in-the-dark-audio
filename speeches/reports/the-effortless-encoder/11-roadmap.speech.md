@@ -354,7 +354,12 @@ Hardware benchmark recalibration cadence.
 [pause:400ms]
 
 <!-- p-50 -->
-Settled and shipped. A background service checks hourly and recalibrates when either the speed index passes thirty days or the graphics driver set changes. Driver identity is a hash over every card's vendor, model, and driver version, persisted between boots, so a driver upgrade queues a fresh benchmark on the next check instead of waiting out the month. Recalibration waits for the encoders to go idle before it runs, and gives up for the hour if the machine stays busy for a week straight. Operators who want none of this turn auto calibrate off.
+Settled and shipped. A background service checks hourly and recalibrates when either the speed index passes thirty days or the graphics driver set changes. Driver identity is a hash over every card's vendor, model, and driver version, persisted between boots, so a driver upgrade queues a fresh benchmark on the next check instead of waiting out the month.
+
+[pause:500ms]
+
+<!-- p-51 -->
+Recalibration waits for the encoders to go idle before it runs, and gives up for the hour if the machine stays busy for a week straight. Operators who want none of this turn auto calibrate off.
 
 [pause:900ms]
 
@@ -365,37 +370,37 @@ Known limitations, honest list.
 
 [pause:400ms]
 
-<!-- p-51 -->
+<!-- p-52 -->
 Every piece of software has limitations. Here is the list for this encoder.
 
 [pause:500ms]
 
-<!-- p-52 -->
+<!-- p-53 -->
 No support for encoder families beyond the four shipped. Uncompressed formats like ProRes Raw, RED Raw, and BRAW are treated as opaque inputs and stream copied when the container allows.
 
 [pause:500ms]
 
-<!-- p-53 -->
+<!-- p-54 -->
 No support for 3D stereoscopic video. The encoder treats 3D sources as 2D with an unusual aspect ratio.
 
 [pause:500ms]
 
-<!-- p-54 -->
+<!-- p-55 -->
 High frame rate content above 120 frames per second passes through, but the validator does not yet check the codec level's frame rate caps.
 
 [pause:500ms]
 
-<!-- p-55 -->
+<!-- p-56 -->
 VR 180 and 360 degree video beyond stream copy is not supported. The encoder does not inject the metadata VR players need.
 
 [pause:500ms]
 
-<!-- p-56 -->
+<!-- p-57 -->
 Chapter styling beyond basic title text is not supported. Chapter thumbnail extraction is scaffolded but not integrated with the web player.
 
 [pause:500ms]
 
-<!-- p-57 -->
+<!-- p-58 -->
 No official support for Windows versions before Windows 10. The encoder may work there, but we do not test there.
 
 [pause:900ms]
@@ -407,32 +412,32 @@ Contributing.
 
 [pause:400ms]
 
-<!-- p-58 -->
+<!-- p-59 -->
 The encoder is part of the open source NoMercy media server. Pull requests are welcome. Areas where contributions are especially valuable.
 
 [pause:500ms]
 
-<!-- p-59 -->
+<!-- p-60 -->
 New preset definitions for specific hardware targets. Someone has a Samsung Frame TV with a weird codec quirk? Document it as a preset.
 
 [pause:500ms]
 
-<!-- p-60 -->
+<!-- p-61 -->
 Perceptual CRF scaling curves per encoder. Someone ran rigorous VMAF measurements comparing libsvtav1 CRF 35 against av1 NVENC CQ values? Share the data. The quality scaler interface is designed for it.
 
 [pause:500ms]
 
-<!-- p-61 -->
+<!-- p-62 -->
 New language models for subtitle OCR. Tesseract supports many languages. Adding new ones is small work per language.
 
 [pause:500ms]
 
-<!-- p-62 -->
+<!-- p-63 -->
 New content analysis detectors. Silence detection. Scene cut detection. Song detection in background music. Any deterministic signal the planner can use for better encodes.
 
 [pause:500ms]
 
-<!-- p-63 -->
+<!-- p-64 -->
 The source lives on GitHub under the NoMercy Entertainment organization, in the nomercy media server repository. Issues and pull requests go there.
 
 [pause:900ms]
@@ -444,17 +449,17 @@ Final notes.
 
 [pause:400ms]
 
-<!-- p-64 -->
+<!-- p-65 -->
 The goal of this report was to show that the encoder is not a raw ffmpeg wrapper. It is a pipeline with opinions. Those opinions catch user mistakes before they become broken encodes. Those opinions pick the fastest encoder that can deliver the requested quality. Those opinions accept anything ffmpeg can parse on input, and restrict output to formats that actually play on target devices.
 
 [pause:700ms]
 
-<!-- p-65 -->
+<!-- p-66 -->
 If any page raised questions this roadmap did not answer, the project's issue tracker on GitHub is the right place to dig further.
 
 [pause:700ms]
 
-<!-- p-66 -->
+<!-- p-67 -->
 Thank you for reading.
 
 [pause:1200ms]

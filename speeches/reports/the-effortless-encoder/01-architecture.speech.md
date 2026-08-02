@@ -218,7 +218,32 @@ ffmpeg emits progress on standard error. The default format is a mix of human te
 [pause:1600ms]
 
 <!-- p-29 -->
-The encoder parses this continuously and computes percent complete, current frames per second, encoding speed multiplier, estimated time remaining, and the current stage name.
+The encoder parses this continuously and computes:
+
+[pause:400ms]
+
+<!-- p-30 -->
+Percent complete — out time divided by total duration.
+
+[pause:300ms]
+
+<!-- p-31 -->
+Current frames per second.
+
+[pause:300ms]
+
+<!-- p-32 -->
+Encoding speed multiplier.
+
+[pause:300ms]
+
+<!-- p-33 -->
+Estimated time remaining.
+
+[pause:300ms]
+
+<!-- p-34 -->
+And the current stage name — video, audio, or muxer.
 
 [pause:500ms]
 

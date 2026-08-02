@@ -59,7 +59,7 @@ The full profile schema.
 
 [pause:400ms]
 
-<!-- code-2 -->
+<!-- code-1 -->
 <!-- variant:brief -->
 And here is the full JSON that drives it. Identity at the top, a handful of behaviour flags, then three arrays for video, audio, and subtitle profiles. Container specific blocks and an optional DRM entry sit at the bottom.
 <!-- /variant -->
@@ -116,7 +116,7 @@ The rate control block is the most asked about part of a profile, so let us be p
 
 [pause:500ms]
 
-<!-- code-3 -->
+<!-- code-2 -->
 CRF mode takes just a quality number. ABR mode takes a bitrate plus a max bitrate and a buffer size. Capped CRF mode takes both — the quality number and the bitrate cap — for the hybrid case.
 
 [pause:900ms]

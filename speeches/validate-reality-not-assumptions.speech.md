@@ -636,12 +636,57 @@ What We Learned.
 [narrator:reflective]
 
 <!-- p-89 -->
-For beginners: Tailwind CSS v{{4}} changed how custom variants work. If you're using a custom prefix and your styles aren't applying, check that the custom-variant declaration is actually registered in your CSS entry point. No error will tell you it's missing — the classes will simply not generate any CSS. Contrast ratios matter. A lot. If you're building anything with a light theme, test every text element against WCAG 2.2 AA minimums: four point five to one for normal text, three to one for large text. Text-to-speech is harder than it looks. Technical jargon, voice switching, and markup overhead can push you past API character limits fast. Plan for chunking from the start. Git history rewriting is the correct way to remove leaked sensitive data. But it's a destructive operation — involve the person who specializes in your version control before you run it.
+For beginners.
+
+[pause:300ms]
+
+<!-- p-90 -->
+Tailwind CSS v{{4}} changed how custom variants work. If you're using a custom prefix and your styles aren't applying, check that the custom-variant declaration is actually registered in your CSS entry point. No error will tell you it's missing — the classes will simply not generate any CSS.
+
+[pause:300ms]
+
+<!-- p-91 -->
+Contrast ratios matter. A lot. If you're building anything with a light theme, test every text element against WCAG 2.2 AA minimums: four point five to one for normal text, three to one for large text.
+
+[pause:300ms]
+
+<!-- p-92 -->
+Text-to-speech is harder than it looks. Technical jargon, voice switching, and markup overhead can push you past API character limits fast. Plan for chunking from the start.
+
+[pause:300ms]
+
+<!-- p-93 -->
+Git history rewriting is the correct way to remove leaked sensitive data. But it's a destructive operation — involve the person who specializes in your version control before you run it.
 
 [pause:400ms]
 
-<!-- p-90 -->
-For the team: "it looks correct in the code" is not the same as "it works in the browser." The first is a hypothesis. The second is evidence. Ship evidence. SEO and Open Graph metadata belong in the first deploy, not the second. The first person to share your link on social media will see whatever you shipped — there's no second chance for a first impression. Accessibility audits should run before deploy, not after. Mood presets for TTS are useful but easy to over-engineer. Let the neural voice do the heavy lifting. Mark the transitions, don't micromanage the prosody. When you scrub git history, consult your git specialist. That's what they're there for.
+<!-- p-94 -->
+For the team.
+
+[pause:300ms]
+
+<!-- p-95 -->
+"It looks correct in the code" is not the same as "it works in the browser." The first is a hypothesis. The second is evidence. Ship evidence.
+
+[pause:300ms]
+
+<!-- p-96 -->
+SEO and Open Graph metadata belong in the first deploy, not the second. The first person to share your link on social media will see whatever you shipped — there's no second chance for a first impression.
+
+[pause:300ms]
+
+<!-- p-97 -->
+Accessibility audits should run before deploy, not after. Beacon found twenty-seven failures that were live on the public site before they were caught. Pre-deploy auditing is a pipeline step, not an afterthought.
+
+[pause:300ms]
+
+<!-- p-98 -->
+Mood presets for TTS are useful but easy to over-engineer. Let the neural voice do the heavy lifting. Mark the transitions, don't micromanage the prosody.
+
+[pause:300ms]
+
+<!-- p-99 -->
+When you scrub git history, consult your git specialist. That's what they're there for.
 
 [pause:600ms]
 
@@ -654,29 +699,29 @@ The Score.
 
 [narrator:triumphant]
 
-<!-- p-91 -->
+<!-- p-100 -->
 Started the session: a leaked IP in public history, no blog, no audio pipeline, and a CTO who validates by reading code.
 
 [pause:300ms]
 
-<!-- p-92 -->
+<!-- p-101 -->
 Ended the session: clean history, a live blog with dark and light themes that both actually work, an accessibility-compliant design, a pronunciation dictionary with agent and tech-term coverage, a voice-cast audio pipeline scaffolded and ready for chunking, and a CTO who has been told "look at it in chrome" enough times that it might finally stick.
 
 [pause:300ms]
 
-<!-- p-93 -->
+<!-- p-102 -->
 Five hours. Five acts. One lesson that earned the title.
 
 [pause:500ms]
 
 [narrator:cozy]
 
-<!-- p-94 -->
+<!-- p-103 -->
 This is part three of the Origin series. Part one covers the night the CTO locked the boss out of his own admin dashboard. Part two covers the audit of twenty-seven repositories. You're caught up now. The origin is over. What comes next is the work.
 
 [pause:400ms]
 
-<!-- p-95 -->
+<!-- p-104 -->
 Validate reality, not assumptions.
 
 [pause:1000ms]
