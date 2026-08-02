@@ -464,6 +464,45 @@ jobs:
             cp -r output/reports/* journal-site/site/public/audio/reports/ 2>/dev/null || true
           fi
 
+          # audio-manifest.json records, per mp3 (path relative to
+          # public/audio), the epoch-ms time this run actually wrote it.
+          # check-vtt-integrity.mjs uses it to catch the one failure a
+          # file-level inspection cannot see: a VTT retimed (e.g. a new
+          # title cue sliding every later cue) without the audio underneath
+          # it ever being re-synthesized. Merge into the existing manifest
+          # rather than replace it, since a partial run only touches some
+          # of the catalog.
+          MANIFEST_TMP=$(mktemp)
+          echo '{}' > "$MANIFEST_TMP"
+          add_manifest_entries() {
+            local base_dir="$1" rel_prefix="$2"
+            [ -d "$base_dir" ] || return 0
+            for mp3 in "$base_dir"/*.mp3; do
+              [ -f "$mp3" ] || continue
+              local name mtime_ms
+              name=$(basename "$mp3")
+              mtime_ms=$(( $(stat -c %Y "$mp3") * 1000 ))
+              jq --arg k "${rel_prefix}${name}" --argjson v "$mtime_ms" '.[$k] = $v' "$MANIFEST_TMP" > "$MANIFEST_TMP.new"
+              mv "$MANIFEST_TMP.new" "$MANIFEST_TMP"
+            done
+          }
+          add_manifest_entries "output" ""
+          add_manifest_entries "output/team" "team/"
+          if [ -d output/reports ]; then
+            for d in output/reports/*/; do
+              rd="$(basename "$d")"
+              add_manifest_entries "output/reports/$rd" "reports/$rd/"
+            done
+          fi
+
+          MANIFEST_DEST="journal-site/site/public/audio/audio-manifest.json"
+          if [ -f "$MANIFEST_DEST" ]; then
+            jq -s '.[0] * .[1]' "$MANIFEST_DEST" "$MANIFEST_TMP" > "$MANIFEST_DEST.new"
+            mv "$MANIFEST_DEST.new" "$MANIFEST_DEST"
+          else
+            cp "$MANIFEST_TMP" "$MANIFEST_DEST"
+          fi
+
           cd journal-site
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
