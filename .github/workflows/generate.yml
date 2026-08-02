@@ -108,8 +108,12 @@ jobs:
             echo "Changed files:"
             echo "$CHANGED"
 
-            # Config or scripts dir changed → regenerate everything
-            if echo "$CHANGED" | grep -qE "^(config/|scripts/)"; then
+            # Config, scripts, or the workflow file itself changed → regenerate
+            # everything. The push trigger above watches all three paths, so
+            # this check has to match it exactly or a workflow-only change
+            # (like this one) matches the trigger but produces an empty
+            # entries/team/reports list and every generation job skips.
+            if echo "$CHANGED" | grep -qE "^(config/|scripts/|\.github/workflows/generate\.yml$)"; then
               echo "Config or synth script changed — regenerating all"
               entries="$ALL_ENTRIES"
               team="$ALL_TEAM"
