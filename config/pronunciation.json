@@ -1074,6 +1074,68 @@
 		"keyHandlerPlugin.ts": {
 			"sub": "key handler plugin dot T-S",
 			"notes": "TypeScript file. Break camelCase + spell out extension."
+		},
+		"_comment_entry_010": "Terms added for Entry 010 — The Feature That Belongs To No Repository.",
+		"register.ftl": {
+			"sub": "register dot F-T-L",
+			"notes": "Keycloak login theme registration template filename."
+		},
+		"realm-export.json": {
+			"sub": "realm export dot jay-son",
+			"notes": "Keycloak realm configuration filename. Matches the existing JSON pronunciation."
+		},
+		"BootOrchestrator": {
+			"sub": "Boot Orchestrator",
+			"notes": "Break PascalCase into words."
+		},
+		"PrivateNetworkAccessMiddleware": {
+			"sub": "Private Network Access Middleware",
+			"notes": "Break PascalCase into words."
+		},
+		"DigitalOcean": {
+			"sub": "Digital Ocean",
+			"notes": "Break into two words."
+		},
+		"DHCP": {
+			"say-as": "spell-out",
+			"sub": "D-H-C-P",
+			"notes": "Dynamic Host Configuration Protocol."
+		},
+		"api.nomercy.tv": {
+			"sub": "A-P-I dot No Mercy dot T-V",
+			"notes": "Production API domain. Dots read as 'dot', never silent."
+		},
+		"auth.nomercy.tv": {
+			"sub": "auth dot No Mercy dot T-V",
+			"notes": "Production auth domain."
+		},
+		"api-dev.nomercy.tv": {
+			"sub": "A-P-I dev dot No Mercy dot T-V",
+			"notes": "Development API domain."
+		},
+		"auth-dev.nomercy.tv": {
+			"sub": "auth dev dot No Mercy dot T-V",
+			"notes": "Development auth domain."
+		},
+		"firstName": {
+			"sub": "first Name",
+			"notes": "Break camelCase into words. Keycloak required-attribute key."
+		},
+		"lastName": {
+			"sub": "last Name",
+			"notes": "Break camelCase into words. Keycloak required-attribute key."
+		},
+		"nomercy-stack": {
+			"sub": "no-mercy stack",
+			"notes": "Project name — Keycloak realm and login theme repo."
+		},
+		"nomercy-media-server": {
+			"sub": "no-mercy media server",
+			"notes": "Project name."
+		},
+		"ERR_FAILED": {
+			"sub": "E-R-R failed",
+			"notes": "Chrome network error code, spoken without the leading 'net::' — that prefix is paraphrased away in prose instead of read literally."
 		}
 	},
 	"dutch": {
