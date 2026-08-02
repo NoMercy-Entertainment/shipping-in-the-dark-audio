@@ -10,7 +10,8 @@
 
 [narrator:dramatic]
 
--- Movie Night.
+<!-- title -->
+Movie Night.
 
 [pause:800ms]
 

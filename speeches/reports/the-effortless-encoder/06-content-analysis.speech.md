@@ -4,6 +4,7 @@
 
 [narrator:cozy]
 
+<!-- part-title -->
 Part 6. Watching the content.
 
 [pause:900ms]

@@ -10,7 +10,8 @@
 
 [narrator:dramatic]
 
--- Twenty-Seven Repos and a Makefile.
+<!-- title -->
+Twenty-Seven Repos and a Makefile.
 
 [pause:800ms]
 

@@ -10,6 +10,7 @@
 
 [narrator:dramatic]
 
+<!-- title -->
 One Tap, Three Wrong Outcomes.
 
 [pause:900ms]

@@ -4,6 +4,7 @@
 
 [narrator:cozy]
 
+<!-- part-title -->
 Part 2. Headless, and why that is the whole point.
 
 [pause:900ms]

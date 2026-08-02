@@ -10,6 +10,7 @@
 
 [narrator:dramatic]
 
+<!-- title -->
 When N-P-M Install Means Game Over.
 
 [pause:800ms]

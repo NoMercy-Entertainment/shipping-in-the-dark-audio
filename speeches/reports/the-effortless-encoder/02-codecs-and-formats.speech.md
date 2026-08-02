@@ -4,6 +4,7 @@
 
 [narrator:cozy]
 
+<!-- part-title -->
 Part 2. The codec maze.
 
 [pause:900ms]

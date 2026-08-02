@@ -4,6 +4,7 @@
 
 [narrator:cozy]
 
+<!-- part-title -->
 Part 6. Proving any of this is true.
 
 [pause:900ms]

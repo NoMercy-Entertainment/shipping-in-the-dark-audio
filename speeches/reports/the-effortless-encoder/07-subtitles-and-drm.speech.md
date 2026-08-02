@@ -4,6 +4,7 @@
 
 [narrator:cozy]
 
+<!-- part-title -->
 Part 7. Subtitles and keeping streams yours.
 
 [pause:900ms]

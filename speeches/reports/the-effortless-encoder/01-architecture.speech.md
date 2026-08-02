@@ -4,6 +4,7 @@
 
 [narrator:cozy]
 
+<!-- part-title -->
 Part 1. How it thinks.
 
 [pause:900ms]

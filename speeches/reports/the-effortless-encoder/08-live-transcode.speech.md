@@ -4,6 +4,7 @@
 
 [narrator:cozy]
 
+<!-- part-title -->
 Part 8. Playing what your device cannot decode.
 
 [pause:900ms]

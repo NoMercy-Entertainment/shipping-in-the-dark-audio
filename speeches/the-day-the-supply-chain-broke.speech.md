@@ -10,12 +10,14 @@
 
 [narrator:dramatic]
 
+<!-- title -->
 The Day the Supply Chain Broke.
 
 [pause:400ms]
 
 [narrator:matter-of-fact]
 
+<!-- title -->
 And four other fires we lit ourselves.
 
 [pause:800ms]

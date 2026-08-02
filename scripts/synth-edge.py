@@ -88,7 +88,12 @@ def parse_script(path):
     for line in strip_variant_blocks(raw):
         line = line.rstrip('\n')
         if line.startswith('#') or line.startswith('**') or line.startswith('---'): continue
-        m = re.match(r'^<!--\s*((?:[phi]|code)-\d+)\s*-->$', line)
+        # title / standfirst / part-title are singular markers (no trailing
+        # number) resolving to the page's own <h1>, its standfirst
+        # paragraph, and a report part's own <h1>, respectively -- the same
+        # marker mechanism as p-N/h-N/i-N/code-N, just for elements the page
+        # never numbers because there is only ever one of them in scope.
+        m = re.match(r'^<!--\s*((?:[phi]|code)-\d+|title|standfirst|part-title)\s*-->$', line)
         if m: next_pid = m.group(1); continue
         m = re.match(r'^\[(.+)\]\s*$', line)
         if m:

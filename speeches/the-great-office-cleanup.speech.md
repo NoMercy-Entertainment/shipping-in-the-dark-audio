@@ -10,13 +10,15 @@
 
 [narrator:dramatic]
 
--- GET OUT OF MY OFFICE.
+<!-- title -->
+GET OUT OF MY OFFICE.
 
 [pause:800ms]
 
 [narrator:matter-of-fact]
 
--- The Great Zombie Purge of Session Five.
+<!-- title -->
+The Great Zombie Purge of Session Five.
 
 [pause:600ms]
 

@@ -4,6 +4,7 @@
 
 [narrator:cozy]
 
+<!-- part-title -->
 Part 1. Three packages and five layers.
 
 [pause:900ms]

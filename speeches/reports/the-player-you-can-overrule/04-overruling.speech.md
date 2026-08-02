@@ -4,6 +4,7 @@
 
 [narrator:cozy]
 
+<!-- part-title -->
 Part 4. Overruling the player.
 
 [pause:900ms]

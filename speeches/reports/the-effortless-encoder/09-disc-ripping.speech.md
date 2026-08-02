@@ -4,6 +4,7 @@
 
 [narrator:cozy]
 
+<!-- part-title -->
 Part 9. From shelf to library.
 
 [pause:900ms]

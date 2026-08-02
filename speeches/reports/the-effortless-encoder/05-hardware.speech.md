@@ -4,6 +4,7 @@
 
 [narrator:cozy]
 
+<!-- part-title -->
 Part 5. Measuring the machine.
 
 [pause:900ms]

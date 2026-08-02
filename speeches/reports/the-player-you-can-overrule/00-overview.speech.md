@@ -9,18 +9,21 @@
 
 [narrator:matter-of-fact]
 
+<!-- title -->
 NoMercy. The Player You Can Overrule.
 
 [pause:700ms]
 
 [narrator:reflective]
 
+<!-- standfirst -->
 A deep report on the web player trio. What it is, why it exists, what it lets you build, and how far every decision in it can be overruled without forking anything.
 
 [pause:1200ms]
 
 [narrator:cozy]
 
+<!-- part-title -->
 Overview. Why we built our own player.
 
 [pause:900ms]

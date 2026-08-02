@@ -4,6 +4,7 @@
 
 [narrator:cozy]
 
+<!-- part-title -->
 Part 3. What a plugin gets for free.
 
 [pause:900ms]

@@ -10,7 +10,8 @@
 
 [narrator:dramatic]
 
--- Validate Reality, Not Assumptions.
+<!-- title -->
+Validate Reality, Not Assumptions.
 
 [pause:800ms]
 

@@ -10,6 +10,7 @@
 
 [narrator:dramatic]
 
+<!-- title -->
 The Wrong Filename.
 
 [pause:900ms]

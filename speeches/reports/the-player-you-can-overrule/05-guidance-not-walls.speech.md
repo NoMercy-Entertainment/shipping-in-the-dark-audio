@@ -4,6 +4,7 @@
 
 [narrator:cozy]
 
+<!-- part-title -->
 Part 5. Guidance, never walls.
 
 [pause:900ms]

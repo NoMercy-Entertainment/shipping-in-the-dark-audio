@@ -4,6 +4,7 @@
 
 [narrator:cozy]
 
+<!-- part-title -->
 Part 3. Describing what you want.
 
 [pause:900ms]
