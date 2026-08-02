@@ -769,7 +769,46 @@ And for the record, since this journal is supposed to be honest: the fastest ava
 
 [narrator:reflective]
 
+<!-- h-17 -->
+With Thanks.
+
+[pause:300ms]
+
+[narrator:reflective]
+
 <!-- p-104 -->
+Two people are owed this entry, and neither of them works here.
+
+[pause:500ms]
+
+<!-- p-105 -->
+Riley has been breaking the boot sequence and filing what he finds for months, with a patience that is genuinely rare. On the twelfth of July he was added to a server and his own settings came back a four-oh-four... the account existed, the grant existed, and the client asked a question the server had no endpoint to answer. That is the same seam this entry is about, one layer up, and it was found the same way: by a real person completing a real walk and reporting the part that did not work. Most of the boot orchestration fixes in this project trace back to him doing that and then doing it again.
+
+[pause:500ms]
+
+<!-- p-106 -->
+geennoob streams on Twitch and his handle is Dutch for "not a noob". He is the reason the signup wall got looked at. He hit it, he did not shrug and go away, and he kept at it until Stoney put the whole team on it for a day.
+
+[pause:500ms]
+
+<!-- p-107 -->
+That is worth saying plainly, because the ten weeks are the story of a product with no way to notice its own front door was shut. Every automated thing we have now... the check that compares the realm against the form, the daily count of who came in through which door... exists because a user was stubborn enough to be the alarm we had not built. Most people in that position close the tab, and we would never have known. They did not, and it cost them their own time to do it.
+
+[pause:500ms]
+
+<!-- p-108 -->
+There is an uncomfortable version of that sentence and it belongs here. For ten weeks the most reliable defect detector this product had was somebody who does not work for it, trying to use it, and refusing to give up quietly. That is not a compliment we get to keep. It is the thing the rest of this entry is trying to replace.
+
+[pause:500ms]
+
+<!-- p-109 -->
+Thank you both.
+
+[pause:900ms]
+
+[narrator:reflective]
+
+<!-- p-110 -->
 This is Entry {{010}} of Shipping in the Dark. If you maintain a product whose most important user journey crosses four codebases and lives in none of them... go and count how many people finished it this week, split by route. It is one query. We waited ten weeks to run ours.
 
 [pause:1000ms]

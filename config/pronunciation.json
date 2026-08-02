@@ -1136,6 +1136,15 @@
 		"ERR_FAILED": {
 			"sub": "E-R-R failed",
 			"notes": "Chrome network error code, spoken without the leading 'net::' — that prefix is paraphrased away in prose instead of read literally."
+		},
+		"geennoob": {
+			"ipa": "xeːn noːb",
+			"sub": "geen noob",
+			"notes": "Twitch streamer credited in Entry 010's With Thanks section. Dutch for 'not a noob' — narrate as the two spoken words 'geen noob', never spelled out letter by letter. Public handle, attribution requested by Stoney."
+		},
+		"Riley": {
+			"ipa": "ˈraɪli",
+			"notes": "First name only, credited in Entry 010's With Thanks section. RY-lee. No surname or handle on file — do not add one."
 		}
 	},
 	"dutch": {
