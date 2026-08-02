@@ -2,6 +2,12 @@
 
 **Part:** 3 of 7
 
+[narrator:cozy]
+
+Part 3. What a plugin gets for free.
+
+[pause:900ms]
+
 [narrator:matter-of-fact]
 
 <!-- p-1 -->

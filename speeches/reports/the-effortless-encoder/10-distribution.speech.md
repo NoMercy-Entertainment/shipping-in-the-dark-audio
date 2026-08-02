@@ -2,9 +2,13 @@
 
 **Part:** 10 of 11
 
-[narrator:matter-of-fact]
+[narrator:cozy]
 
-[narrator:reflective]
+Part 10. When one machine is not enough.
+
+[pause:900ms]
+
+[narrator:matter-of-fact]
 
 <!-- p-1 -->
 Here is a thing that happens a lot.

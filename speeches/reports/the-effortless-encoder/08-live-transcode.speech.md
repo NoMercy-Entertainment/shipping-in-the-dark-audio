@@ -2,9 +2,13 @@
 
 **Part:** 8 of 11
 
-[narrator:matter-of-fact]
+[narrator:cozy]
 
-[narrator:reflective]
+Part 8. Playing what your device cannot decode.
+
+[pause:900ms]
+
+[narrator:matter-of-fact]
 
 <!-- p-1 -->
 You have a 4K Blu Ray rip of a movie. The file on disk is HEVC with 10 bit colour, 7.1 Atmos audio, and Dolby Vision metadata. Your main TV at home loves it. It was practically engineered for it.

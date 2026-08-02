@@ -2,6 +2,12 @@
 
 **Part:** 6 of 7
 
+[narrator:cozy]
+
+Part 6. Proving any of this is true.
+
+[pause:900ms]
+
 [narrator:matter-of-fact]
 
 <!-- p-1 -->

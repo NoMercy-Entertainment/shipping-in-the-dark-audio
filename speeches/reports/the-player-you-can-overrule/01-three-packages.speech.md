@@ -2,6 +2,12 @@
 
 **Part:** 1 of 7
 
+[narrator:cozy]
+
+Part 1. Three packages and five layers.
+
+[pause:900ms]
+
 [narrator:reflective]
 
 <!-- p-1 -->

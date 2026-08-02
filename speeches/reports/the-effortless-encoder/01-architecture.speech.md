@@ -2,7 +2,11 @@
 
 **Part:** 1 of 11
 
-[narrator:matter-of-fact]
+[narrator:cozy]
+
+Part 1. How it thinks.
+
+[pause:900ms]
 
 [narrator:reflective]
 

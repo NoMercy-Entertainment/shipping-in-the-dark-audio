@@ -2,6 +2,12 @@
 
 **Part:** 4 of 7
 
+[narrator:cozy]
+
+Part 4. Overruling the player.
+
+[pause:900ms]
+
 [narrator:matter-of-fact]
 
 <!-- p-1 -->

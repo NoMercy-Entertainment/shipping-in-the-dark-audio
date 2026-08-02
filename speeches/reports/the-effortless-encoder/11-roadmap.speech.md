@@ -2,6 +2,12 @@
 
 **Part:** 11 of 11
 
+[narrator:cozy]
+
+Part 11. What is not shipped, and why.
+
+[pause:900ms]
+
 [narrator:reflective]
 
 <!-- p-1 -->

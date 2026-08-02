@@ -2,6 +2,12 @@
 
 **Part:** 2 of 7
 
+[narrator:cozy]
+
+Part 2. Headless, and why that is the whole point.
+
+[pause:900ms]
+
 [narrator:matter-of-fact]
 
 <!-- p-1 -->

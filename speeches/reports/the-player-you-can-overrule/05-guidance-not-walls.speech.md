@@ -2,6 +2,12 @@
 
 **Part:** 5 of 7
 
+[narrator:cozy]
+
+Part 5. Guidance, never walls.
+
+[pause:900ms]
+
 [narrator:reflective]
 
 <!-- p-1 -->

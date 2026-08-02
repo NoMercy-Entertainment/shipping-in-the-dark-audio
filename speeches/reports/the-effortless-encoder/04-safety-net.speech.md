@@ -2,9 +2,13 @@
 
 **Part:** 4 of 11
 
-[narrator:tense]
+[narrator:cozy]
 
-[narrator:reflective]
+Part 4. The safety net.
+
+[pause:900ms]
+
+[narrator:tense]
 
 <!-- p-1 -->
 Here are the three ways a misconfigured encode actually goes wrong. None of them are "ffmpeg crashes forty minutes in." ffmpeg is faster than that, and its misbehavior is more subtle.

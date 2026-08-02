@@ -2,6 +2,12 @@
 
 **Part:** 7 of 7
 
+[narrator:cozy]
+
+Part 7. What it is actually for.
+
+[pause:900ms]
+
 [narrator:reflective]
 
 <!-- p-1 -->

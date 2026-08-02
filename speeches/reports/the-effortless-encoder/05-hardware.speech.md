@@ -2,9 +2,13 @@
 
 **Part:** 5 of 11
 
-[narrator:matter-of-fact]
+[narrator:cozy]
 
-[narrator:reflective]
+Part 5. Measuring the machine.
+
+[pause:900ms]
+
+[narrator:matter-of-fact]
 
 <!-- p-1 -->
 Video encoding is one of those tasks where "how fast is your computer" has a wide range of answers, depending on what you are asking about.

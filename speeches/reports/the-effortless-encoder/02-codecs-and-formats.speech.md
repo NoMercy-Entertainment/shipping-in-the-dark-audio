@@ -4,6 +4,10 @@
 
 [narrator:cozy]
 
+Part 2. The codec maze.
+
+[pause:900ms]
+
 [narrator:reflective]
 
 <!-- p-1 -->

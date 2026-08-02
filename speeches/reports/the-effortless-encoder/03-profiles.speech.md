@@ -4,6 +4,10 @@
 
 [narrator:cozy]
 
+Part 3. Describing what you want.
+
+[pause:900ms]
+
 [narrator:reflective]
 
 <!-- p-1 -->
