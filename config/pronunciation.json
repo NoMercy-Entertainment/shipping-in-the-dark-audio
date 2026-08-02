@@ -1145,6 +1145,109 @@
 		"Riley": {
 			"ipa": "ˈraɪli",
 			"notes": "First name only, credited in Entry 010's With Thanks section. RY-lee. No surname or handle on file — do not add one."
+		},
+		"_comment_entry_011": "Terms added for Entry 011 — One Tap, Three Wrong Outcomes.",
+		"ReportPositionCommand": {
+			"sub": "Report Position Command",
+			"notes": "Break PascalCase into words. NoMercy Connect command that reports playback position; named in Entry 011's frontmatter components/commits, not spoken verbatim in the prose, added for future coverage."
+		},
+		"MusicConnectPlugin": {
+			"sub": "Music Connect Plugin",
+			"notes": "Break PascalCase into words. The application-layer plugin described in Entry 011 as simply 'the Connect plugin'; named in frontmatter components, added for future coverage."
+		},
+		"_comment_report_player_overrule": "Web player trio terms — added for The Player You Can Overrule report (parts 0-3).",
+		"nomercy-player-core": {
+			"sub": "no-mercy player core",
+			"notes": "Shared headless foundation package for the player trio. Current v2-stable package name, no -v2 suffix."
+		},
+		"nomercy-video-player": {
+			"sub": "no-mercy video player",
+			"notes": "Video player package built on nomercy-player-core. Current v2-stable package name, no -v2 suffix."
+		},
+		"nomercy-music-player": {
+			"sub": "no-mercy music player",
+			"notes": "Music player package built on nomercy-player-core. Current v2-stable package name, no -v2 suffix."
+		},
+		"eslint": {
+			"sub": "E-S-Lint",
+			"notes": "JavaScript linter. Spell E-S then lint, not 'ezlint'."
+		},
+		"CSS": {
+			"say-as": "spell-out",
+			"sub": "C-S-S",
+			"notes": "Cascading Style Sheets."
+		},
+		"eslint-plugin-player": {
+			"sub": "E-S-Lint plugin player",
+			"notes": "Break hyphenated package name into words. Part 5, Guidance never walls."
+		},
+		"beforePlay": {
+			"sub": "before Play",
+			"notes": "Break camelCase into words. Player before-event hook, part 4."
+		},
+		"beforePause": {
+			"sub": "before Pause",
+			"notes": "Break camelCase into words. Player before-event hook, part 4."
+		},
+		"beforeSeek": {
+			"sub": "before Seek",
+			"notes": "Break camelCase into words. Player before-event hook, part 4."
+		},
+		"beforeVolume": {
+			"sub": "before Volume",
+			"notes": "Break camelCase into words. Player before-event hook, part 4."
+		},
+		"beforeMute": {
+			"sub": "before Mute",
+			"notes": "Break camelCase into words. Player before-event hook, part 4."
+		},
+		"beforeRepeat": {
+			"sub": "before Repeat",
+			"notes": "Break camelCase into words. Player before-event hook, part 4."
+		},
+		"beforeShuffle": {
+			"sub": "before Shuffle",
+			"notes": "Break camelCase into words. Player before-event hook, part 4."
+		},
+		"beforePlaybackRate": {
+			"sub": "before Playback Rate",
+			"notes": "Break camelCase into words. Player before-event hook, part 4."
+		},
+		"beforeLanguage": {
+			"sub": "before Language",
+			"notes": "Break camelCase into words. Player before-event hook, part 4."
+		},
+		"beforeSubtitle": {
+			"sub": "before Subtitle",
+			"notes": "Break camelCase into words. Player before-event hook, part 4."
+		},
+		"beforeAudioTrack": {
+			"sub": "before Audio Track",
+			"notes": "Break camelCase into words. Player before-event hook, part 4."
+		},
+		"beforeDispose": {
+			"sub": "before Dispose",
+			"notes": "Break camelCase into words. Player before-event hook, part 4."
+		},
+		"beforeTransfer": {
+			"sub": "before Transfer",
+			"notes": "Break camelCase into words. Player before-event hook, part 4."
+		},
+		"beforeMutation": {
+			"sub": "before Mutation",
+			"notes": "Break camelCase into words. Player's generic state-mutation guard hook, part 4."
+		},
+		"mutationGuards": {
+			"sub": "mutation Guards",
+			"notes": "Break camelCase into words. setup() option controlling beforeMutation firing, part 4."
+		},
+		"HOT_MUTATIONS": {
+			"sub": "hot mutations",
+			"notes": "Break SCREAMING_SNAKE_CASE into spoken words. Constant array of mutation-guard-exempt method names, part 4."
+		},
+		"TData": {
+			"sub": "T-Data",
+			"notes": "Generic type parameter on BeforeEvent, part 4. Spell the T then say Data."
 		}
 	},
 	"dutch": {
