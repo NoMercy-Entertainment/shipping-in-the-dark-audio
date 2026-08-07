@@ -1248,6 +1248,95 @@
 		"TData": {
 			"sub": "T-Data",
 			"notes": "Generic type parameter on BeforeEvent, part 4. Spell the T then say Data."
+		},
+		"KMP": {
+			"say-as": "spell-out",
+			"sub": "K-M-P",
+			"notes": "Spell out: K-M-P. Kotlin Multiplatform, the app target. Entry 012."
+		},
+		"HDMI_CEC": {
+			"sub": "H-D-M-I C-E-C permission",
+			"notes": "Spell out fully. The signature|privileged Android permission. Entry 012."
+		},
+		"HDMI": {
+			"say-as": "spell-out",
+			"sub": "H-D-M-I",
+			"notes": "Spell out: H-D-M-I. Entry 012."
+		},
+		"eARC": {
+			"sub": "e-ARC",
+			"notes": "Say as 'e' then 'ARC' as a word, not spelled out. Enhanced Audio Return Channel. Entry 012."
+		},
+		"ARC": {
+			"sub": "arc",
+			"notes": "Read as the word 'ark', not spelled out. Sub is lowercase so edge-tts reads it as the plain word rather than spelling three letters. Audio Return Channel. Case-sensitive key — only matches the uppercase acronym in source text, never the agent name Arc. Entry 012."
+		},
+		"CEC": {
+			"say-as": "spell-out",
+			"sub": "C-E-C",
+			"notes": "Spell out: C-E-C. Consumer Electronics Control. Entry 012."
+		},
+		"AOSP": {
+			"say-as": "spell-out",
+			"sub": "A-O-S-P",
+			"notes": "Spell out: A-O-S-P. Android Open Source Project. Entry 012."
+		},
+		"ADB": {
+			"say-as": "spell-out",
+			"sub": "A-D-B",
+			"notes": "Spell out: A-D-B. Android Debug Bridge. Entry 012."
+		},
+		"dumpsys": {
+			"sub": "dump-sys",
+			"notes": "Two syllables, not 'dumps-is'. Android system-service dump tool. Entry 012."
+		},
+		"logcat": {
+			"sub": "log-cat",
+			"notes": "Two clean syllables. Android's logging tool. Entry 012."
+		},
+		"MainActivity": {
+			"sub": "Main Activity",
+			"notes": "Break PascalCase into words. The app's entry Activity class. Entry 012."
+		},
+		"onKeyDown": {
+			"sub": "on Key Down",
+			"notes": "Break camelCase into words. Android's key-event callback. Entry 012."
+		},
+		"PhoneWindowManager": {
+			"sub": "Phone Window Manager",
+			"notes": "Break PascalCase into words. The AOSP system-server class that intercepts hardware keys. Entry 012."
+		},
+		"interceptKeyBeforeQueueing": {
+			"sub": "intercept Key Before Queueing",
+			"notes": "Break camelCase into words. The AOSP method that claims HDMI-ARC volume keys before app dispatch. Entry 012."
+		},
+		"interceptKeyBeforeDispatching": {
+			"sub": "intercept Key Before Dispatching",
+			"notes": "Break camelCase into words. The later AOSP method that MediaSession routing depends on. Entry 012."
+		},
+		"handleVolumeKeyInArc": {
+			"sub": "handle Volume Key In ARC",
+			"notes": "Break camelCase into words, keep ARC as the acronym. The PhoneWindowManager method that owns the volume key in this entry's logs. Entry 012."
+		},
+		"HdmiControlManager": {
+			"sub": "H-D-M-I Control Manager",
+			"notes": "Spell H-D-M-I then say the rest as words. The system service that owns CEC, gated behind a signature permission. Entry 012."
+		},
+		"VolumeProviderCompat": {
+			"sub": "Volume Provider Compat",
+			"notes": "Break PascalCase into words. The AndroidX class for MediaSession remote-volume routing. Entry 012."
+		},
+		"MediaSession": {
+			"sub": "Media Session",
+			"notes": "Break PascalCase into words. Entry 012."
+		},
+		"isSystemAudioActivated": {
+			"sub": "is System Audio Activated",
+			"notes": "Break camelCase into words. AOSP flag PhoneWindowManager checks before claiming the key. Entry 012."
+		},
+		"hdmi_system_audio_control_enabled": {
+			"sub": "H-D-M-I system audio control enabled",
+			"notes": "Break snake_case into words, spell the H-D-M-I prefix. The Settings.Global toggle, unreachable without the signature permission. Entry 012."
 		}
 	},
 	"dutch": {
