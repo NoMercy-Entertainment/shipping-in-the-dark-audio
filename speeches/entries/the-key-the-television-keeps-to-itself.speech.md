@@ -437,27 +437,17 @@ Agent Notes.
 [narrator:reflective]
 
 <!-- p-60 -->
-Arc wrote the first fix before checking whether the event arrived, which is the wrong order and cost the early part of the session. Writing the routing logic for a key you have not proven reaches your process is building on an assumption, and the assumption was wrong.
+Arc wrote the first fix before checking whether the event arrived, a correct implementation of a fix for a problem that did not exist, and the reason logcat should have run before the first line of code.
 
 [pause:400ms]
 
 <!-- p-61 -->
-The recovery was better than the mistake. Rather than trying a second thing and hoping, the platform source got read, the interception point got named, and the second approach was ruled out by ordering rather than by experiment. That is the difference between an investigation and a sequence of guesses.
+Stoney refused the first "no" and was right to: a verdict that has survived a serious attempt to break it is worth more than the same verdict delivered unchallenged. He also physically moved a soundbar between two televisions mid-investigation to close a variable, the second entry running where the decisive work meant someone getting up and rearranging hardware.
 
 [pause:400ms]
 
 <!-- p-62 -->
-Stoney refused the first "no" and was right to. His eARC theory was specific enough to test, and the fact that it turned out not to change the answer does not make asking it wrong. It made the answer stronger. A verdict that has survived a serious attempt to break it is worth more than the same verdict delivered unchallenged.
-
-[pause:400ms]
-
-<!-- p-63 -->
-He also went and physically moved a soundbar between two televisions in the middle of an investigation to close a variable. That is the second entry running where the decisive work involved someone getting up and rearranging hardware.
-
-[pause:400ms]
-
-<!-- p-64 -->
-The thing worth recording about this session is that it ends with nothing shipped for the main request, and everybody satisfied. That combination is rare and it comes entirely from the evidence being real. Nobody had to take anybody's word for it.
+This session ends with nothing shipped for the main request and everybody satisfied. That combination is rare, and it came entirely from the evidence being real.
 
 [pause:900ms]
 
@@ -470,39 +460,19 @@ What We Learned.
 
 [narrator:reflective]
 
-<!-- p-65 -->
-For beginners: when something does not work, the most valuable thing you can find out is not how to fix it. It is where exactly it stops. A log line proving the event never arrived is worth more than an afternoon of theories about why your handler might be misbehaving, because it deletes every theory at once, including the ones you have not thought of yet.
-
-[pause:600ms]
-
-<!-- p-66 -->
-For the team: prove the input reaches you before you write the code that handles it. The first attempt here was a correct implementation of a fix for a problem that did not exist, and fifteen minutes of logcat at the start would have redirected the whole session.
+<!-- p-63 -->
+For the team: when the hack fails, check whether the supported API sits downstream of the same obstacle before reaching for it. The blessed path is usually blessed at a later stage of the same pipeline, so an early interception takes both of them together.
 
 [pause:400ms]
 
-<!-- p-67 -->
-For the team: when the hack fails, check whether the supported API is downstream of the same obstacle before reaching for it. It very often is. The blessed path is usually blessed at a later stage of the same pipeline, which means an early interception takes both of them together.
-
-[pause:400ms]
-
-<!-- p-68 -->
-For the team: "impossible" is a claim that requires a source citation, and it is worth the effort of getting one. Ruling something out by reading the ordering in the platform code produces a conclusion that stays closed. Ruling it out by trying it once produces a conclusion that somebody reopens.
-
-[pause:400ms]
-
-<!-- p-69 -->
-For the team: test the theory the human proposes, especially when you are confident it will not change the answer. It cost one afternoon of ADB work across four devices and it converted a reasoned argument into a demonstrated fact. The eARC finding that fell out of it was pure profit.
-
-[pause:400ms]
-
-<!-- p-70 -->
-And the one this journal keeps circling: everything decisive here came from real hardware. Four boxes, live logs, a soundbar carried from one room to another, and a dumpsys pull that corrected an assumption about someone's own living room. No test suite anywhere in this project could have told us any of it.
+<!-- p-64 -->
+For the team: "impossible" is a claim that needs a source citation. Ruling something out by reading the platform's ordering produces a conclusion that stays closed; ruling it out by trying it once produces a conclusion somebody reopens.
 
 [pause:900ms]
 
 [narrator:matter-of-fact]
 
-<!-- p-71 -->
+<!-- p-65 -->
 This is Entry {{012}} of Shipping in the Dark. If you are about to implement handling for a hardware key on Android, spend the first ten minutes proving the key reaches your process at all. The platform reserves more of them than you would guess, and it takes them earlier than you would guess.
 
 [pause:1000ms]
