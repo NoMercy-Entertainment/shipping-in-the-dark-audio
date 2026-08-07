@@ -53,7 +53,7 @@ jobs:
         id: list
         run: |
           TARGET="${{ inputs.target || '' }}"
-          ALL_ENTRIES=$(ls speeches/*.speech.md 2>/dev/null | xargs -I{} basename {} .speech.md | jq -R . | jq -sc .)
+          ALL_ENTRIES=$(ls speeches/entries/*.speech.md 2>/dev/null | xargs -I{} basename {} .speech.md | jq -R . | jq -sc .)
           ALL_TEAM=$(ls speeches/team/*.speech.md 2>/dev/null | xargs -I{} basename {} .speech.md | jq -R . | jq -sc .)
           # Reports: each matrix entry is "report-slug/script-slug" (e.g. "the-effortless-encoder/00-overview")
           ALL_REPORTS=$(find speeches/reports -name '*.speech.md' 2>/dev/null \
@@ -83,7 +83,7 @@ jobs:
                 reports="$ALL_REPORTS"
                 ;;
               *)
-                if [ -f "speeches/$TARGET.speech.md" ]; then
+                if [ -f "speeches/entries/$TARGET.speech.md" ]; then
                   entries="[\"$TARGET\"]"
                   team="[]"
                   reports="[]"
@@ -123,7 +123,7 @@ jobs:
               team="[]"
               reports="[]"
 
-              changed_entries=$(echo "$CHANGED" | grep "^speeches/[^/]*\.speech\.md$" | sed 's|speeches/||; s|\.speech\.md||' | jq -R . | jq -sc .)
+              changed_entries=$(echo "$CHANGED" | grep "^speeches/entries/.*\.speech\.md$" | sed 's|speeches/entries/||; s|\.speech\.md||' | jq -R . | jq -sc .)
               changed_team=$(echo "$CHANGED" | grep "^speeches/team/.*\.speech\.md$" | sed 's|speeches/team/||; s|\.speech\.md||' | jq -R . | jq -sc .)
               changed_reports=$(echo "$CHANGED" | grep "^speeches/reports/.*\.speech\.md$" | sed 's|speeches/reports/||; s|\.speech\.md||' | jq -R . | jq -sc .)
 
@@ -168,7 +168,7 @@ jobs:
         run: |
           source .venv/bin/activate
           mkdir -p output
-          python scripts/synth-edge.py "speeches/${{ matrix.script }}.speech.md" "output/${{ matrix.script }}.mp3"
+          python scripts/synth-edge.py "speeches/entries/${{ matrix.script }}.speech.md" "output/${{ matrix.script }}.mp3"
 
       - name: Validate output
         run: |
