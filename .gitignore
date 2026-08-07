@@ -1,5 +1,7 @@
 node_modules/
 entries/
+!speeches/entries/
+!speeches/entries/**
 output/*.mp3
 output/*.wav
 .env
