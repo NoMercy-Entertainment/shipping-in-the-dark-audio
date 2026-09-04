@@ -160,6 +160,7 @@ jobs:
 
       - name: Setup Python + ffmpeg
         run: |
+          umask 0022
           python3 -m venv .venv
           .venv/bin/pip install -q edge-tts
           which ffmpeg || sudo apt-get install -y -qq ffmpeg
@@ -202,6 +203,7 @@ jobs:
 
       - name: Setup Python + ffmpeg
         run: |
+          umask 0022
           python3 -m venv .venv
           .venv/bin/pip install -q edge-tts
           which ffmpeg || sudo apt-get install -y -qq ffmpeg
@@ -246,6 +248,7 @@ jobs:
 
       - name: Setup Python + ffmpeg
         run: |
+          umask 0022
           python3 -m venv .venv
           .venv/bin/pip install -q edge-tts
           which ffmpeg || sudo apt-get install -y -qq ffmpeg
