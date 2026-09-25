@@ -35,7 +35,7 @@ concurrency:
 
 jobs:
   list-scripts:
-    runs-on: [self-hosted, beast-unit]
+    runs-on: [self-hosted, Linux, X64, beast-unit]
     outputs:
       entry_scripts: ${{ steps.list.outputs.entry_scripts }}
       team_scripts: ${{ steps.list.outputs.team_scripts }}
@@ -147,7 +147,7 @@ jobs:
 
   generate-entries:
     if: ${{ inputs.dry_run != true && needs.list-scripts.outputs.has_entries == 'true' }}
-    runs-on: [self-hosted, beast-unit]
+    runs-on: [self-hosted, Linux, X64, beast-unit]
     needs: list-scripts
     strategy:
       fail-fast: false
@@ -189,7 +189,7 @@ jobs:
 
   generate-team:
     if: ${{ inputs.dry_run != true && needs.list-scripts.outputs.has_team == 'true' }}
-    runs-on: [self-hosted, beast-unit]
+    runs-on: [self-hosted, Linux, X64, beast-unit]
     needs: list-scripts
     strategy:
       fail-fast: false
@@ -231,7 +231,7 @@ jobs:
 
   generate-reports:
     if: ${{ inputs.dry_run != true && needs.list-scripts.outputs.has_reports == 'true' }}
-    runs-on: [self-hosted, beast-unit]
+    runs-on: [self-hosted, Linux, X64, beast-unit]
     needs: list-scripts
     strategy:
       fail-fast: false
@@ -309,7 +309,7 @@ jobs:
       (needs.generate-entries.result == 'success' ||
        needs.generate-team.result == 'success' ||
        needs.generate-reports.result == 'success')
-    runs-on: [self-hosted, beast-unit]
+    runs-on: [self-hosted, Linux, X64, beast-unit]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
