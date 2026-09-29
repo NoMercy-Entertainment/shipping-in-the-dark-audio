@@ -45,7 +45,7 @@ jobs:
       has_reports: ${{ steps.list.outputs.has_reports }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 2
 
@@ -156,7 +156,7 @@ jobs:
         script: ${{ fromJson(needs.list-scripts.outputs.entry_scripts) }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Python + ffmpeg
         run: |
@@ -179,7 +179,7 @@ jobs:
           echo "MP3: $(du -h "$mp3" | cut -f1), VTT: $(wc -l < "$vtt") lines"
 
       - name: Upload
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: entry-${{ matrix.script }}
           path: |
@@ -198,7 +198,7 @@ jobs:
         script: ${{ fromJson(needs.list-scripts.outputs.team_scripts) }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Python + ffmpeg
         run: |
@@ -221,7 +221,7 @@ jobs:
           echo "MP3: $(du -h "$mp3" | cut -f1), VTT: $(wc -l < "$vtt") lines"
 
       - name: Upload
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: team-${{ matrix.script }}
           path: |
@@ -242,7 +242,7 @@ jobs:
         variant: [brief, elaborate]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Python + ffmpeg
         run: |
@@ -294,7 +294,7 @@ jobs:
           echo "MP3: $(du -h "$mp3" | cut -f1), VTT: $(wc -l < "$vtt") lines"
 
       - name: Upload
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: report-${{ steps.paths.outputs.report_prefix }}-${{ steps.paths.outputs.script_slug }}-${{ matrix.voice }}-${{ matrix.variant }}
           path: |
@@ -312,12 +312,12 @@ jobs:
     runs-on: [self-hosted, Linux, X64, beast-unit]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 1
 
       - name: Download all artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           path: artifacts
 
